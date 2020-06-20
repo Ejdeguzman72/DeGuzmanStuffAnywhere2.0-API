@@ -1,5 +1,16 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@Entity
+@Table(name = "user")
+@CrossOrigin
 public class User {
 
 	private long userid;
@@ -7,6 +18,8 @@ public class User {
 	private String password;
 	private int roleid;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getUserid() {
 		return userid;
 	}

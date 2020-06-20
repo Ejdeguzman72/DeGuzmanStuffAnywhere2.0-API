@@ -1,5 +1,16 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@Entity
+@Table(name = "transaction")
+@CrossOrigin
 public class Transaction {
 
 	private long transactionId;
@@ -7,6 +18,8 @@ public class Transaction {
 	private String paymentDate;
 	private long transasction_type;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getTransactionId() {
 		return transactionId;
 	}
