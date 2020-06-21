@@ -1,17 +1,20 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @CrossOrigin
-public class User {
+@EntityListeners(AuditingEntityListener.class)
+public class Users {
 
 	private long userid;
 	private String username;
@@ -64,7 +67,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Users other = (Users) obj;
 		if (password == null) {
 			if (other.password != null)
 				return false;

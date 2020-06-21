@@ -2,16 +2,19 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models;
 
 import javax.annotation.Generated;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
 @Table(name = "user_person")
 @CrossOrigin
+@EntityListeners(AuditingEntityListener.class)
 public class UserPerson {
 
 	private Long userid;

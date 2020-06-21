@@ -1,16 +1,19 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
 @Table(name = "transaction")
 @CrossOrigin
+@EntityListeners(AuditingEntityListener.class)
 public class Transaction {
 
 	private long transactionId;
@@ -28,7 +31,7 @@ public class Transaction {
 	}
 	public double getAmount() {
 		return amount;
-	}
+	} 
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}

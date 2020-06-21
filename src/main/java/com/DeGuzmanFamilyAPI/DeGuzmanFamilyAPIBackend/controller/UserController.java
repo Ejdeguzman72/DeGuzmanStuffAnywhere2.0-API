@@ -1,6 +1,7 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.User;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.UserService;
 
 @RestController
@@ -30,28 +31,28 @@ public class UserController {
 	
 	@CrossOrigin
 	@GetMapping("/all")
-	public List<User> getAllUserInformation() {
+	public List<Users> getAllUserInformation() {
 		return userService.findAllUsers();
 	}
 	
 	@CrossOrigin
 	@GetMapping("/user/{userid}") 
-	public ResponseEntity<Optional<User>> getUserById(@PathVariable Long userid) {
+	public ResponseEntity<Optional<Users>> getUserById(@PathVariable Long userid) {
 		return userService.findUserById(userid);
 	}
 	
 	@CrossOrigin
 	@PostMapping("/add-user")
-	public User addUser(@Valid @RequestBody User user) {
+	public Users addUser(@Valid @RequestBody Users user) {
 		return userService.addUser(user);
 	}
 	
-//	@CrossOrigin
-//	@PutMapping("/user/{userid}")
-//	public ResponseEntity<User> updateUser(@PathVariable Long userid,
-//			@Valid @RequestBody User userDetails) {
-//		return userService.updateUser(userid, userDetails;)
-//	}
+	@CrossOrigin
+	@PutMapping("/user/{userid}")
+	public ResponseEntity<Users> updateUser(@PathVariable Long userid,
+			@Valid @RequestBody Users userDetails) {
+		return userService.updateUser(userid, userDetails);
+	}
 	
 	@CrossOrigin
 	@DeleteMapping("/user/{userid}")
