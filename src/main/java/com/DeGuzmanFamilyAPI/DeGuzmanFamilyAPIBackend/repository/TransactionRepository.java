@@ -3,9 +3,9 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.Transaction;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.GeneralTransaction;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<Transaction,Long> {
+public interface TransactionRepository extends JpaRepository<GeneralTransaction,Long> {
 
 }

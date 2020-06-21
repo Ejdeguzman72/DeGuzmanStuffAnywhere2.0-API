@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.Transaction;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.GeneralTransaction;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.repository.TransactionRepository;
 
 @Service
@@ -22,23 +22,23 @@ public class TransactionService {
 	@Autowired
 	private TransactionRepository transactionRepository;
 	
-	public List<Transaction> findAllTransactionInformation() {
+	public List<GeneralTransaction> findAllTransactionInformation() {
 		return transactionRepository.findAll();
 	}
 	
-	public ResponseEntity<Transaction> findTransactionInformationByID(@PathVariable long transactionid) throws ResourceNotFoundException {
-		Transaction transaction = transactionRepository.findById(transactionid)
+	public ResponseEntity<GeneralTransaction> findTransactionInformationByID(@PathVariable long transactionid) throws ResourceNotFoundException {
+		GeneralTransaction transaction = transactionRepository.findById(transactionid)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 		return ResponseEntity.ok().body(transaction);
 	}
 	
-	public Transaction addTransactionInformation(@Valid @RequestBody Transaction transaction) {
+	public GeneralTransaction addTransactionInformation(@Valid @RequestBody GeneralTransaction transaction) {
 		return transactionRepository.save(transaction);
 	}
 	
-	public ResponseEntity<Transaction> updateTransactionInformation(@PathVariable Long transactionid,
-			@Valid @RequestBody Transaction transactionDetails) {
-		Transaction transaction = null;
+	public ResponseEntity<GeneralTransaction> updateTransactionInformation(@PathVariable Long transactionid,
+			@Valid @RequestBody GeneralTransaction transactionDetails) {
+		GeneralTransaction transaction = null;
 		try {
 			transaction = transactionRepository.findById(transactionid)
 					.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
@@ -50,7 +50,7 @@ public class TransactionService {
 			e.printStackTrace();
 		}
 		
-		final Transaction updatedTransaction = transactionRepository.save(transaction);
+		final GeneralTransaction updatedTransaction = transactionRepository.save(transaction);
 		return ResponseEntity.ok().body(updatedTransaction);
 	}
 	

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Table(name = "transaction")
 @CrossOrigin
 @EntityListeners(AuditingEntityListener.class)
-public class Transaction {
+public class GeneralTransaction {
 
 	private long transactionId;
 	private double amount;
@@ -69,7 +69,7 @@ public class Transaction {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Transaction other = (Transaction) obj;
+		GeneralTransaction other = (GeneralTransaction) obj;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
 		if (paymentDate == null) {
@@ -90,7 +90,7 @@ public class Transaction {
 				+ ", transasction_type=" + transasction_type + "]";
 	}
 	
-	public Transaction(long transactionId, double amount, String paymentDate, long transasction_type) {
+	public GeneralTransaction(long transactionId, double amount, String paymentDate, long transasction_type) {
 		super();
 		this.transactionId = transactionId;
 		this.amount = amount;
@@ -98,7 +98,7 @@ public class Transaction {
 		this.transasction_type = transasction_type;
 	}
 	
-	public Transaction() {
+	public GeneralTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
