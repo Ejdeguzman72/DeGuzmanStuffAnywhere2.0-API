@@ -8,12 +8,13 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.Transaction;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.GeneralTransaction;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.TransactionService;
 
 @RestController
@@ -23,20 +24,22 @@ public class TransactionController {
 	@Autowired
 	private TransactionService transactionService;
 	
-	public List<Transaction> getAllTransactionInformation() {
+	@GetMapping("/all")
+	public List<GeneralTransaction> getAllTransactionInformation() {
 		return transactionService.findAllTransactionInformation();
 	}
 	
-	public ResponseEntity<Transaction> GetTransactionInformationByID(@PathVariable Long transactionid) throws ResourceNotFoundException {
+	@GetMapping("/transaction")
+	public ResponseEntity<GeneralTransaction> GetTransactionInformationByID(@PathVariable Long transactionid) throws ResourceNotFoundException {
 		return transactionService.findTransactionInformationByID(transactionid);
 	}
 	
-	public Transaction addTransaction(@Valid @RequestBody Transaction transaction) {
+	public GeneralTransaction addTransaction(@Valid @RequestBody GeneralTransaction transaction) {
 		return transactionService.addTransactionInformation(transaction);
 	}
 	
-	public ResponseEntity<Transaction> updateTransactionInformationController(@PathVariable Long transactionid,
-			@Valid @RequestBody Transaction transactionDetails) {
+	public ResponseEntity<GeneralTransaction> updateTransactionInformationController(@PathVariable Long transactionid,
+			@Valid @RequestBody GeneralTransaction transactionDetails) {
 		return transactionService.updateTransactionInformation(transactionid, transactionDetails);
 	}
 	

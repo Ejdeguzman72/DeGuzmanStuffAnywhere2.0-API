@@ -20,6 +20,7 @@ public class GeneralTransaction {
 	private double amount;
 	private String paymentDate;
 	private long transasction_type;
+	private long personid;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +47,12 @@ public class GeneralTransaction {
 	}
 	public void setTransasction_type(long transasction_type) {
 		this.transasction_type = transasction_type;
+	}
+	public long getPersonid() {
+		return personid;
+	}
+	public void setPersonid(long personid) {
+		this.personid = personid;
 	}
 	
 	@Override
