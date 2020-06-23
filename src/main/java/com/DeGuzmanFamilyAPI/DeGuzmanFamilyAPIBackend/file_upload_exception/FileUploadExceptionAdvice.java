@@ -1,4 +1,4 @@
-package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception;
+package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.GeneralTransactionFileStorageService;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.GeneralTransactionFileStorageService;
 
 @SpringBootApplication
 public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {

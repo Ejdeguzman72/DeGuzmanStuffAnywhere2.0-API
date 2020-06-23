@@ -1,4 +1,4 @@
-package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service;
+package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -7,19 +7,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.core.io.Resource;
+
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransactionFileStorageService {
-	
-	private final Path root = Paths.get("uploads");
+public class MedicalTransactionFilesStorageServiceImpl implements MedicalTransactionFilesStorageService{
 
+	private final Path root = Paths.get("medical-file-uploads");
+	
 	@Override
 	public void init() {
 		try {
@@ -27,7 +26,6 @@ public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransac
 		} catch (IOException e) {
 			throw new RuntimeException("Could not initialize folder for upload");
 		}
-		
 	}
 
 	@Override
@@ -40,13 +38,13 @@ public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransac
 	}
 
 	@Override
-	public Resource load(String filename) {
+	public javax.annotation.Resource load(String filename) {
 		try {
 			Path file = root.resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
 			
 			if (resource.exists() || resource.isReadable()) {
-				return resource;
+				return (javax.annotation.Resource) resource;
 			} else {
 				throw new RuntimeException("Could not read the file");
 			}
@@ -56,17 +54,18 @@ public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransac
 	}
 
 	@Override
-	public void deleteAllGeneralFiles() {
+	public void deleteAllMedicalFiles() {
 		FileSystemUtils.deleteRecursively(root.toFile());
 		
 	}
 
 	@Override
-	public Stream<Path> loadAllGeneralFiles() {
+	public Stream<Path> laodAllMedicalFiles() {
 		try {
-			return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
+			return Files.walk(this.root,1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
 		} catch (IOException e) {
 			throw new RuntimeException("Could not load the files");
 		}
 	}
+
 }

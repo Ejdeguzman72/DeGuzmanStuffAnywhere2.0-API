@@ -1,4 +1,4 @@
-package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models;
+package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_models;
 
 public class MedicalTransactionFileInfo {
 

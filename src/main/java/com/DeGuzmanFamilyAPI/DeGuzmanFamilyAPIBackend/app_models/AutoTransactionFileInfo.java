@@ -1,4 +1,4 @@
-package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models;
+package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
 public class AutoTransactionFileInfo {
 

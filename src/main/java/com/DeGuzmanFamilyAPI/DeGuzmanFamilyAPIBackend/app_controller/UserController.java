@@ -1,4 +1,4 @@
-package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.controller;
+package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_controller;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.Users;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.UserService;
 
 @RestController
