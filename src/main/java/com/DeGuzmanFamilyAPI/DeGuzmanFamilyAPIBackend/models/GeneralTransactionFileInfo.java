@@ -1,11 +1,11 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models;
 
-public class FileInfo {
+public class GeneralTransactionFileInfo {
 
 	private String name;
 	private String url;
 	
-	public FileInfo(String name, String url) {
+	public GeneralTransactionFileInfo(String name, String url) {
 		super();
 		this.name = name;
 		this.url = url;
@@ -29,7 +29,7 @@ public class FileInfo {
 
 	@Override
 	public String toString() {
-		return "FileInfo [name=" + name + ", url=" + url + ", getName()=" + getName() + ", getUrl()=" + getUrl()
+		return "GeneralTransactionFileInfo [name=" + name + ", url=" + url + ", getName()=" + getName() + ", getUrl()=" + getUrl()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}

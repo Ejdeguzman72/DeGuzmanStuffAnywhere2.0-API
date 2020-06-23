@@ -16,7 +16,7 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class FilesStorageServiceImpl implements FileStorageService {
+public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransactionFileStorageService {
 	
 	private final Path root = Paths.get("uploads");
 
@@ -56,13 +56,13 @@ public class FilesStorageServiceImpl implements FileStorageService {
 	}
 
 	@Override
-	public void deleteAll() {
+	public void deleteAllGeneralFiles() {
 		FileSystemUtils.deleteRecursively(root.toFile());
 		
 	}
 
 	@Override
-	public Stream<Path> loadAll() {
+	public Stream<Path> loadAllGeneralFiles() {
 		try {
 			return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
 		} catch (IOException e) {

@@ -20,22 +20,22 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.ResponseMessage;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.FileInfo;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.FileStorageService;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.models.GeneralTransactionFileInfo;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.GeneralTransactionFileStorageService;
 
 @RestController
-@RequestMapping("/app/file-upload")
+@RequestMapping("/app/general-transaction-documents")
 @CrossOrigin
-public class FilesController {
+public class GeneralFilesController {
 
 	@Autowired
-	FileStorageService filesStorageService;
+	GeneralTransactionFileStorageService generalTrxFilesStorageService;
 	
 	@PostMapping("/upload")
 	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
 		String message = "";
 		try {
-			filesStorageService.save(file);
+			generalTrxFilesStorageService.save(file);
 			
 			message = "Uploaded the file successfully: " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -46,13 +46,13 @@ public class FilesController {
 	}
 	
 	@GetMapping("/files")
-	public ResponseEntity<List<FileInfo>> getListFiles() {
-		List<FileInfo> fileInfos = (List<FileInfo>) filesStorageService.loadAll().map(path -> {
+	public ResponseEntity<List<GeneralTransactionFileInfo>> getListFiles() {
+		List<GeneralTransactionFileInfo> fileInfos = (List<GeneralTransactionFileInfo>) generalTrxFilesStorageService.loadAllGeneralFiles().map(path -> {
 			String filename = path.getFileName().toString();
 			String url = MvcUriComponentsBuilder
-					.fromMethodName(FilesController.class, "getFile",path.getFileName().toString()).build().toString();
+					.fromMethodName(GeneralFilesController.class, "getFile",path.getFileName().toString()).build().toString();
 			
-			return new FileInfo(filename,url);
+			return new GeneralTransactionFileInfo(filename,url);
 		}).collect(Collectors.toList());
 		
 		
@@ -62,7 +62,7 @@ public class FilesController {
 	@GetMapping("/files/{filename:.+|")
 	@ResponseBody
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-		Resource file = filesStorageService.load(filename);
+		Resource file = generalTrxFilesStorageService.load(filename);
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}

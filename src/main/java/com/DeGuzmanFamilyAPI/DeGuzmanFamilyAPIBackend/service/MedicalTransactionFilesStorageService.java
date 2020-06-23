@@ -3,18 +3,19 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-import org.springframework.core.io.Resource;
+import javax.annotation.Resource;
+
 import org.springframework.web.multipart.MultipartFile;
 
-public interface FileStorageService {
+public interface MedicalTransactionFilesStorageService {
+
 	public void init();
 	
 	public void save(MultipartFile file);
 	
 	public Resource load(String filename);
 	
-	public void deleteAll();
+	public void deleteAllMedicalFiles();
 	
-	public Stream<Path> loadAll();
-
+	public Stream<Path> laodAllMedicalFiles();
 }
