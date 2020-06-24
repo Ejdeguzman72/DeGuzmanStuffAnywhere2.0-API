@@ -22,20 +22,25 @@ public class MedicalTransactionService {
 	@Autowired
 	private MedicalTransactionRepository medicalTransactionRepository;
 	
+	// returns the Medical transactions in a list
 	public List<MedicalTransaction> findAllMedicalTransactionInformation() {
 		return medicalTransactionRepository.findAll();
 	}
 	
+	// based on the pathvariable thrown, this returns the Medical Transaction object that has the corresponding ID
 	public ResponseEntity<MedicalTransaction> findMedicalTransactionInformationbyId(@PathVariable Long medicalTransactionId) throws ResourceNotFoundException {
 		MedicalTransaction medicalTransaction = medicalTransactionRepository.findById(medicalTransactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 		return ResponseEntity.ok().body(medicalTransaction);
 	}
 	
+	// creates an MedicalTransaction object based off the fields that are filled.
 	public MedicalTransaction addMedicalTransactionInformation(@Valid @RequestBody MedicalTransaction medicalTransaction) {
 		return medicalTransactionRepository.save(medicalTransaction);
 	}
 	
+	// updates the MedicalTransaction based on the id number entered. Once the fields are updated, then a new Auto
+		// Transaction object is created.
 	public ResponseEntity<MedicalTransaction> updateMedicalTransaction(@PathVariable Long medicalTransactionId,
 			@Valid @RequestBody MedicalTransaction medicalTransactionDetails) {
 		MedicalTransaction medicalTransaction = null;

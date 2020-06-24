@@ -22,20 +22,25 @@ public class TransactionService {
 	@Autowired
 	private TransactionRepository transactionRepository;
 	
+	// returns the general transactions in a list
 	public List<GeneralTransaction> findAllTransactionInformation() {
 		return transactionRepository.findAll();
 	}
 	
+	// based on the pathvariable thrown, this returns the General Transaction object that has the corresponding ID
 	public ResponseEntity<GeneralTransaction> findTransactionInformationByID(@PathVariable long transactionid) throws ResourceNotFoundException {
 		GeneralTransaction transaction = transactionRepository.findById(transactionid)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 		return ResponseEntity.ok().body(transaction);
 	}
 	
+	// creates an GeneralTransaction object based off the fields that are filled.
 	public GeneralTransaction addTransactionInformation(@Valid @RequestBody GeneralTransaction transaction) {
 		return transactionRepository.save(transaction);
 	}
 	
+	// updates the GeneralTransaction based on the id number entered. Once the fields are updated, then a new Auto
+		// Transaction object is created.
 	public ResponseEntity<GeneralTransaction> updateTransactionInformation(@PathVariable Long transactionid,
 			@Valid @RequestBody GeneralTransaction transactionDetails) {
 		GeneralTransaction transaction = null;

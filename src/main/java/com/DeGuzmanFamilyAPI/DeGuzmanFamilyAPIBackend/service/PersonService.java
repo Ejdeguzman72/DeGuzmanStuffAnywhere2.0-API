@@ -23,19 +23,24 @@ public class PersonService {
 	@Autowired
 	private PersonRepository personRepository;
 	
+	// returns all Person information in a list
 	public List<Person> findAllPersonInformation() {
 		return personRepository.findAll();
 	}
 	
+	// based on the pathvariable thrown, this returns the Person object that has the corresponding ID
 	public ResponseEntity<Optional<Person>> findPersonById(@PathVariable Long personid) {
 		Optional<Person> person = personRepository.findById(personid);
 		return ResponseEntity.ok().body(person);
 	}
 	
+	// creates an Person object based off the fields that are filled.
 	public Person addPersonInformation(@Valid @RequestBody Person person) {
 		return personRepository.save(person);
 	}
 	
+	// updates the Person based on the id number entered. Once the fields are updated, then a new Auto
+		// Transaction object is created.
 	public ResponseEntity<Person> updatePersonInformation(@PathVariable Long personid,
 			@Valid @RequestBody Person personDetails) {
 		Person person = null;

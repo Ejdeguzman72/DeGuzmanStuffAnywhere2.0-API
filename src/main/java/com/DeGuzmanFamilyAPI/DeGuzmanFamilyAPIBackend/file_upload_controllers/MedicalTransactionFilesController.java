@@ -51,7 +51,7 @@ public class MedicalTransactionFilesController {
 		List<MedicalTransactionFileInfo> medicalFileInfos = (List<MedicalTransactionFileInfo>) medicalTrxFilesStorageService.laodAllMedicalFiles().map(path -> {
 			String filename = path.getFileName().toString();
 			String url = MvcUriComponentsBuilder
-					.fromMethodName(MedicalTransactionFilesController.class, "getFile", path.getFileName().toString()).build().toString();
+					.fromMethodName(MedicalTransactionFilesController.class, "getMedicalFile", path.getFileName().toString()).build().toString();
 			
 			return new MedicalTransactionFileInfo(filename,url);
 		}).collect(Collectors.toList());
@@ -59,7 +59,7 @@ public class MedicalTransactionFilesController {
 		return ResponseEntity.status(HttpStatus.OK).body(medicalFileInfos);
 	}
 	
-	@GetMapping("/files/{filename:.+!")
+	@GetMapping("/files/{filename}")
 	@ResponseBody
 	public ResponseEntity<javax.annotation.Resource> getMedicalFile(@PathVariable String filename) {
 		javax.annotation.Resource file = medicalTrxFilesStorageService.load(filename);

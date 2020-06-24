@@ -59,7 +59,7 @@ public class GeneralFilesController {
 		return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
 	}
 	
-	@GetMapping("/files/{filename:.+|")
+	@GetMapping("/files/{filename}")
 	@ResponseBody
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
 		Resource file = generalTrxFilesStorageService.load(filename);

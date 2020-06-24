@@ -24,19 +24,24 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	// returns all users in a list in a list
 	public List<Users> findAllUsers() {
 		return userRepository.findAll();
 	}
 	
+	// based on the pathvariable thrown, this returns the Users object that has the corresponding ID
 	public ResponseEntity<Optional<Users>> findUserById(@PathVariable Long userid) {
 		Optional<Users> user = userRepository.findById(userid);
 		return ResponseEntity.ok().body(user);
 	}
 	
+	// creates an Users object based off the fields that are filled.
 	public Users addUser(@Valid @RequestBody Users user) {
 		return userRepository.save(user);
 	}
 	
+	// updates the Users based on the id number entered. Once the fields are updated, then a new Auto
+		// Transaction object is created.
 	public ResponseEntity<Users> updateUser(@PathVariable Long userid,
 			@Valid @RequestBody Users userDetails) {
 		Users user = null;

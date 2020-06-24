@@ -50,7 +50,7 @@ public class AutoTranasctionFilesController {
 		List<AutoTransactionFileInfo> autoTrxFileInfos = (List<AutoTransactionFileInfo>) autoTrxFilesStorageService.loadAllAutoFiles().map(path -> {
 			String filename = path.getFileName().toString();
 			String url = MvcUriComponentsBuilder
-					.fromMethodName(AutoTranasctionFilesController.class, "getFile",path.getFileName().toString()).build().toString();
+					.fromMethodName(AutoTranasctionFilesController.class, "getAutoFile",path.getFileName().toString()).build().toString();
 			
 			return new AutoTransactionFileInfo(filename,url);
 		}).collect(Collectors.toList());
@@ -58,7 +58,7 @@ public class AutoTranasctionFilesController {
 		return ResponseEntity.status(HttpStatus.OK).body(autoTrxFileInfos);
 	}
 	
-	@GetMapping("/files/{filename:+!")
+	@GetMapping("/files/{filename}")
 	@ResponseBody
 	public ResponseEntity<Resource> getAutoFile(@PathVariable String filename) {
 		Resource file = (Resource) autoTrxFilesStorageService.load(filename);
