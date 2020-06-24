@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransactionFileStorageService {
 	
-	private final Path root = Paths.get("uploads");
+	private final Path root = Paths.get("general-transaction-uploads");
 
 	@Override
 	public void init() {
