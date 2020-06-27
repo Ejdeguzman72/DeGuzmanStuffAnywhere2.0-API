@@ -41,4 +41,6 @@ public class LoggerMessage {
 	public static String UPDATE_AUTO_TRX_INFO_ERROR_MESSAGE = "Auto transaction information cannot be updated";
 	
 	public static String DELETE_AUTO_TRX_INFO_ERROR_MESSAGE = "Auto transaction information cannot be deleted";
+	
+	public static String GET_ALL_MEDICAL_TRX_INFO_MESSAGE = "retrieved all medical transaction information";
 }
