@@ -15,14 +15,8 @@ public class GeneralTrxLogger {
 	
 	public static void log(String logMessage) throws SecurityException, IOException {
 		
-		String path = "C:\\EJ-Projec/ts\\DeGUzmanFamilyAPI-Backend\\log\\general-transaction.log";
-		
-		File file = new File(path);
-		
-		if (file.isDirectory()) {
-			System.out.println("This is the directory" + file);
-		}
-//		FileHandler generalTrxFileHandler;
-//		generalTrxFileHandler = new FileHandler(path);
+		String path = "C:\\EJ-Projec/ts\\DeGUzmanFamilyAPI-Backend\\log\\general-transaction.log";		
+		FileHandler generalTrxFileHandler;
+		generalTrxFileHandler = new FileHandler(path);
 	}
 }

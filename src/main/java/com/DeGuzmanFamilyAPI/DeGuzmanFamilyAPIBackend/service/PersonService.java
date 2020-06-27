@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Person;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.PersonInfoLogger;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerErrorMessage;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerInfoMessage;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.repository.PersonRepository;
 
 @Service
@@ -24,25 +28,53 @@ public class PersonService {
 	private PersonRepository personRepository;
 	
 	// returns all Person information in a list
-	public List<Person> findAllPersonInformation() {
+	public List<Person> findAllPersonInformation() throws SecurityException, IOException {
+		List<Person> personList = personRepository.findAll();
+		System.out.println(personList.size());
+		if (personList.isEmpty() || personList.size() == 0) {
+			PersonInfoLogger.personInfoLogger.severe(LoggerErrorMessage.GET_ALL_PERSON_INFO_ERROR_MESSAGE);
+		}
+		
+		else {
+		PersonInfoLogger.personInfoLogger.info(LoggerInfoMessage.GET_ALL_PERSON_INFO + ":" + " " + personList.size());
+			
+		}
 		return personRepository.findAll();
 	}
 	
 	// based on the pathvariable thrown, this returns the Person object that has the corresponding ID
-	public ResponseEntity<Optional<Person>> findPersonById(@PathVariable Long personid) {
-		Optional<Person> person = personRepository.findById(personid);
+	public ResponseEntity<Person> findPersonById(@PathVariable Long personid) throws ResourceNotFoundException, SecurityException, IOException {
+		Person person = personRepository.findById(personid)
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		
+		if (person == null) {
+			PersonInfoLogger.log(LoggerErrorMessage.GET_PERSON_INFO_BY_ID_ERROR_MESSAGE + " " + personid + " " + ":" + person);
+		}
+		
+		else {
+			PersonInfoLogger.log(LoggerInfoMessage.GET_PERSON_INFO_BY_ID + personid + " " + "," + " " + person.firstname + " " + person.lastname);
+		}
 		return ResponseEntity.ok().body(person);
 	}
 	
 	// creates an Person object based off the fields that are filled.
-	public Person addPersonInformation(@Valid @RequestBody Person person) {
+	public Person addPersonInformation(@Valid @RequestBody Person person) throws SecurityException, IOException {
+		Person personInfo = personRepository.save(person);
+		
+		if (personInfo == null) {
+			PersonInfoLogger.log(LoggerErrorMessage.ADD_PERSON_INFO_ERROR_MESSAGE);
+		}
+		
+		else {
+			PersonInfoLogger.log(LoggerInfoMessage.ADD_PERSON_INFO + " " + personInfo.firstname + " " + personInfo.getLastname());
+		}
 		return personRepository.save(person);
 	}
 	
 	// updates the Person based on the id number entered. Once the fields are updated, then a new Auto
 		// Transaction object is created.
 	public ResponseEntity<Person> updatePersonInformation(@PathVariable Long personid,
-			@Valid @RequestBody Person personDetails) {
+			@Valid @RequestBody Person personDetails) throws SecurityException, IOException {
 		Person person = null;
 		try {
 			person = personRepository.findById(personid)
@@ -57,13 +89,25 @@ public class PersonService {
 		}
 		catch (ResourceNotFoundException e) {
 			e.printStackTrace();
+			if (personid == null || personid == 0) {
+				PersonInfoLogger.log(LoggerErrorMessage.UPDATE_PERSON_INFO_ERROR_MESSAGE + ":" + " " + "Invalid ID / Null ID " + personid);
+			}
 		}
 		final Person updatedPersonInfo = personRepository.save(person);
+		PersonInfoLogger.log(LoggerInfoMessage.UPDATE_PERSON_INFO + ":" + " " + "Person ID No: " + updatedPersonInfo.personid + " " + updatedPersonInfo.firstname + " " + updatedPersonInfo.lastname);
 		return ResponseEntity.ok().body(updatedPersonInfo);
 	}
 	
-	public Map<String,Boolean> deletePersonInformation(@PathVariable Long personid) {
+	public Map<String,Boolean> deletePersonInformation(@PathVariable Long personid) throws SecurityException, IOException {
 		personRepository.deleteById(personid);
+		
+		if (personid == null || personid == 0) {
+			PersonInfoLogger.log(LoggerErrorMessage.DELETE_PERSON_INFO_ERROR_MESSAGE + ": " + personid);
+		} 
+		
+		else {
+			PersonInfoLogger.log(LoggerInfoMessage.DELETE_PERSON_INFO + ": " + personid);
+		}
 		Map<String,Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;

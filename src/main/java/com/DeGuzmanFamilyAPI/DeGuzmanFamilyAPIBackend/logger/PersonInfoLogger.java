@@ -2,18 +2,21 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
-
-import org.jboss.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javassist.bytecode.stackmap.TypeData.ClassName;
 
 public class PersonInfoLogger {
 
-	private final static Logger personInfoLogger = Logger.getLogger(ClassName.class.getName());
+	static boolean append = true;
+	public final static Logger personInfoLogger = Logger.getLogger(ClassName.class.getName());
 	
 	public static void log(String logMessage) throws SecurityException, IOException {
+		personInfoLogger.setLevel(Level.SEVERE);
+		String path = "C:\\EJ-Projects\\DeGuzmanFamilyAPI-Backend\\log\\person-info.log";
 		FileHandler personInfoFileHandler;
-		String path = "C:\\EJ-Projects\\DeGUzmanFamilyAPI-Backend\\log\\person-info.log";
-		personInfoFileHandler = new FileHandler(path);
+		personInfoFileHandler = new FileHandler(path, append);
+		personInfoLogger.addHandler(personInfoFileHandler);
 	}
 }
