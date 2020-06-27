@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.AutoTransaction;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.AutoTrxLogger;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.repository.AutoTransactionRepository;
 
 @Service
@@ -25,6 +27,13 @@ public class AutoTransactionService {
 	
 	// returns the Auto transactions in a list
 	public List<AutoTransaction> findAllAutoTransactionInformation() {
+		List<AutoTransaction> autoTrxList = autoTransactionRepository.findAll();
+		if (autoTrxList.isEmpty() || autoTrxList.size() == 0) {
+			AutoTrxLogger.autoTrxLogger.warning(LoggerMessage.GET_ALL_AUTO_TRX_INFO_ERROR_MESSAGE + ": " + autoTrxList.size());
+		}
+		else {
+			AutoTrxLogger.autoTrxLogger.info(LoggerMessage.GET_ALL_AUTO_TRX_INFO_MESSAGE + ": " + autoTrxList.size());
+		}
 		return autoTransactionRepository.findAll();
 	}
 	
@@ -32,11 +41,23 @@ public class AutoTransactionService {
 	public ResponseEntity<AutoTransaction> findAutoTransactionInformationById(@PathVariable Long autoTransactionId) throws ResourceNotFoundException {
 		AutoTransaction autoTransactions = autoTransactionRepository.findById(autoTransactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+		if (autoTransactionId == null || autoTransactionId <= 0) {
+			AutoTrxLogger.autoTrxLogger.warning(LoggerMessage.GET_AUTO_TRX_INFO_BY_ID_ERROR_MESSAGE + ": " + autoTransactionId);
+		}
+		else {
+			AutoTrxLogger.autoTrxLogger.info(LoggerMessage.GET_AUTO_TRX_INFO_BY_ID_MESSAGE + ": " + autoTransactionId);
+		}
 		return ResponseEntity.ok().body(autoTransactions);
 	}
 	
 	// creates an AutoTransaction object based off the fields that are filled.
 	public AutoTransaction addAutoTransactionInformation(@Valid @RequestBody AutoTransaction autoTransaction) {
+		if (autoTransaction == null) {
+			AutoTrxLogger.autoTrxLogger.severe(LoggerMessage.ADD_AUTO_TRX_INFO_ERROR_MESSAGE);
+		}
+		else {
+			AutoTrxLogger.autoTrxLogger.info(LoggerMessage.ADD_AUTO_TRX_INFO_MESSAGE + ": " + autoTransaction.amount);
+		}
 		return autoTransactionRepository.save(autoTransaction);
 	}
 	
@@ -48,16 +69,22 @@ public class AutoTransactionService {
 		try {
 			autoTransaction = autoTransactionRepository.findById(autoTransactionId)
 					.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+			if (autoTransactionId == null || autoTransactionId <= 0) {
+				AutoTrxLogger.autoTrxLogger.warning(LoggerMessage.GET_AUTO_TRX_INFO_BY_ID_ERROR_MESSAGE);
+			}
 			autoTransaction.setAmount(autoTransactionDetails.getAmount());
 			autoTransaction.setAutoTransactionDate(autoTransactionDetails.getAutoTransactionDate());
 			autoTransaction.setCarid(autoTransactionDetails.getCarid());
 			autoTransaction.setShopId(autoTransactionDetails.getShopId());
 			autoTransaction.setTransactionTypeId(autoTransactionDetails.getTransactionTypeId());
+			
 		}
 		catch (ResourceNotFoundException e) {
 			e.printStackTrace();
+			AutoTrxLogger.autoTrxLogger.severe(LoggerMessage.UPDATE_AUTO_TRX_INFO_ERROR_MESSAGE + ": " + autoTransactionId);
 		}
 		final AutoTransaction updatedAutoTransactionDetails = autoTransactionRepository.save(autoTransaction);
+		AutoTrxLogger.autoTrxLogger.info(LoggerMessage.UPDATE_AUTO_TRX_INFO_MESSAGE + ": " + updatedAutoTransactionDetails.amount);
 		return ResponseEntity.ok().body(updatedAutoTransactionDetails);
 	}
 	
@@ -65,6 +92,12 @@ public class AutoTransactionService {
 	// return a string and confirm  that the entity was deleted. 
 	public Map<String,Boolean> deleteAutoTransactionInformation(@PathVariable Long autoTransactionId) {
 		autoTransactionRepository.deleteById(autoTransactionId);
+		if (autoTransactionId == null || autoTransactionId <= 0) {
+			AutoTrxLogger.autoTrxLogger.warning(LoggerMessage.DELETE_AUTO_TRX_INFO_ERROR_MESSAGE);
+		}
+		else {
+			AutoTrxLogger.autoTrxLogger.info(LoggerMessage.DELETE_AUTO_TRX_MESSAGE + ": " + autoTransactionId);
+		}
 		Map<String,Boolean> response = new HashMap<>();
 		response.put("deleted",Boolean.TRUE);
 		return response;

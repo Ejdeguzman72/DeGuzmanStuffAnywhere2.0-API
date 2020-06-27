@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Person;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.PersonInfoLogger;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerErrorMessage;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerInfoMessage;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.repository.PersonRepository;
 
 @Service
@@ -32,11 +31,11 @@ public class PersonService {
 		List<Person> personList = personRepository.findAll();
 		System.out.println(personList.size());
 		if (personList.isEmpty() || personList.size() == 0) {
-			PersonInfoLogger.personInfoLogger.severe(LoggerErrorMessage.GET_ALL_PERSON_INFO_ERROR_MESSAGE);
+			PersonInfoLogger.personInfoLogger.severe(LoggerMessage.GET_ALL_PERSON_INFO_ERROR_MESSAGE);
 		}
 		
 		else {
-		PersonInfoLogger.personInfoLogger.info(LoggerInfoMessage.GET_ALL_PERSON_INFO + ":" + " " + personList.size());
+		PersonInfoLogger.personInfoLogger.info(LoggerMessage.GET_ALL_PERSON_INFO + ":" + " " + personList.size());
 			
 		}
 		return personRepository.findAll();
@@ -48,11 +47,11 @@ public class PersonService {
 				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
 		
 		if (person == null) {
-			PersonInfoLogger.log(LoggerErrorMessage.GET_PERSON_INFO_BY_ID_ERROR_MESSAGE + " " + personid + " " + ":" + person);
+			PersonInfoLogger.personInfoLogger.severe(LoggerMessage.GET_PERSON_INFO_BY_ID_ERROR_MESSAGE + " " + personid + " " + ":" + person);
 		}
 		
 		else {
-			PersonInfoLogger.log(LoggerInfoMessage.GET_PERSON_INFO_BY_ID + personid + " " + "," + " " + person.firstname + " " + person.lastname);
+			PersonInfoLogger.personInfoLogger.info(LoggerMessage.GET_PERSON_INFO_BY_ID + personid + " " + "," + " " + person.firstname + " " + person.lastname);
 		}
 		return ResponseEntity.ok().body(person);
 	}
@@ -62,11 +61,11 @@ public class PersonService {
 		Person personInfo = personRepository.save(person);
 		
 		if (personInfo == null) {
-			PersonInfoLogger.log(LoggerErrorMessage.ADD_PERSON_INFO_ERROR_MESSAGE);
+			PersonInfoLogger.personInfoLogger.severe(LoggerMessage.ADD_PERSON_INFO_ERROR_MESSAGE);
 		}
 		
 		else {
-			PersonInfoLogger.log(LoggerInfoMessage.ADD_PERSON_INFO + " " + personInfo.firstname + " " + personInfo.getLastname());
+			PersonInfoLogger.personInfoLogger.info(LoggerMessage.ADD_PERSON_INFO + " " + personInfo.firstname + " " + personInfo.getLastname());
 		}
 		return personRepository.save(person);
 	}
@@ -90,11 +89,11 @@ public class PersonService {
 		catch (ResourceNotFoundException e) {
 			e.printStackTrace();
 			if (personid == null || personid == 0) {
-				PersonInfoLogger.log(LoggerErrorMessage.UPDATE_PERSON_INFO_ERROR_MESSAGE + ":" + " " + "Invalid ID / Null ID " + personid);
+				PersonInfoLogger.personInfoLogger.severe(LoggerMessage.UPDATE_PERSON_INFO_ERROR_MESSAGE + ":" + " " + "Invalid ID / Null ID " + personid);
 			}
 		}
 		final Person updatedPersonInfo = personRepository.save(person);
-		PersonInfoLogger.log(LoggerInfoMessage.UPDATE_PERSON_INFO + ":" + " " + "Person ID No: " + updatedPersonInfo.personid + " " + updatedPersonInfo.firstname + " " + updatedPersonInfo.lastname);
+		PersonInfoLogger.personInfoLogger.info(LoggerMessage.UPDATE_PERSON_INFO + ":" + " " + "Person ID No: " + updatedPersonInfo.personid + " " + updatedPersonInfo.firstname + " " + updatedPersonInfo.lastname);
 		return ResponseEntity.ok().body(updatedPersonInfo);
 	}
 	
@@ -102,11 +101,11 @@ public class PersonService {
 		personRepository.deleteById(personid);
 		
 		if (personid == null || personid == 0) {
-			PersonInfoLogger.log(LoggerErrorMessage.DELETE_PERSON_INFO_ERROR_MESSAGE + ": " + personid);
+			PersonInfoLogger.personInfoLogger.severe(LoggerMessage.DELETE_PERSON_INFO_ERROR_MESSAGE + ": " + personid);
 		} 
 		
 		else {
-			PersonInfoLogger.log(LoggerInfoMessage.DELETE_PERSON_INFO + ": " + personid);
+			PersonInfoLogger.personInfoLogger.info(LoggerMessage.DELETE_PERSON_INFO + ": " + personid);
 		}
 		Map<String,Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);

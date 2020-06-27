@@ -8,11 +8,12 @@ import javassist.bytecode.stackmap.TypeData.ClassName;
 
 public class AutoTrxLogger {
 
-	private final static Logger autoTrxLogger = Logger.getLogger(ClassName.class.getName());
+	static boolean append = true;
+	public final static Logger autoTrxLogger = Logger.getLogger(ClassName.class.getName());
 	
 	public static void log(String logMessage) throws SecurityException, IOException {
 		FileHandler autoTrxHandler;
 		String path = "C:\\EJ-Projects\\DeGUzmanFamilyAPI-Backend\\log\\genearl-transaction.log";
-		autoTrxHandler = new FileHandler(path);
+		autoTrxHandler = new FileHandler(path, append);
 	}
 }
