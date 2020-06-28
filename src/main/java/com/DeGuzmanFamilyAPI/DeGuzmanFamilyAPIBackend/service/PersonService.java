@@ -46,7 +46,7 @@ public class PersonService {
 		Person person = personRepository.findById(personid)
 				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
 		
-		if (person == null) {
+		if (personid == null) {
 			PersonInfoLogger.personInfoLogger.severe(LoggerMessage.GET_PERSON_INFO_BY_ID_ERROR_MESSAGE + " " + personid + " " + ":" + person);
 		}
 		
