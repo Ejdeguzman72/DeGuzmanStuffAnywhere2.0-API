@@ -13,7 +13,7 @@ public class AutoTrxLogger {
 	public final static Logger autoTrxLogger = Logger.getLogger(ClassName.class.getName());
 	
 	public static void log(String logMessage) throws SecurityException, IOException {
-		File logDirectory = new File("./log");
+		File logDirectory = new File("C:\\EJ-Projects\\DeGuzmanFamilyAPI-Backend\\log");
 		if(!logDirectory.exists()) {
 			logDirectory.mkdirs();
 			System.out.println("created directory" + " " + logDirectory);

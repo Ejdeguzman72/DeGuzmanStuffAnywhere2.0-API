@@ -1,10 +1,13 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,6 +23,11 @@ public class Users {
 	private String username;
 	private String password;
 	private int roleid;
+	
+	@OneToOne(fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL,
+			mappedBy = "user")
+	private UserPerson userPerson;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,6 +96,10 @@ public class Users {
 	public String toString() {
 		return "User [userid=" + userid + ", username=" + username + ", password=" + password + ", roleid=" + roleid
 				+ "]";
+	}
+	
+	public Users() {
+	
 	}
 	
 }
