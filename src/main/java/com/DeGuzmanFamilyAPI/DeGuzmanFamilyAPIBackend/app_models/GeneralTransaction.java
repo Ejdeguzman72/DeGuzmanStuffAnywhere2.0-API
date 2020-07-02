@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
-@Table(name = "transaction")
+@Table(name = "general_transaction")
 @CrossOrigin
 @EntityListeners(AuditingEntityListener.class)
 public class GeneralTransaction {
@@ -19,7 +19,7 @@ public class GeneralTransaction {
 	private long transactionId;
 	private double amount;
 	private String paymentDate;
-	private long transasction_type;
+	private long transasction_type_id;
 	private long personid;
 	
 	@Id
@@ -43,10 +43,10 @@ public class GeneralTransaction {
 		this.paymentDate = paymentDate;
 	}
 	public long getTransasction_type() {
-		return transasction_type;
+		return transasction_type_id;
 	}
-	public void setTransasction_type(long transasction_type) {
-		this.transasction_type = transasction_type;
+	public void setTransasction_type(long transasction_type_id) {
+		this.transasction_type_id = transasction_type_id;
 	}
 	public long getPersonid() {
 		return personid;
@@ -64,7 +64,7 @@ public class GeneralTransaction {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((paymentDate == null) ? 0 : paymentDate.hashCode());
 		result = prime * result + (int) (transactionId ^ (transactionId >>> 32));
-		result = prime * result + (int) (transasction_type ^ (transasction_type >>> 32));
+		result = prime * result + (int) (transasction_type_id ^ (transasction_type_id >>> 32));
 		return result;
 	}
 	
@@ -86,7 +86,7 @@ public class GeneralTransaction {
 			return false;
 		if (transactionId != other.transactionId)
 			return false;
-		if (transasction_type != other.transasction_type)
+		if (transasction_type_id != other.transasction_type_id)
 			return false;
 		return true;
 	}
@@ -94,7 +94,7 @@ public class GeneralTransaction {
 	@Override
 	public String toString() {
 		return "Transaction [transactionId=" + transactionId + ", amount=" + amount + ", paymentDate=" + paymentDate
-				+ ", transasction_type=" + transasction_type + "]";
+				+ ", transasction_type=" + transasction_type_id + "]";
 	}
 	
 	public GeneralTransaction(long transactionId, double amount, String paymentDate, long transasction_type) {
@@ -102,7 +102,7 @@ public class GeneralTransaction {
 		this.transactionId = transactionId;
 		this.amount = amount;
 		this.paymentDate = paymentDate;
-		this.transasction_type = transasction_type;
+		this.transasction_type_id = transasction_type_id;
 	}
 	
 	public GeneralTransaction() {

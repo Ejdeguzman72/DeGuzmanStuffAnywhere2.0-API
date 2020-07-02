@@ -42,5 +42,5 @@ public class UserPerson {
 	@OneToOne(fetch =  FetchType.LAZY,
 			optional = false)
 	@JoinColumn(name = "userid", nullable = false)
-	private Users users;
+	private Users user;
 }
