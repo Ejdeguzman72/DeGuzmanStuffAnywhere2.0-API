@@ -21,5 +21,6 @@ public class AutoTrxLogger {
 		FileHandler autoTrxHandler;
 		String path = "C:\\EJ-Projects\\DeGUzmanFamilyAPI-Backend\\log\\genearl-transaction.log";
 		autoTrxHandler = new FileHandler(path, append);
+		autoTrxLogger.addHandler(autoTrxHandler);
 	}
 }

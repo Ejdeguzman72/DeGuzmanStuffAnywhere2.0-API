@@ -44,13 +44,13 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody Users user) throws Exception {
 		return ResponseEntity.ok(jwtUserDetailsService.save(user));
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));

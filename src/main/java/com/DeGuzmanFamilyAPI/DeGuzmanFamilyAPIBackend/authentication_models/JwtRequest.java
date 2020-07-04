@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 public class JwtRequest implements Serializable {
 
-	public static final Long serialVersionUID = 5926468583005150707L;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4100130385109161508L;
 	private String username;
 	private String password;
 	

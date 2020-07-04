@@ -42,6 +42,7 @@ public class RunTrackerService {
 		try {
 			runTrackerDetails = runTrackerRepository.findById(runid)
 					.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+			
 			runTracker.setFirstname(runTrackerDetails.getFirstname());
 			runTracker.setLastname(runTrackerDetails.getLastname());
 			runTracker.setRunDate(runTrackerDetails.getRunDate());

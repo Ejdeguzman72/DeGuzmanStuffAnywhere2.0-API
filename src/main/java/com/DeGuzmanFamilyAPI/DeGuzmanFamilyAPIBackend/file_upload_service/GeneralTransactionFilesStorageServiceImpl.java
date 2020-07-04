@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import javax.management.RuntimeErrorException;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
