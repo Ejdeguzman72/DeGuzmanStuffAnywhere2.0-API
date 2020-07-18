@@ -24,7 +24,7 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.VideoF
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.ResponseMessage;
 
 @RestController
-@RequestMapping("/app/photo-uploads")
+@RequestMapping("/app/video-uploads")
 @CrossOrigin
 public class VideoFilesController {
 

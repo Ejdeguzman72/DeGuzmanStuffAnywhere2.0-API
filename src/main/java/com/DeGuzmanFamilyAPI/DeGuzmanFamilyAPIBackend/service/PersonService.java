@@ -55,6 +55,11 @@ public class PersonService {
 		return ResponseEntity.ok().body(person);
 	}
 	
+	// finds all information related to the contact information table
+	public List<Person> findAllPersonContactInfo() {
+		return personRepository.findContacts();
+	}
+	
 	// creates an Person object based off the fields that are filled.
 	public Person addPersonInformation(@Valid @RequestBody Person person) throws SecurityException, IOException {
 		Person personInfo = personRepository.save(person);
@@ -77,7 +82,7 @@ public class PersonService {
 		try {
 			person = personRepository.findById(personid)
 					.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
-			person.setAge(personDetails.getAge());
+//			person.setAge(personDetails.getAge());
 			person.setBirthdate(personDetails.getBirthdate());
 			person.setEmail(personDetails.getEmail());
 			person.setFirstname(personDetails.getFirstname());

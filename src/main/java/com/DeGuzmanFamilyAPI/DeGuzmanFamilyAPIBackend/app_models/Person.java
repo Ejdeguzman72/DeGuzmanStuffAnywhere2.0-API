@@ -22,7 +22,6 @@ public class Person {
 	public String phone;
 	public String email;
 	public String birthdate;
-	public int age;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,18 +61,10 @@ public class Person {
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + age;
 		result = prime * result + ((birthdate == null) ? 0 : birthdate.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
@@ -82,7 +73,6 @@ public class Person {
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -92,8 +82,6 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (age != other.age)
-			return false;
 		if (birthdate == null) {
 			if (other.birthdate != null)
 				return false;
@@ -123,15 +111,12 @@ public class Person {
 			return false;
 		return true;
 	}
-	
 	@Override
 	public String toString() {
 		return "Person [personid=" + personid + ", firstname=" + firstname + ", lastname=" + lastname + ", phone="
-				+ phone + ", email=" + email + ", birthdate=" + birthdate + ", age=" + age + "]";
+				+ phone + ", email=" + email + ", birthdate=" + birthdate + "]";
 	}
-	
-	public Person(long personid, String firstname, String lastname, String phone, String email, String birthdate,
-			int age) {
+	public Person(long personid, String firstname, String lastname, String phone, String email, String birthdate) {
 		super();
 		this.personid = personid;
 		this.firstname = firstname;
@@ -139,12 +124,12 @@ public class Person {
 		this.phone = phone;
 		this.email = email;
 		this.birthdate = birthdate;
-		this.age = age;
 	}
-	
 	public Person() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 }

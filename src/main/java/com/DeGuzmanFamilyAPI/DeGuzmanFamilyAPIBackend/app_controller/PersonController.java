@@ -40,6 +40,11 @@ public class PersonController {
 		return personService.addPersonInformation(person);
 	}
 	
+//	@RequestMapping("/contacts")
+//	public List<Person> getAllPersonContactInformation() {
+//		return personService.findAllPersonContactInfo();
+//	}
+	
 	@PostMapping("/add-person-information")
 	public ResponseEntity<Person> findPersonInformationById(@PathVariable Long personid) throws SecurityException, ResourceNotFoundException, IOException {
 		return personService.findPersonById(personid);
