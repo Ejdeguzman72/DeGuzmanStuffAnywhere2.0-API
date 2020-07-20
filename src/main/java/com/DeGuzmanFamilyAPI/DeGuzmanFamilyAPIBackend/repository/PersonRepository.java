@@ -11,8 +11,4 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Person;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
-	public static final String FIND_CONTACTS = "SELECT p.personid, p.firstname,p.lastname,p.phone,p.email from person p";
-	
-	@Query(value = FIND_CONTACTS)
-	public List<Person> findContacts();
 }
