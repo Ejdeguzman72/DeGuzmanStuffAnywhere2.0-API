@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_controllers;
 
+import java.nio.file.FileAlreadyExistsException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +33,7 @@ public class MedicalTransactionFilesController {
 	MedicalTransactionFilesStorageService medicalTrxFilesStorageService;
 	
 	@PostMapping("/upload")
-	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) throws FileAlreadyExistsException {
 		String message = "";
 		
 		try {
@@ -51,7 +52,7 @@ public class MedicalTransactionFilesController {
 		List<MedicalTransactionFileInfo> medicalFileInfos = (List<MedicalTransactionFileInfo>) medicalTrxFilesStorageService.laodAllMedicalFiles().map(path -> {
 			String filename = path.getFileName().toString();
 			String url = MvcUriComponentsBuilder
-					.fromMethodName(MedicalTransactionFilesController.class, "getMedicalFile", path.getFileName().toString()).build().toString();
+					.fromMethodName(MedicalTransactionFilesController.class, "getFile",path.getFileName().toString()).build().toString();
 			
 			return new MedicalTransactionFileInfo(filename,url);
 		}).collect(Collectors.toList());
@@ -61,10 +62,10 @@ public class MedicalTransactionFilesController {
 	
 	@GetMapping("/files/{filename}")
 	@ResponseBody
-	public ResponseEntity<javax.annotation.Resource> getMedicalFile(@PathVariable String filename) {
-		javax.annotation.Resource file = medicalTrxFilesStorageService.load(filename);
+	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+		Resource file = medicalTrxFilesStorageService.load(filename);
 		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + ((Resource) file).getFilename() + "\"").body(file);
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
 	
 }

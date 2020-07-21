@@ -3,8 +3,7 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-import javax.annotation.Resource;
-
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface MedicalTransactionFilesStorageService {

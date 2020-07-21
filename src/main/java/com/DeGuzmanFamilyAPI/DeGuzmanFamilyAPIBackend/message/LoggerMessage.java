@@ -131,17 +131,17 @@ public class LoggerMessage {
 	
 	
 	// medical transaction file upload info messages
-	public static String CREATE_MEDICAL_TRANSACTION_UPLOADS_INFO_MESSAGE = "Created auto-transaction-uploads folder";
+	public static String CREATE_MEDICAL_TRANSACTION_UPLOADS_INFO_MESSAGE = "Created medical-transaction-uploads folder";
 	
-	public static String SAVE_MEDICAL_TRANSACTION_FILE_INFO_MESSAGE = "Auto transaction file was uploaded";
+	public static String SAVE_MEDICAL_TRANSACTION_FILE_INFO_MESSAGE = " medical transaction file was uploaded";
 	
 	public static String GET_MEDICAL_TRANSACTION_FILE_INFO_MESSAGE = "Retrieved medical transaction file";
 	
 	
 	// medical transaction file upload error messages
-	public static String CREATE_MEDICAL_TRANSACTION_UPLOADS_ERROR_MESSAGE = "Unable to create auto-transaction-uploads folder";
+	public static String CREATE_MEDICAL_TRANSACTION_UPLOADS_ERROR_MESSAGE = "Unable to create  medical-transaction-uploads folder";
 	
-	public static String SAVE_MEDICAL_TRANSACTION_FILE_ERROR_MESSAGE = "Auto transaction file upload failed";
+	public static String SAVE_MEDICAL_TRANSACTION_FILE_ERROR_MESSAGE = " medical transaction file upload failed";
 	
 	public static String GET_MEDICAL_TRANSACTION_FILE_ERROR_MESSAGE = "Could not retrieve medical transaction file. Does not exist";
 }

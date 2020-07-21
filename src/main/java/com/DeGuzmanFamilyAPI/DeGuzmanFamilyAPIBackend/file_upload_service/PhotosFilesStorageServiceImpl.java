@@ -24,6 +24,7 @@ public class PhotosFilesStorageServiceImpl implements PhotoFilesStorageService {
 	public void init() {
 		try {
 			Files.createDirectories(root);
+			System.out.println("Created root: " + root);
 		} catch (IOException e) {
 			throw new RuntimeException("Could not  instantiate folder for upload");
 		}

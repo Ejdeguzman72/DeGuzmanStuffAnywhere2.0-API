@@ -45,14 +45,14 @@ public class MedicalTransactionFilesStorageServiceImpl implements MedicalTransac
 	}
 
 	@Override
-	public javax.annotation.Resource load(String filename) {
+	public Resource load(String filename) {
 		try {
 			Path file = root.resolve(filename);
 			Resource resource = new UrlResource(file.toUri());
 			
 			if (resource.exists() || resource.isReadable()) {
 				ExternalFileLogger.externalFileLogger.info(LoggerMessage.GET_MEDICAL_TRANSACTION_FILE_INFO_MESSAGE + file.getFileName());
-				return (javax.annotation.Resource) resource;
+				return resource;
 			} else {
 				ExternalFileLogger.externalFileLogger.warning(LoggerMessage.GET_MEDICAL_TRANSACTION_FILE_INFO_MESSAGE + file.getFileName());
 				throw new RuntimeException("Could not read the file");

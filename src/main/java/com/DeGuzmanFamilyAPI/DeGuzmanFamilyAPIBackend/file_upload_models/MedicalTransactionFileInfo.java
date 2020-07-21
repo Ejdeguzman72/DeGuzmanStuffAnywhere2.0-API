@@ -23,4 +23,14 @@ public class MedicalTransactionFileInfo {
 		this.medicalTransactionFileName = medicalTransactionFileName;
 		this.medicalTransactionFileUrl = medicalTransactionFileUrl;
 	}
+	@Override
+	public String toString() {
+		return "MedicalTransactionFileInfo [medicalTransactionFileName=" + medicalTransactionFileName
+				+ ", medicalTransactionFileUrl=" + medicalTransactionFileUrl + ", getMedicalTransactionFileName()="
+				+ getMedicalTransactionFileName() + ", getMedicalTransactionFileUrl()=" + getMedicalTransactionFileUrl()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+	
+	
 }

@@ -13,7 +13,7 @@ public interface PhotoFilesStorageService {
 	
 	public void save(MultipartFile file);
 	
-	public org.springframework.core.io.Resource load(String filename);
+	public Resource load(String filename);
 	
 	public void deleteAllPhotos();
 	
