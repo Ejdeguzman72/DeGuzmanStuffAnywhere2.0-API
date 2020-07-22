@@ -9,25 +9,27 @@ import javax.persistence.Table;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
-@Table(name = "recipe")
+@Table(name = "user_role")
 @CrossOrigin
-public class Recipe {
-
-	public int recipeId;
-	public String name;
+public class UserRole {
+	
+	private long userid;
+	public Long roleid;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getRecipeId() {
-		return recipeId;
+	public long getUserid() {
+		return userid;
 	}
-	public void setRecipeId(int recipeId) {
-		this.recipeId = recipeId;
+	public void setUserid(long userid) {
+		this.userid = userid;
 	}
-	public String getName() {
-		return name;
+	public Long getRoleid() {
+		return roleid;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRoleid(Long roleid) {
+		this.roleid = roleid;
 	}
+	
+	
 }

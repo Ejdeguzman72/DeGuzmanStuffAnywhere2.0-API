@@ -35,6 +35,7 @@ public class VideoFilesController {
 	public ResponseEntity<ResponseMessage> uploadFile(@PathVariable("file") MultipartFile file) {
 		String message = "";
 		try {
+			System.out.println("This is file" + file);
 			videoFilesStorageService.save(file);
 			
 			message = "Uploaded the file successfully" + file.getOriginalFilename() + "!";

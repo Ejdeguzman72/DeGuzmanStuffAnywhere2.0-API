@@ -50,5 +50,8 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 		
 		photosFilesStorageService.deleteAllPhotos();
 		photosFilesStorageService.init();
+		
+		videosFilesStorageService.deleteVideoFiles();
+		videosFilesStorageService.init();
 	}
 }

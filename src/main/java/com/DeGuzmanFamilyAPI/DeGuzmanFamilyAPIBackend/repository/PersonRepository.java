@@ -10,5 +10,5 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Person;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
-
+	
 }

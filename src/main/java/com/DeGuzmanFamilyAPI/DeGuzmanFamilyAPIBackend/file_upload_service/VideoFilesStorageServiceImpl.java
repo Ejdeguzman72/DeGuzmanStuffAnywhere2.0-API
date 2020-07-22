@@ -16,12 +16,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class VideoFilesStorageServiceImpl implements VideoFilesStorageService {
 
-	private static final Path root = Paths.get("video-uploads");
+	private final Path root = Paths.get("video-uploads");
 	
 	@Override
 	public void init() {
 		try {
 			Files.createDirectories(root);
+			System.out.println("Created the root directory " + root);
 		} catch (IOException e) {
 			throw new RuntimeException("Could not  instantiate folder for upload");
 		}

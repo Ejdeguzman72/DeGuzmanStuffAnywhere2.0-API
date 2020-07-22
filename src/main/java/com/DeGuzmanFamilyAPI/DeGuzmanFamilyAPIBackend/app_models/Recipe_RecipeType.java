@@ -9,12 +9,12 @@ import javax.persistence.Table;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
-@Table(name = "recipe")
+@Table(name = "recipe_recipe_type")
 @CrossOrigin
-public class Recipe {
-
+public class Recipe_RecipeType {
+	
 	public int recipeId;
-	public String name;
+	public int recipeTypeId;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,12 @@ public class Recipe {
 	public void setRecipeId(int recipeId) {
 		this.recipeId = recipeId;
 	}
-	public String getName() {
-		return name;
+	public int getRecipeTypeId() {
+		return recipeTypeId;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRecipeTypeId(int recipeTypeId) {
+		this.recipeTypeId = recipeTypeId;
 	}
+	
+	
 }
