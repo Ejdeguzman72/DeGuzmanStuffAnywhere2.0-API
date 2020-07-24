@@ -75,9 +75,7 @@ public class MedicalTransactionService {
 				MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.GET_MEDICAL_TRX_BY_ID_INFO_MESSAGE + ": " + medicalTransactionId);
 			}
 			medicalTransaction.setAmount(medicalTransactionDetails.getAmount());
-			medicalTransaction.setMedicalEntityId(medicalTransaction.getMedicalEntityId());
 			medicalTransaction.setMedicalTransactionDate(medicalTransactionDetails.getMedicalTransactionDate());
-			medicalTransaction.setPersonId(medicalTransactionDetails.getMedicalEntityId());
 			
 			MedicalTrxLogger.medicalTrxLogger.info("Currently updating medical transcation information for ID");
 		}

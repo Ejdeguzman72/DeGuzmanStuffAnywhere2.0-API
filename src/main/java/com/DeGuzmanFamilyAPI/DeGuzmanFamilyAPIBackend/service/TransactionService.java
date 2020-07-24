@@ -76,7 +76,6 @@ public class TransactionService {
 			}
 			transaction.setAmount(transactionDetails.getAmount());
 			transaction.setPaymentDate(transactionDetails.getPaymentDate());
-			transaction.setTransasction_type(transactionDetails.getTransasction_type());
 			GeneralTrxLogger.generalTrxLogger.info("Updating general transaction information...");
 		}
 		catch (ResourceNotFoundException e) {

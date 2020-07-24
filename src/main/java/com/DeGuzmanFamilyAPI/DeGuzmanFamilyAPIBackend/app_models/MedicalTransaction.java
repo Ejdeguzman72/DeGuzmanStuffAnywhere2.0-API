@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class MedicalTransaction {
 
 	public Long medicalTransactionId;
-	public Long personId;
-	public Long medicalEntityId;
+	public String facillity;
 	public Date medicalTransactionDate;
 	public double amount;
+	public String person;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,17 +29,11 @@ public class MedicalTransaction {
 	public void setMedicalTransactionId(Long medicalTransactionId) {
 		this.medicalTransactionId = medicalTransactionId;
 	}
-	public Long getPersonId() {
-		return personId;
+	public String getFacillity() {
+		return facillity;
 	}
-	public void setPersonId(Long personId) {
-		this.personId = personId;
-	}
-	public Long getMedicalEntityId() {
-		return medicalEntityId;
-	}
-	public void setMedicalEntityId(Long medicalEntityId) {
-		this.medicalEntityId = medicalEntityId;
+	public void setFacillity(String facillity) {
+		this.facillity = facillity;
 	}
 	public Date getMedicalTransactionDate() {
 		return medicalTransactionDate;
@@ -53,7 +47,12 @@ public class MedicalTransaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	
+	public String getPerson() {
+		return person;
+	}
+	public void setPerson(String person) {
+		this.person = person;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,13 +60,12 @@ public class MedicalTransaction {
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((medicalEntityId == null) ? 0 : medicalEntityId.hashCode());
+		result = prime * result + ((facillity == null) ? 0 : facillity.hashCode());
 		result = prime * result + ((medicalTransactionDate == null) ? 0 : medicalTransactionDate.hashCode());
 		result = prime * result + ((medicalTransactionId == null) ? 0 : medicalTransactionId.hashCode());
-		result = prime * result + ((personId == null) ? 0 : personId.hashCode());
+		result = prime * result + ((person == null) ? 0 : person.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -79,10 +77,10 @@ public class MedicalTransaction {
 		MedicalTransaction other = (MedicalTransaction) obj;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
-		if (medicalEntityId == null) {
-			if (other.medicalEntityId != null)
+		if (facillity == null) {
+			if (other.facillity != null)
 				return false;
-		} else if (!medicalEntityId.equals(other.medicalEntityId))
+		} else if (!facillity.equals(other.facillity))
 			return false;
 		if (medicalTransactionDate == null) {
 			if (other.medicalTransactionDate != null)
@@ -94,11 +92,32 @@ public class MedicalTransaction {
 				return false;
 		} else if (!medicalTransactionId.equals(other.medicalTransactionId))
 			return false;
-		if (personId == null) {
-			if (other.personId != null)
+		if (person == null) {
+			if (other.person != null)
 				return false;
-		} else if (!personId.equals(other.personId))
+		} else if (!person.equals(other.person))
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "MedicalTransaction [medicalTransactionId=" + medicalTransactionId + ", facillity=" + facillity
+				+ ", medicalTransactionDate=" + medicalTransactionDate + ", amount=" + amount + ", person=" + person
+				+ "]";
+	}
+	public MedicalTransaction(Long medicalTransactionId, String facillity, Date medicalTransactionDate, double amount,
+			String person) {
+		super();
+		this.medicalTransactionId = medicalTransactionId;
+		this.facillity = facillity;
+		this.medicalTransactionDate = medicalTransactionDate;
+		this.amount = amount;
+		this.person = person;
+	}
+	public MedicalTransaction() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 }

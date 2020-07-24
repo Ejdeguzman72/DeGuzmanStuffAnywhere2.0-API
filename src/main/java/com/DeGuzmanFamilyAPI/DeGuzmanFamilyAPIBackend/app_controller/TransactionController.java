@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.GeneralTransaction;
@@ -21,6 +22,7 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFound
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.TransactionService;
 
 @RestController
+@RequestMapping("/app/general-transaction")
 @CrossOrigin
 public class TransactionController {
 
