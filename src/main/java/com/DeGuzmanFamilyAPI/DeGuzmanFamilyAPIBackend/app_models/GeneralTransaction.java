@@ -20,7 +20,8 @@ public class GeneralTransaction {
 	private double amount;
 	private String paymentDate;
 	private long transasction_type_id;
-	private long personid;
+	private String entity;
+	private String person;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,13 +49,25 @@ public class GeneralTransaction {
 	public void setTransasction_type(long transasction_type_id) {
 		this.transasction_type_id = transasction_type_id;
 	}
-	public long getPersonid() {
-		return personid;
+	public String getPerson() {
+		return person;
 	}
-	public void setPersonid(long personid) {
-		this.personid = personid;
+	public void setPerson(String person) {
+		this.person = person;
 	}
 	
+	public long getTransasction_type_id() {
+		return transasction_type_id;
+	}
+	public void setTransasction_type_id(long transasction_type_id) {
+		this.transasction_type_id = transasction_type_id;
+	}
+	public String getEntity() {
+		return entity;
+	}
+	public void setEntity(String entity) {
+		this.entity = entity;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,12 +75,13 @@ public class GeneralTransaction {
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((entity == null) ? 0 : entity.hashCode());
 		result = prime * result + ((paymentDate == null) ? 0 : paymentDate.hashCode());
+		result = prime * result + ((person == null) ? 0 : person.hashCode());
 		result = prime * result + (int) (transactionId ^ (transactionId >>> 32));
 		result = prime * result + (int) (transasction_type_id ^ (transasction_type_id >>> 32));
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -79,10 +93,20 @@ public class GeneralTransaction {
 		GeneralTransaction other = (GeneralTransaction) obj;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
+		if (entity == null) {
+			if (other.entity != null)
+				return false;
+		} else if (!entity.equals(other.entity))
+			return false;
 		if (paymentDate == null) {
 			if (other.paymentDate != null)
 				return false;
 		} else if (!paymentDate.equals(other.paymentDate))
+			return false;
+		if (person == null) {
+			if (other.person != null)
+				return false;
+		} else if (!person.equals(other.person))
 			return false;
 		if (transactionId != other.transactionId)
 			return false;
@@ -90,23 +114,26 @@ public class GeneralTransaction {
 			return false;
 		return true;
 	}
-	
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", amount=" + amount + ", paymentDate=" + paymentDate
-				+ ", transasction_type=" + transasction_type_id + "]";
+		return "GeneralTransaction [transactionId=" + transactionId + ", amount=" + amount + ", paymentDate="
+				+ paymentDate + ", transasction_type_id=" + transasction_type_id + ", entity=" + entity + ", person="
+				+ person + "]";
 	}
-	
-	public GeneralTransaction(long transactionId, double amount, String paymentDate, long transasction_type) {
+	public GeneralTransaction(long transactionId, double amount, String paymentDate, long transasction_type_id,
+			String entity, String person) {
 		super();
 		this.transactionId = transactionId;
 		this.amount = amount;
 		this.paymentDate = paymentDate;
 		this.transasction_type_id = transasction_type_id;
+		this.entity = entity;
+		this.person = person;
 	}
-	
 	public GeneralTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 }
