@@ -1,16 +1,25 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Service;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.AutoTransactionFilesStorageService;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.GeneralTransactionFileStorageService;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.MedicalTransactionFilesStorageService;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.PhotoFilesStorageService;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.VideoFilesStorageService;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.AutoTrxLogger;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.ExternalFileLogger;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.GeneralTrxLogger;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.MasterLogger;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.MedicalTrxLogger;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.PersonInfoLogger;
 
 @SpringBootApplication
 public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
@@ -30,11 +39,21 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 	@Resource
 	VideoFilesStorageService videosFilesStorageService;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SecurityException, IOException {
 		SpringApplication.run(DeGuzmanFamilyApiBackendApplication.class, args);
 		int port = 8080;
 		
 		System.out.println("You are using port: " + port);
+		
+		AutoTrxLogger.createLog();
+		
+		GeneralTrxLogger.createLog();
+		
+		MedicalTrxLogger.createLog();
+		
+		PersonInfoLogger.createLog();
+		
+		ExternalFileLogger.createLog();
 	}
 
 	@Override
@@ -53,5 +72,6 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 		
 		videosFilesStorageService.deleteVideoFiles();
 		videosFilesStorageService.init();
+		
 	}
 }

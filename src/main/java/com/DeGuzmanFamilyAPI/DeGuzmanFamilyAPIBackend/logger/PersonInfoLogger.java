@@ -11,18 +11,23 @@ import javassist.bytecode.stackmap.TypeData.ClassName;
 public class PersonInfoLogger {
 
 	static boolean append = true;
+	
 	public final static Logger personInfoLogger = Logger.getLogger(ClassName.class.getName());
 	
-	public static void log(String logMessage) throws SecurityException, IOException {
+	public static final String path = "C:\\EJ-Projects\\DeGuzmanFamilyAPI-Backend\\log\\person-info-logs\\person-info.log";
+	
+	public static FileHandler personInfoFileHandler;
+	
+	public static void createLog() throws SecurityException, IOException {
 		personInfoLogger.setLevel(Level.SEVERE);
-		File logDirectory = new File("./log");
+		File logDirectory = new File("./log/person-info-logs");
 		if(!logDirectory.exists()) {
 			logDirectory.mkdirs();
 			System.out.println("created directory" + " " + logDirectory);
 		}
-		String path = "C:\\EJ-Projects\\DeGuzmanFamilyAPI-Backend\\log\\person-info.log";
-		FileHandler personInfoFileHandler;
 		personInfoFileHandler = new FileHandler(path, append);
 		personInfoLogger.addHandler(personInfoFileHandler);
+		
+		System.out.println("Created Directory " + logDirectory);
 	}
 }

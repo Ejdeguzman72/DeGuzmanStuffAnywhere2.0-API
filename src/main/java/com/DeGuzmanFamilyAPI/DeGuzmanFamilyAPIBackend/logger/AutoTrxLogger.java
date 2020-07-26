@@ -10,17 +10,22 @@ import javassist.bytecode.stackmap.TypeData.ClassName;
 public class AutoTrxLogger {
 
 	static boolean append = true;
+	
 	public final static Logger autoTrxLogger = Logger.getLogger(ClassName.class.getName());
 	
-	public static void log(String logMessage) throws SecurityException, IOException {
-		File logDirectory = new File("C:\\EJ-Projects\\DeGuzmanFamilyAPI-Backend\\log");
+	public final static String path = "C:\\EJ-Projects\\DeGUzmanFamilyAPI-Backend\\log\\auto-transaction-logs\\auto-transaction.log";
+	
+	public static FileHandler autoTrxHandler;
+	
+	public static void createLog() throws SecurityException, IOException {
+		File logDirectory = new File("C:\\EJ-Projects\\DeGuzmanFamilyAPI-Backend\\log\\auto-transaction-logs");
 		if(!logDirectory.exists()) {
 			logDirectory.mkdirs();
 			System.out.println("created directory" + " " + logDirectory);
 		}
-		FileHandler autoTrxHandler;
-		String path = "C:\\EJ-Projects\\DeGUzmanFamilyAPI-Backend\\log\\genearl-transaction.log";
 		autoTrxHandler = new FileHandler(path, append);
 		autoTrxLogger.addHandler(autoTrxHandler);
+		
+		System.out.println("Created log directory" + " " + logDirectory);
 	}
 }

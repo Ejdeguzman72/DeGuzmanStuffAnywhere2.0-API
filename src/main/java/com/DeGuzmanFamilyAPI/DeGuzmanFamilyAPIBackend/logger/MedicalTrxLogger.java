@@ -10,17 +10,22 @@ import javassist.bytecode.stackmap.TypeData.ClassName;
 public class MedicalTrxLogger {
 
 	public static final boolean append = true;
+	
 	public final static Logger medicalTrxLogger = Logger.getLogger(ClassName.class.getName());
 	
-	public static void log(String logMessage) throws SecurityException, IOException {
-		File logDirectory = new File("./log");
+	public static FileHandler medicalTrxFileHandler;
+	
+	public static String path = "C:\\EJ-Projects\\DeGUzmanFamilyAPI-Backend\\log\\medical-transaction-logs\\medical-transaction.log";
+	
+	public static void createLog() throws SecurityException, IOException {
+		File logDirectory = new File("./log/medical-transaction-logs");
 		if(!logDirectory.exists()) {
 			logDirectory.mkdirs();
 			System.out.println("created directory" + " " + logDirectory);
 		}
-		FileHandler medicalTrxFileHandler;
-		String path = "C:\\EJ-Projects\\DeGUzmanFamilyAPI-Backend\\log\\medical-transaction.log";
 		medicalTrxFileHandler = new FileHandler(path,append);
 		medicalTrxLogger.addHandler(medicalTrxFileHandler);
+		
+		System.out.println("Created directory " + logDirectory);
 	}
 }

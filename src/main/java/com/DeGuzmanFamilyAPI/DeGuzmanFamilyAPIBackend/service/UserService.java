@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.MasterLogger;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.repository.UserRepository;
 
 @Service
@@ -22,6 +23,8 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	private MasterLogger masterLogger;
 	
 	// returns all users in a list in a list
 	public List<Users> findAllUsers() {
