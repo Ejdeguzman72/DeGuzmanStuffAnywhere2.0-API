@@ -73,9 +73,6 @@ public class AutoTransactionService {
 			}
 			autoTransaction.setAmount(autoTransactionDetails.getAmount());
 			autoTransaction.setAutoTransactionDate(autoTransactionDetails.getAutoTransactionDate());
-			autoTransaction.setCarid(autoTransactionDetails.getCarid());
-			autoTransaction.setShopId(autoTransactionDetails.getShopId());
-			autoTransaction.setTransactionTypeId(autoTransactionDetails.getTransactionTypeId());
 			
 		}
 		catch (ResourceNotFoundException e) {
