@@ -74,8 +74,10 @@ public class TransactionService {
 			else {
 				GeneralTrxLogger.generalTrxLogger.info(LoggerMessage.GET_GENERAL_TRX_BY_ID_INFO_MESSAGE + ": " + transactionid);
 			}
+			transaction.setEntity(transactionDetails.getEntity());
 			transaction.setAmount(transactionDetails.getAmount());
 			transaction.setPaymentDate(transactionDetails.getPaymentDate());
+			transaction.setPerson(transactionDetails.getPerson());
 			GeneralTrxLogger.generalTrxLogger.info("Updating general transaction information...");
 		}
 		catch (ResourceNotFoundException e) {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.GeneralTransaction;
@@ -23,7 +24,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.TransactionService
 
 @RestController
 @RequestMapping("/app/general-transaction")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT,
+		RequestMethod.DELETE })
 public class TransactionController {
 
 	@Autowired
@@ -44,14 +46,16 @@ public class TransactionController {
 		return transactionService.addTransactionInformation(transaction);
 	}
 	
+	@CrossOrigin
 	@PutMapping("/transaction/{transactionId}")
-	public ResponseEntity<GeneralTransaction> updateTransactionInformationController(@PathVariable Long transactionid,
+	public ResponseEntity<GeneralTransaction> updateTransactionInformationController(@PathVariable Long transactionId,
 			@Valid @RequestBody GeneralTransaction transactionDetails) {
-		return transactionService.updateTransactionInformation(transactionid, transactionDetails);
+		return transactionService.updateTransactionInformation(transactionId, transactionDetails);
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/transaction/{transactionId}")
-	public Map<String,Boolean> deleteTransactionInformation(@PathVariable Long transactionid) {
-		return transactionService.deleteTransactionInformation(transactionid);
+	public Map<String,Boolean> deleteTransactionInformation(@PathVariable Long transactionId) {
+		return transactionService.deleteTransactionInformation(transactionId);
 	}
 }

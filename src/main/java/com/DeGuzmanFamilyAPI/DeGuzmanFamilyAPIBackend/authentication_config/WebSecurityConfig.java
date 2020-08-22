@@ -64,7 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config =  new CorsConfiguration();
-		config.setAllowedMethods(Arrays.asList("GET","POST","UPDATE","DELETE"));
+		
+		// This is important
+		//  Helps set the allowed HTTP methods to be used in the API
+		config.setAllowedMethods(Arrays.asList("GET","POST","UPDATE","DELETE","PUT","PATCH"));
 		config.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers","Authorization","Content-Type","Cache-Control"));
 		config.addExposedHeader("Access-Control-Allow-Headers");
 		config.applyPermitDefaultValues();

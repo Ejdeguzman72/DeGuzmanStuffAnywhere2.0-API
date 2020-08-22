@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Person;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
@@ -24,26 +26,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/app/person-info")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT,
+		RequestMethod.DELETE })
 public class PersonController {
 
 	@Autowired
 	private PersonService personService;
 	
-	@RequestMapping("/all")
+	@GetMapping("/all")
 	public List<Person> getAllPersonInformation() throws SecurityException, IOException {
 		return personService.findAllPersonInformation();
 	}
 	
-	@RequestMapping("/person/{personid}")
+	@GetMapping("/person/{personid}")
+	public ResponseEntity<Person> findPersonInformationById(@PathVariable Long personid) throws SecurityException, ResourceNotFoundException, IOException {
+		return personService.findPersonById(personid);
+	}
+	
+	@PostMapping("/add-person-information")
 	public Person addPersonInformation(@Valid @RequestBody Person person) throws SecurityException, IOException {
 		return personService.addPersonInformation(person);
 	}
 	
-	@PostMapping("/add-person-information")
-	public ResponseEntity<Person> findPersonInformationById(@PathVariable Long personid) throws SecurityException, ResourceNotFoundException, IOException {
-		return personService.findPersonById(personid);
-	}
 	
 	@PutMapping("/person/{personid}")
 	public ResponseEntity<Person> updatePersonInfoCOntroller(@PathVariable Long personid,
@@ -51,7 +55,7 @@ public class PersonController {
 		return personService.updatePersonInformation(personid, personDetails);
 	}
 	
-	@DeleteMapping("/person/{personid")
+	@DeleteMapping("/person/{personid}")
 	public Map<String,Boolean> deletePersonInformation(@PathVariable Long personid) throws SecurityException, IOException {
 		return personService.deletePersonInformation(personid);
 	}

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class Person {
 
-	public long personid;
+	public Long personid;
 	public String firstname;
 	public String lastname;
 	public String phone;
@@ -25,10 +25,10 @@ public class Person {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long getPersonid() {
+	public Long getPersonid() {
 		return personid;
 	}
-	public void setPersonid(long personid) {
+	public void setPersonid(Long personid) {
 		this.personid = personid;
 	}
 	public String getFirstname() {
@@ -69,7 +69,7 @@ public class Person {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + (int) (personid ^ (personid >>> 32));
+		result = prime * result + ((personid == null) ? 0 : personid.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		return result;
 	}
@@ -102,7 +102,10 @@ public class Person {
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
-		if (personid != other.personid)
+		if (personid == null) {
+			if (other.personid != null)
+				return false;
+		} else if (!personid.equals(other.personid))
 			return false;
 		if (phone == null) {
 			if (other.phone != null)
@@ -116,7 +119,7 @@ public class Person {
 		return "Person [personid=" + personid + ", firstname=" + firstname + ", lastname=" + lastname + ", phone="
 				+ phone + ", email=" + email + ", birthdate=" + birthdate + "]";
 	}
-	public Person(long personid, String firstname, String lastname, String phone, String email, String birthdate) {
+	public Person(Long personid, String firstname, String lastname, String phone, String email, String birthdate) {
 		super();
 		this.personid = personid;
 		this.firstname = firstname;
@@ -130,6 +133,5 @@ public class Person {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
+
 }

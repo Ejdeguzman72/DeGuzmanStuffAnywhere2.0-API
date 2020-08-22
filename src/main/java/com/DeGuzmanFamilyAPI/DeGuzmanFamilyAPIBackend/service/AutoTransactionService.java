@@ -72,8 +72,9 @@ public class AutoTransactionService {
 				AutoTrxLogger.autoTrxLogger.warning(LoggerMessage.GET_AUTO_TRX_INFO_BY_ID_ERROR_MESSAGE);
 			}
 			autoTransaction.setAmount(autoTransactionDetails.getAmount());
+			autoTransaction.setShopName(autoTransactionDetails.getShopName());
+			autoTransaction.setPerson(autoTransactionDetails.getPerson());
 			autoTransaction.setAutoTransactionDate(autoTransactionDetails.getAutoTransactionDate());
-			
 		}
 		catch (ResourceNotFoundException e) {
 			e.printStackTrace();

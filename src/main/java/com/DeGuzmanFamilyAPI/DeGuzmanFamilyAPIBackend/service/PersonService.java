@@ -60,13 +60,14 @@ public class PersonService {
 		Person personInfo = personRepository.save(person);
 		
 		if (personInfo == null) {
-			PersonInfoLogger.personInfoLogger.severe(LoggerMessage.ADD_PERSON_INFO_ERROR_MESSAGE);
+			PersonInfoLogger.personInfoLogger.warning(LoggerMessage.ADD_PERSON_INFO_ERROR_MESSAGE);
 		}
 		
 		else {
 			PersonInfoLogger.personInfoLogger.info(LoggerMessage.ADD_PERSON_INFO + " " + personInfo.firstname + " " + personInfo.getLastname());
 		}
-		return personRepository.save(person);
+		System.out.println(person);
+		return personInfo;
 	}
 	
 	// updates the Person based on the id number entered. Once the fields are updated, then a new Auto
@@ -77,7 +78,6 @@ public class PersonService {
 		try {
 			person = personRepository.findById(personid)
 					.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
-//			person.setAge(personDetails.getAge());
 			person.setBirthdate(personDetails.getBirthdate());
 			person.setEmail(personDetails.getEmail());
 			person.setFirstname(personDetails.getFirstname());

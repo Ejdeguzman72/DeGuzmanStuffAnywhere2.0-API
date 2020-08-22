@@ -6,6 +6,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,8 +40,16 @@ public class JwtAuthenticationController {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		String currentLoggedInUser = authentication.getPrincipal().toString();
+		
+		System.out.println("Current Logged In User: " + currentLoggedInUser);
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
+		
+		System.out.println(token);
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.MedicalTransaction;
@@ -23,7 +24,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.MedicalTransaction
 
 @RestController
 @RequestMapping("/app/medical-transactions")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT,
+		RequestMethod.DELETE })
 public class MedicalTransactionController {
 
 	@Autowired
@@ -44,12 +46,14 @@ public class MedicalTransactionController {
 		return medicalTransactionService.addMedicalTransactionInformation(medicalTransaction);
 	}
 	
+	@CrossOrigin
 	@PutMapping("/medical-transaction/{medicalTransactionId}")
 	public ResponseEntity<MedicalTransaction> updateMedicalTransactionController(@PathVariable Long medicalTransactionId,
 			@Valid @RequestBody MedicalTransaction medicalTransactionDetails) {
 		return medicalTransactionService.updateMedicalTransaction(medicalTransactionId, medicalTransactionDetails);
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/medical-transaction/{medicalTransactionId")
 	public Map<String,Boolean> deleteMedicalTransactionInfoController(@PathVariable Long medicalTransactionId) {
 		return medicalTransactionService.deleteMedicalTransactionInformation(medicalTransactionId);

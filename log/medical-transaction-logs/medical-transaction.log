@@ -34,3 +34,393 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-08-17T00:51:54</date>
+  <millis>1597639914697</millis>
+  <sequence>37</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>184</thread>
+  <message>List is Empty</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-08-17T17:18:52</date>
+  <millis>1597699132881</millis>
+  <sequence>13</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>63</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:19:41</date>
+  <millis>1597699181765</millis>
+  <sequence>14</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>65</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:28:58</date>
+  <millis>1597699738901</millis>
+  <sequence>15</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>68</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:30:17</date>
+  <millis>1597699817445</millis>
+  <sequence>16</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>70</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:37:36</date>
+  <millis>1597700256764</millis>
+  <sequence>17</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>69</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:46:20</date>
+  <millis>1597700780228</millis>
+  <sequence>18</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>69</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:47:54</date>
+  <millis>1597700874258</millis>
+  <sequence>19</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>64</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:48:23</date>
+  <millis>1597700903883</millis>
+  <sequence>20</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>63</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:48:35</date>
+  <millis>1597700915111</millis>
+  <sequence>21</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>65</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:50:35</date>
+  <millis>1597701035503</millis>
+  <sequence>22</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>68</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:50:47</date>
+  <millis>1597701047904</millis>
+  <sequence>23</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>69</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:50:54</date>
+  <millis>1597701054375</millis>
+  <sequence>24</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>70</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:52:20</date>
+  <millis>1597701140272</millis>
+  <sequence>25</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>62</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:52:41</date>
+  <millis>1597701161911</millis>
+  <sequence>26</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>61</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:55:20</date>
+  <millis>1597701320523</millis>
+  <sequence>27</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>63</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:55:48</date>
+  <millis>1597701348123</millis>
+  <sequence>28</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>65</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:55:55</date>
+  <millis>1597701355295</millis>
+  <sequence>29</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>66</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:56:19</date>
+  <millis>1597701379446</millis>
+  <sequence>30</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>68</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T17:56:53</date>
+  <millis>1597701413406</millis>
+  <sequence>31</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>67</thread>
+  <message>List is Empty</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-08-17T18:00:43</date>
+  <millis>1597701643160</millis>
+  <sequence>21</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>114</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T18:00:45</date>
+  <millis>1597701645208</millis>
+  <sequence>22</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>115</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T18:00:45</date>
+  <millis>1597701645689</millis>
+  <sequence>23</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>116</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T18:02:14</date>
+  <millis>1597701734846</millis>
+  <sequence>24</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>118</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T18:05:59</date>
+  <millis>1597701959012</millis>
+  <sequence>31</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>140</thread>
+  <message>List is Empty</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-08-17T20:47:02</date>
+  <millis>1597711622953</millis>
+  <sequence>23</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>125</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T20:47:21</date>
+  <millis>1597711641575</millis>
+  <sequence>24</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>126</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T21:02:20</date>
+  <millis>1597712540537</millis>
+  <sequence>83</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>413</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-08-17T21:02:54</date>
+  <millis>1597712574033</millis>
+  <sequence>84</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>412</thread>
+  <message>List is Empty</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>

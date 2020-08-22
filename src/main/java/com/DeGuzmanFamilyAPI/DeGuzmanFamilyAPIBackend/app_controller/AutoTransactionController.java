@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.AutoTransaction;
@@ -23,7 +24,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.AutoTransactionSer
 
 @RestController
 @RequestMapping("/app/auto-transactions")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT,
+		RequestMethod.DELETE })
 public class AutoTransactionController {
 
 	@Autowired
@@ -44,12 +46,14 @@ public class AutoTransactionController {
 		return autoTransactionService.addAutoTransactionInformation(autoTransaction);
 	}
 	
-	@PutMapping("/auto-transaction/{autoTransactionId}")
+	@CrossOrigin
+	@PutMapping("/update-auto-transaction/{autoTransactionId}")
 	public ResponseEntity<AutoTransaction> updateAutoTransactionInformationController(@PathVariable Long autoTransactionId,
 			@Valid @RequestBody AutoTransaction autoTransactionDetails) {
 		return autoTransactionService.updateAutoTransactionInformation(autoTransactionId, autoTransactionDetails);
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/auto-transaction/{autoTransactionId}")
 	public Map<String,Boolean> deleteAutoTransactionInformationController(@PathVariable Long autoTransactionId) {
 		return autoTransactionService.deleteAutoTransactionInformation(autoTransactionId);
