@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/app/chat")
 @CrossOrigin
 public class WebSocketController {
 	
