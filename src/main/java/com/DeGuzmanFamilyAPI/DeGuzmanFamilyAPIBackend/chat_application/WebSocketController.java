@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @CrossOrigin
+//@RequestMapping("/app")
 public class WebSocketController {
 	
 	@MessageMapping("/user-all")
