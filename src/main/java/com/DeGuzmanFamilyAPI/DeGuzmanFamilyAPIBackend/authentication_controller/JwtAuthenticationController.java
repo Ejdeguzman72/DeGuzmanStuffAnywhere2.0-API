@@ -46,7 +46,7 @@ public class JwtAuthenticationController {
 		String currentLoggedInUser = authentication.getPrincipal().toString();
 		
 		System.out.println("Current Logged In User: " + currentLoggedInUser);
-
+		
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		
 		System.out.println(token);

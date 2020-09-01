@@ -448,3 +448,25 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-09-01T08:00:58</date>
+  <millis>1598961658382</millis>
+  <sequence>7</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>35</thread>
+  <message>List is Empty</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
