@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @EntityListeners(AuditingEntityListener.class)
 public class Users {
 
-	private long userid;
-	private String username;
-	private String password;
-	private String name;
-	private int user_status;
-	private int roleid;
+	public long userid;
+	public String username;
+	public String password;
+	public String name;
+	public int user_status;
+	public int roleid;
 	
 //	@OneToOne(fetch = FetchType.LAZY,
 //			cascade = CascadeType.ALL,
