@@ -11,13 +11,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
 @Table(name = "users")
 @CrossOrigin
 @EntityListeners(AuditingEntityListener.class)
-public class Users {
+public class Users implements UserDetailsService{
 
 	private long userid;
 	private String username;
@@ -143,6 +146,11 @@ public class Users {
 	
 	public Users() {
 		
+	}
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

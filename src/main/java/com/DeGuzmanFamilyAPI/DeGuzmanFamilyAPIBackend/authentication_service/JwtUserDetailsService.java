@@ -35,6 +35,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	public Users save(Users user) {
 		Users newUser = new Users();
+		UserDetails userExists = null;
+		if (userExists == loadUserByUsername(user.getUsername())) {
+			System.out.println("yo this person is here already");
+		}
+		
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setRoleid(RoleValues.DEGUZMANSTUFFANYWHERE_ADMIN);
