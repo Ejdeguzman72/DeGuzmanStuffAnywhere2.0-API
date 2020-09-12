@@ -31,6 +31,10 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
+	public List<Users> findPendingUsers() {
+		return userRepository.findAllPendingUsers();
+	}
+	
 	// based on the pathvariable thrown, this returns the Users object that has the corresponding ID
 	public ResponseEntity<Optional<Users>> findUserById(@PathVariable Long userid) {
 		Optional<Users> user = userRepository.findById(userid);
