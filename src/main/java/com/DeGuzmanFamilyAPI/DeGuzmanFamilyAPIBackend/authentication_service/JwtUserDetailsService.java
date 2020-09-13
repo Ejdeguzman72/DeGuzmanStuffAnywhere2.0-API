@@ -33,6 +33,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
 	}
 	
+	
 	public Users save(Users user) {
 		Users newUser = new Users();
 		UserDetails userExists = null;

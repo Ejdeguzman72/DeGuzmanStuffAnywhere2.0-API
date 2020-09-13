@@ -3,7 +3,6 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,16 +10,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
 @Table(name = "users")
 @CrossOrigin
 @EntityListeners(AuditingEntityListener.class)
-public class Users implements UserDetailsService{
+public class Users {
+	
 
 	public long userid;
 	public String username;
@@ -147,10 +144,13 @@ public class Users implements UserDetailsService{
 	public Users() {
 		
 	}
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
+	Object object;
+	
+	public Users(String username, String password, Object object) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.object = object;
+	}
 }

@@ -1,6 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception;
 
-public class ResourceNotFoundException extends Exception{
+public class ResourceNotFoundException extends Exception {
 
 	/**
 	 * 
