@@ -11,15 +11,18 @@ public class JwtRequest implements Serializable {
 	private static final long serialVersionUID = -4100130385109161508L;
 	private String username;
 	private String password;
+	private boolean isEnabled;
 	
 	public JwtRequest() {
 	
 	}
 
-	public JwtRequest(String username, String password) {
+	public JwtRequest(String username, String password, boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.isEnabled = enabled;
+		this.isEnabled = isEnabled;
 	}
 
 	public String getUsername() {
@@ -38,7 +41,13 @@ public class JwtRequest implements Serializable {
 		this.password = password;
 	}
 
-	public static Long getSerialversionuid() {
-		return serialVersionUID;
+	public boolean isEnabled() {
+		return isEnabled;
 	}
+
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+
 }

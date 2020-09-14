@@ -46,7 +46,7 @@ public class JwtAuthenticationController {
 		String currentLoggedInUser = authentication.getPrincipal().toString();
 		
 		System.out.println("Current Logged In User: " + currentLoggedInUser);
-
+		
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		
 		System.out.println(token);
@@ -63,6 +63,10 @@ public class JwtAuthenticationController {
 	@CrossOrigin
 	private void authenticate(String username, String password) throws Exception {
 		try {
+			
+			UserDetails authenticatingUser = jwtUserDetailsService.loadUserByUsername(username);
+			System.out.println(authenticatingUser.getPassword() + "this is the user");
+			
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);

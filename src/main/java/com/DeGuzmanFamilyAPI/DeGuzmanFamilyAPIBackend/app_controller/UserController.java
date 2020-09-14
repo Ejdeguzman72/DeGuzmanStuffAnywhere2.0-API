@@ -42,6 +42,12 @@ public class UserController {
 	}
 	
 	@CrossOrigin
+	@GetMapping("/pending-users")
+	public List<Users> getAllPendingUsers() {
+		return userService.findPendingUsers();
+	}
+	
+	@CrossOrigin
 	@PostMapping("/add-user")
 	public Users addUser(@Valid @RequestBody Users user) {
 		return userService.addUser(user);
