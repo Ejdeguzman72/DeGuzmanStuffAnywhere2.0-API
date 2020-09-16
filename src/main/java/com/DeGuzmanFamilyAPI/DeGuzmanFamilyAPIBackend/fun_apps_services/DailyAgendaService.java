@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.fun_apps_services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class DailyAgendaService {
 	private DailyAgendaRepository dailyAgendaRepository;
 	
 	public List<DailyAgenda> findAllDailyAgendaItems() {
+		List<DailyAgenda> dailyAgendaList = new ArrayList<>();
 		return dailyAgendaRepository.findAll();
 	}
 	
