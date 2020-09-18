@@ -43,7 +43,7 @@ public class JwtAuthenticationController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		String currentLoggedInUser = authentication.getPrincipal().toString();
+		String currentLoggedInUser = authentication.getName();
 		
 		System.out.println("Current Logged In User: " + currentLoggedInUser);
 		

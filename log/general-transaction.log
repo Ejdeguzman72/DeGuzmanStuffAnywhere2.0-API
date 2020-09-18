@@ -660,3 +660,68 @@
   <thread>38</thread>
   <message>List is Empty</message>
 </record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-09-17T21:53:07</date>
+  <millis>1600393987923</millis>
+  <sequence>7</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>40</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-09-17T21:56:48</date>
+  <millis>1600394208930</millis>
+  <sequence>8</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>43</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-09-17T21:57:24</date>
+  <millis>1600394244830</millis>
+  <sequence>9</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>39</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-09-17T21:59:05</date>
+  <millis>1600394345886</millis>
+  <sequence>10</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>44</thread>
+  <message>List is Empty</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
