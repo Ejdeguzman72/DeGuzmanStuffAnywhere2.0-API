@@ -29,6 +29,10 @@ public class DailyAgendaService {
 		return dailyAgendaRepository.findAll();
 	}
 	
+	public List<String> findDailyAgendaItemName() {
+		return dailyAgendaRepository.getAllDailyAgendaItemNames();
+	}
+	
 	public ResponseEntity<DailyAgenda> findDailyAgendabyId(@PathVariable int agendaId) throws ResourceNotFoundException {
 		DailyAgenda agendaItem = dailyAgendaRepository.findById(agendaId)
 				.orElseThrow(() -> new ResourceNotFoundException("Cannot Find Item"));

@@ -34,6 +34,11 @@ public class DailyAgendaController {
 		return dailyAgendaService.findAllDailyAgendaItems();
 	}
 	
+	@GetMapping("all-names")
+	public List<String> getAllDailyAgendaItemNames() {
+		return dailyAgendaService.findDailyAgendaItemName();
+	}
+	
 	@GetMapping("/daily-agenda-item/{agendaId}")
 	public ResponseEntity<DailyAgenda> getDailyAgendaById(@PathVariable int agendaId) throws ResourceNotFoundException {
 		return dailyAgendaService.findDailyAgendabyId(agendaId);
@@ -41,6 +46,7 @@ public class DailyAgendaController {
 	
 	@PostMapping("/add-item")
 	public DailyAgenda addDailyAgendaItem(@Valid @RequestBody DailyAgenda item) {
+		item.setCompleted(false);
 		return dailyAgendaService.saveDailyAgendaItem(item);
 	}
 	

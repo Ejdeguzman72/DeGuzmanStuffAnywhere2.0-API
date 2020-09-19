@@ -733,3 +733,74 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-09-18T03:09:33</date>
+  <millis>1600412973471</millis>
+  <sequence>7</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>40</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-09-18T03:10:42</date>
+  <millis>1600413042606</millis>
+  <sequence>8</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>37</thread>
+  <message>List is Empty</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-09-18T12:52:25</date>
+  <millis>1600447945758</millis>
+  <sequence>7</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>39</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-09-18T12:55:02</date>
+  <millis>1600448102735</millis>
+  <sequence>8</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>43</thread>
+  <message>List is Empty</message>
+</record>
+<record>
+  <date>2020-09-18T12:55:22</date>
+  <millis>1600448122362</millis>
+  <sequence>9</sequence>
+  <logger>javassist.bytecode.stackmap.TypeData$ClassName</logger>
+  <level>SEVERE</level>
+  <class>com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service.PersonService</class>
+  <method>findAllPersonInformation</method>
+  <thread>38</thread>
+  <message>List is Empty</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>

@@ -15,6 +15,7 @@ public class DailyAgenda {
 
 	public int agendaId;
 	public String name;
+	public boolean complete;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,11 @@ public class DailyAgenda {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public boolean isCompleted() {
+		return complete;
+	}
+	public void setCompleted(boolean complete) {
+		this.complete = complete;
+	}
 	
 }
