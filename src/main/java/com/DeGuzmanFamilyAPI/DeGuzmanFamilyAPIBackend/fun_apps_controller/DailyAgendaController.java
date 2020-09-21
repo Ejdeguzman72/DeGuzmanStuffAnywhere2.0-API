@@ -66,4 +66,9 @@ public class DailyAgendaController {
 	public Map<String,Boolean> deleteDailyAgendaItem(@PathVariable int agendaId) {
 		return dailyAgendaService.deleteAgendaItem(agendaId);
 	}
+	
+	@DeleteMapping("daily-agenda/delete-all") 
+	public Map<String,Boolean> deleteAllAgendaItems() {
+		return dailyAgendaService.deleteAll();
+	}
 }

@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.Lookup_Values.DailyAgendaCompletionStatus;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
@@ -82,5 +81,20 @@ public class DailyAgendaService {
 		Map<String,Boolean> response = new HashMap<>();
 		response.put("deleted",Boolean.TRUE);
 		return response;
+	}
+	
+	public Map<String,Boolean> deleteAll() {
+		dailyAgendaRepository.deleteAll();
+		Map<String,Boolean> responseForAllDeletedItems = new HashMap<>();
+		List<DailyAgenda> listOfItems = new  ArrayList<>();
+		
+		if (listOfItems.size() == 0) {
+			responseForAllDeletedItems.put("All items are deleted",Boolean.TRUE);			
+		}
+		else if (listOfItems.size() > 0) {
+			responseForAllDeletedItems.put("List of Items are still present. Please Check.", Boolean.FALSE);
+		}
+		
+		return responseForAllDeletedItems;
 	}
 }
