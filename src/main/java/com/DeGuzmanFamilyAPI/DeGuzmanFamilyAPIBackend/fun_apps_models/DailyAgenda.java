@@ -31,10 +31,10 @@ public class DailyAgenda {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public boolean isCompleted() {
+	public boolean isComplete() {
 		return complete;
 	}
-	public void setCompleted(boolean complete) {
+	public void setComplete(boolean complete) {
 		this.complete = complete;
 	}
 	

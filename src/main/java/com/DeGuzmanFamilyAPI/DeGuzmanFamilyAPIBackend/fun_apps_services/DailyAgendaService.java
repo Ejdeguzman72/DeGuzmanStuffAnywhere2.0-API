@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.Lookup_Values.DailyAgendaCompletionStatus;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.fun_apps_models.DailyAgenda;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.fun_apps_repository.DailyAgendaRepository;
@@ -48,6 +49,7 @@ public class DailyAgendaService {
 				.orElseThrow(() -> new ResourceNotFoundException("Agenda Item not Found"));
 		try {
 			dailyAgenda.setName(itemDetails.getName());
+			dailyAgenda.setComplete(itemDetails.isComplete());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -56,6 +58,22 @@ public class DailyAgendaService {
 		
 		final DailyAgenda updatedAgendaItem = dailyAgendaRepository.save(dailyAgenda);
 		return ResponseEntity.ok().body(updatedAgendaItem);
+	}
+	
+	public ResponseEntity<DailyAgenda> completeAgendaItem(@PathVariable int agendaId, @Valid @RequestBody DailyAgenda itemDetails) throws ResourceNotFoundException {
+		DailyAgenda agendaItem = dailyAgendaRepository.findById(agendaId)
+				.orElseThrow(() -> new ResourceNotFoundException("Agenda Item not found with ID number of: " + agendaId));
+		try {
+			agendaItem.setName(itemDetails.getName());
+			agendaItem.setComplete(DailyAgendaCompletionStatus.DAILY_AGENDA_STATUS_COMPLETED);
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
+		
+		final DailyAgenda updatedCompletedDailyAgenda = dailyAgendaRepository.save(agendaItem);
+		return ResponseEntity.ok().body(updatedCompletedDailyAgenda);
 	}
 	
 	public Map<String,Boolean> deleteAgendaItem(@PathVariable int agendaId) {

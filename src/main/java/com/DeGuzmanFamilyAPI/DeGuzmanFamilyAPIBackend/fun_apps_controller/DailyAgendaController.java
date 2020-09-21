@@ -46,14 +46,20 @@ public class DailyAgendaController {
 	
 	@PostMapping("/add-item")
 	public DailyAgenda addDailyAgendaItem(@Valid @RequestBody DailyAgenda item) {
-		item.setCompleted(false);
+		item.setComplete(false);
 		return dailyAgendaService.saveDailyAgendaItem(item);
 	}
 	
-	@PutMapping("daily-agenda-item/{agendaId}")
+	@PutMapping("/daily-agenda-item/{agendaId}")
 	public ResponseEntity<DailyAgenda> updateItem(@PathVariable int agendaId,
 			@Valid @RequestBody DailyAgenda item) throws ResourceNotFoundException {
 		return dailyAgendaService.updateDailyAgenda(agendaId,item);
+	}
+	
+	@PutMapping("/daily-agenda/complete-item/{agendaId}")
+	public ResponseEntity<DailyAgenda> completeAgendaItemController(@PathVariable int agendaId,
+			@Valid @RequestBody DailyAgenda item) throws ResourceNotFoundException {
+		return dailyAgendaService.completeAgendaItem(agendaId,item);
 	}
 	
 	@DeleteMapping("daily-agenda-item/{agendaId}")
