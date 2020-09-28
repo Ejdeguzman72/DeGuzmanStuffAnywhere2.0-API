@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.Lookup_Values.UserStatusValues;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_config.JwtTokenUtil;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_models.JwtRequest;
@@ -40,6 +41,20 @@ public class JwtAuthenticationController {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 		final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		
+		Users user = jwtUserDetailsService.checkingLoggingInUser(authenticationRequest.getUsername());
+		
+		System.out.println(user.username + " " + "this is the user that is logging in ");
+		
+		if (user.user_status == UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING) {
+			System.out.println("Cannot Log in user. User is pending status");
+			//  if user if pending, set isEnabled to false
+		}
+		
+		else if (user.user_status ==  UserStatusValues.DEGUZMANSTUFFANYWHERE_DENIED) {
+			System.out.println("Canno Log In User.  user is deleted status");
+			// if user is deleted, set isEnabled to false
+		}
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		

@@ -39,6 +39,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return activeUser;
 	}
 	
+	public Users checkingLoggingInUser(String username) {
+		Users userLoggingIn = userRepository.findUserByUsername(username);
+		return userLoggingIn;
+	}
+	
 	
 	public Users save(Users user) {
 		Users newUser = new Users();
