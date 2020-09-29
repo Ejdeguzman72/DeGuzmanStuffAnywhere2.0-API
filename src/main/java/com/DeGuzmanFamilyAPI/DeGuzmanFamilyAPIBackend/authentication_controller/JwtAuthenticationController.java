@@ -46,25 +46,32 @@ public class JwtAuthenticationController {
 		
 		System.out.println(user.username + " " + "this is the user that is logging in ");
 		
-		if (user.user_status == UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING) {
-			System.out.println("Cannot Log in user. User is pending status");
-			//  if user if pending, set isEnabled to false
+		String token = "";
+		
+		if (user.user_status == UserStatusValues.DEGUZMANSTUFFANYWHERE_ACCEPTED) {
+			
+			System.out.println(user.user_status);
+			token = jwtTokenUtil.generateToken(userDetails);
 		}
 		
-		else if (user.user_status ==  UserStatusValues.DEGUZMANSTUFFANYWHERE_DENIED) {
-			System.out.println("Canno Log In User.  user is deleted status");
-			// if user is deleted, set isEnabled to false
-		}
+//		if (user.user_status == UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING) {
+//			System.out.println("Cannot Log in user. User is pending status");
+//			//  if user if pending, set isEnabled to false
+//		}
+//		
+//		else if (user.user_status ==  UserStatusValues.DEGUZMANSTUFFANYWHERE_DENIED) {
+//			System.out.println("Canno Log In User.  user is deleted status");
+//			// if user is deleted, set isEnabled to false
+//		}
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		
+//		String currentLoggedInUser = authentication.getName();
+//		
+//		System.out.println("Current Logged In User: " + currentLoggedInUser);
+//		
 		
-		String currentLoggedInUser = authentication.getName();
-		
-		System.out.println("Current Logged In User: " + currentLoggedInUser);
-		
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		
-		System.out.println(token);
+//		System.out.println(token);
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
