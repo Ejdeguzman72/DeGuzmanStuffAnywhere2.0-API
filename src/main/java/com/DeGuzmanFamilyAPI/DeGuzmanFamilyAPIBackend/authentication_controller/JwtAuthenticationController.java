@@ -21,6 +21,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_config.JwtT
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_models.JwtRequest;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_models.JwtResponse;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_service.JwtUserDetailsService;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.UserStatusDeletedException;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.UserStatusPendingException;
 
 @RestController
 @CrossOrigin
@@ -44,34 +46,28 @@ public class JwtAuthenticationController {
 		
 		Users user = jwtUserDetailsService.checkingLoggingInUser(authenticationRequest.getUsername());
 		
-		System.out.println(user.username + " " + "this is the user that is logging in ");
+		System.out.println(user.username + " " + "is logging in!");
 		
 		String token = "";
 		
 		if (user.user_status == UserStatusValues.DEGUZMANSTUFFANYWHERE_ACCEPTED) {
 			
-			System.out.println(user.user_status);
 			token = jwtTokenUtil.generateToken(userDetails);
+	
+		} else if (user.user_status == UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING) {
+		
+			token = "";
+			if (token == "")  {
+				throw new UserStatusPendingException("The user status is pending");
+			}
+			
+		} else {
+			token = "";
+			
+			if (token == " ") {
+				throw new UserStatusDeletedException("The user status is deleted");
+			}
 		}
-		
-//		if (user.user_status == UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING) {
-//			System.out.println("Cannot Log in user. User is pending status");
-//			//  if user if pending, set isEnabled to false
-//		}
-//		
-//		else if (user.user_status ==  UserStatusValues.DEGUZMANSTUFFANYWHERE_DENIED) {
-//			System.out.println("Canno Log In User.  user is deleted status");
-//			// if user is deleted, set isEnabled to false
-//		}
-		
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		
-//		String currentLoggedInUser = authentication.getName();
-//		
-//		System.out.println("Current Logged In User: " + currentLoggedInUser);
-//		
-		
-//		System.out.println(token);
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
