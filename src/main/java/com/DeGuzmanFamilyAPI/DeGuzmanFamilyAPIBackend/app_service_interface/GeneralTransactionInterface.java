@@ -1,4 +1,4 @@
-package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.service_interface;
+package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface;
 
 import java.util.List;
 import java.util.Map;
