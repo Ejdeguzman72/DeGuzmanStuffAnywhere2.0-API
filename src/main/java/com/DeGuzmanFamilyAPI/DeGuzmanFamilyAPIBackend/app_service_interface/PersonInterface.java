@@ -1,4 +1,4 @@
-package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.interfaces;
+package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface;
 
 public interface PersonInterface {
 
