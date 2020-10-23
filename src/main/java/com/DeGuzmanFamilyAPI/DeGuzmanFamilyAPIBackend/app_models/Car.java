@@ -105,4 +105,11 @@ public class Car {
 		this.capactity = capactity;
 		this.transmission = transmission;
 	}
+	
+	public Car() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 }

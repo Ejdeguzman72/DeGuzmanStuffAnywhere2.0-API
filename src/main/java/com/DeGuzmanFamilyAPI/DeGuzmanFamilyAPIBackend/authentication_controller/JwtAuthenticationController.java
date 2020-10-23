@@ -1,5 +1,7 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +25,7 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_models.JwtR
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.authentication_service.JwtUserDetailsService;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.UserStatusDeletedException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.UserStatusPendingException;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.AuthenticationLogger;
 
 @RestController
 @CrossOrigin
@@ -36,6 +39,9 @@ public class JwtAuthenticationController {
 	
 	@Autowired
 	private JwtUserDetailsService jwtUserDetailsService;
+	
+	Date date = new Date();
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -86,6 +92,8 @@ public class JwtAuthenticationController {
 			System.out.println(authenticatingUser.getPassword() + "this is the user");
 			
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			
+			AuthenticationLogger.authenticationLogger.info("User: " + authenticatingUser.getUsername() + " " + "has logged in at " + date);
 		} catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
