@@ -16,6 +16,7 @@ public class Restaurant {
 	public String city;
 	public String state;
 	public String zip;
+	public int restaurantType;
 	
 	public int getRestaurantid() {
 		return restaurantid;
@@ -53,7 +54,12 @@ public class Restaurant {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
+	public int getRestaurantType() {
+		return restaurantType;
+	}
+	public void setRestaurantType(int restaurantType) {
+		this.restaurantType = restaurantType;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,12 +67,12 @@ public class Restaurant {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + restaurantType;
 		result = prime * result + restaurantid;
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -91,6 +97,8 @@ public class Restaurant {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (restaurantType != other.restaurantType)
+			return false;
 		if (restaurantid != other.restaurantid)
 			return false;
 		if (state == null) {
@@ -105,14 +113,13 @@ public class Restaurant {
 			return false;
 		return true;
 	}
-	
 	@Override
 	public String toString() {
 		return "Restaurant [restaurantid=" + restaurantid + ", name=" + name + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + "]";
+				+ ", state=" + state + ", zip=" + zip + ", restaurantType=" + restaurantType + "]";
 	}
-	
-	public Restaurant(int restaurantid, String name, String address, String city, String state, String zip) {
+	public Restaurant(int restaurantid, String name, String address, String city, String state, String zip,
+			int restaurantType) {
 		super();
 		this.restaurantid = restaurantid;
 		this.name = name;
@@ -120,11 +127,12 @@ public class Restaurant {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
+		this.restaurantType = restaurantType;
 	}
-	
 	public Restaurant() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 }

@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,29 +35,43 @@ public class RestaurantService implements RestaurantInterface {
 		return ResponseEntity.ok().body(restaurant);
 	}
 
-	@Override
 	public Restaurant addRestaurantInformation(@Valid Restaurant restaurant) {
-		// TODO Auto-generated method stub
-		return null;
+		return restaurantRepository.save(restaurant);
 	}
 
 	@Override
 	public ResponseEntity<Restaurant> updateRestaurantInformation(int restaurantid,
-			@Valid Restaurant restaurantDetails) {
-		// TODO Auto-generated method stub
-		return null;
+			@Valid Restaurant restaurantDetails) throws ResourceNotFoundException {
+		Restaurant restaurant = restaurantRepository.findById(restaurantid)
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find restaurant with id + " + restaurantid));
+		try {
+			restaurant.setAddress(restaurantDetails.getAddress());
+			restaurant.setCity(restaurantDetails.getCity());
+			restaurant.setName(restaurantDetails.getName());
+			restaurant.setState(restaurantDetails.getState());
+			restaurant.setZip(restaurantDetails.getZip());
+			restaurant.setRestaurantType(restaurantDetails.getRestaurantType());
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		final Restaurant updatedRestaurantDetails = restaurantRepository.save(restaurant);
+		return ResponseEntity.ok().body(updatedRestaurantDetails);
 	}
 
 	@Override
-	public Map<Boolean, String> deleteRestaurantInformation(int restaurantid) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<Boolean, String> deleteRestaurantInformation(@PathVariable int restaurantid) {
+		restaurantRepository.deleteById(restaurantid);
+		Map<Boolean,String> response = new HashMap<>();
+		response.put(Boolean.TRUE, "deleted");
+		return response;
 	}
 
 	@Override
-	public int getRestaurantCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public long getRestaurantCount() {
+		return restaurantRepository.count();
 	}
 
 

@@ -21,9 +21,9 @@ public interface RestaurantInterface {
 	public Restaurant addRestaurantInformation(@Valid @RequestBody Restaurant restaurant);
 	
 	public ResponseEntity<Restaurant> updateRestaurantInformation(@PathVariable int restaurantid,
-			@Valid @RequestBody Restaurant restaurantDetails);
+			@Valid @RequestBody Restaurant restaurantDetails) throws ResourceNotFoundException;
 	
 	public Map<Boolean,String> deleteRestaurantInformation(@PathVariable int restaurantid);
 	
-	public int getRestaurantCount();
+	public long getRestaurantCount();
 }
