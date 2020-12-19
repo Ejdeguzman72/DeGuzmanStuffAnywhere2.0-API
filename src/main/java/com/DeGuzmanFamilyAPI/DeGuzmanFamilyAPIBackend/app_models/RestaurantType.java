@@ -1,31 +1,28 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
-@Table(name = "transaction_type")
+@Table(name = "RESTAURANT_TYPE")
 @CrossOrigin
-@EntityListeners(AuditingEntityListener.class)
-public class TransactionType {
-	
-	public long transaction_type_id;
+public class RestaurantType {
+
+	public int restaurant_type_id;
 	public String descr;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long getTransactionTypeId() {
-		return transaction_type_id;
+	public int getRestaurantTypeId() {
+		return restaurant_type_id;
 	}
-	public void setTransactionTypeId(long transaction_type_id) {
-		this.transaction_type_id = transaction_type_id;
+	public void setRestaurantTypeId(int restaurantTypeId) {
+		this.restaurant_type_id = restaurantTypeId;
 	}
 	public String getDescr() {
 		return descr;
@@ -33,4 +30,5 @@ public class TransactionType {
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
+	
 }

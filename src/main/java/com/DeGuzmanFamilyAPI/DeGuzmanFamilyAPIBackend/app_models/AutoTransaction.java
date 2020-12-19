@@ -13,20 +13,23 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class AutoTransaction {
 	
-	public Long autoTransactionId;
+	public Long autoTransaction_id;
 	public String autoTransactionDate;
 	public String shopName;
 	public double amount;
-	public String person;
+//	public String person;
+	public int transaction_type_id;
+	public int person_id;
+	public int car_id;
 	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long getAutoTransactionId() {
-		return autoTransactionId;
+	public Long getAutoTransaction_id() {
+		return autoTransaction_id;
 	}
-	public void setAutoTransactionId(Long autoTransactionId) {
-		this.autoTransactionId = autoTransactionId;
+	public void setAutoTransaction_id(Long autoTransaction_id) {
+		this.autoTransaction_id = autoTransaction_id;
 	}
 	public String getAutoTransactionDate() {
 		return autoTransactionDate;
@@ -46,11 +49,23 @@ public class AutoTransaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public String getPerson() {
-		return person;
+	public int getTransaction_type_id() {
+		return transaction_type_id;
 	}
-	public void setPerson(String person) {
-		this.person = person;
+	public void setTransaction_type_id(int transaction_type_id) {
+		this.transaction_type_id = transaction_type_id;
+	}
+	public int getPerson_id() {
+		return person_id;
+	}
+	public void setPerson_id(int person_id) {
+		this.person_id = person_id;
+	}
+	public int getCar_id() {
+		return car_id;
+	}
+	public void setCar_id(int car_id) {
+		this.car_id = car_id;
 	}
 	@Override
 	public int hashCode() {
@@ -60,9 +75,11 @@ public class AutoTransaction {
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((autoTransactionDate == null) ? 0 : autoTransactionDate.hashCode());
-		result = prime * result + ((autoTransactionId == null) ? 0 : autoTransactionId.hashCode());
-		result = prime * result + ((person == null) ? 0 : person.hashCode());
+		result = prime * result + ((autoTransaction_id == null) ? 0 : autoTransaction_id.hashCode());
+		result = prime * result + car_id;
+		result = prime * result + person_id;
 		result = prime * result + ((shopName == null) ? 0 : shopName.hashCode());
+		result = prime * result + transaction_type_id;
 		return result;
 	}
 	@Override
@@ -81,39 +98,45 @@ public class AutoTransaction {
 				return false;
 		} else if (!autoTransactionDate.equals(other.autoTransactionDate))
 			return false;
-		if (autoTransactionId == null) {
-			if (other.autoTransactionId != null)
+		if (autoTransaction_id == null) {
+			if (other.autoTransaction_id != null)
 				return false;
-		} else if (!autoTransactionId.equals(other.autoTransactionId))
+		} else if (!autoTransaction_id.equals(other.autoTransaction_id))
 			return false;
-		if (person == null) {
-			if (other.person != null)
-				return false;
-		} else if (!person.equals(other.person))
+		if (car_id != other.car_id)
+			return false;
+		if (person_id != other.person_id)
 			return false;
 		if (shopName == null) {
 			if (other.shopName != null)
 				return false;
 		} else if (!shopName.equals(other.shopName))
 			return false;
+		if (transaction_type_id != other.transaction_type_id)
+			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "AutoTransaction [autoTransactionId=" + autoTransactionId + ", autoTransactionDate="
-				+ autoTransactionDate + ", shopName=" + shopName + ", amount=" + amount + ", person=" + person + "]";
+		return "AutoTransaction [autoTransaction_id=" + autoTransaction_id + ", autoTransactionDate="
+				+ autoTransactionDate + ", shopName=" + shopName + ", amount=" + amount + ", transaction_type_id="
+				+ transaction_type_id + ", person_id=" + person_id + ", car_id=" + car_id + "]";
 	}
-	public AutoTransaction(Long autoTransactionId, String autoTransactionDate, String shopName, double amount,
-			String person) {
+	public AutoTransaction(Long autoTransaction_id, String autoTransactionDate, String shopName, double amount,
+			int transaction_type_id, int person_id, int car_id) {
 		super();
-		this.autoTransactionId = autoTransactionId;
+		this.autoTransaction_id = autoTransaction_id;
 		this.autoTransactionDate = autoTransactionDate;
 		this.shopName = shopName;
 		this.amount = amount;
-		this.person = person;
+		this.transaction_type_id = transaction_type_id;
+		this.person_id = person_id;
+		this.car_id = car_id;
 	}
 	public AutoTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 }

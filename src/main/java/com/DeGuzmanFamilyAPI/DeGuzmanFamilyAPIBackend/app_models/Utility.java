@@ -18,6 +18,7 @@ public class Utility {
 	public String phone;
 	public String url;
 	public String dueDate;
+	public int utility_type_id;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +52,12 @@ public class Utility {
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
+	public int getUtility_type_id() {
+		return utility_type_id;
+	}
+	public void setUtility_type_id(int utility_type_id) {
+		this.utility_type_id = utility_type_id;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -59,6 +66,7 @@ public class Utility {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
+		result = prime * result + utility_type_id;
 		result = prime * result + ((utilityid == null) ? 0 : utilityid.hashCode());
 		return result;
 	}
@@ -91,6 +99,8 @@ public class Utility {
 				return false;
 		} else if (!url.equals(other.url))
 			return false;
+		if (utility_type_id != other.utility_type_id)
+			return false;
 		if (utilityid == null) {
 			if (other.utilityid != null)
 				return false;
@@ -101,19 +111,19 @@ public class Utility {
 	@Override
 	public String toString() {
 		return "Utility [utilityid=" + utilityid + ", name=" + name + ", phone=" + phone + ", url=" + url + ", dueDate="
-				+ dueDate + "]";
+				+ dueDate + ", utility_type_id=" + utility_type_id + "]";
 	}
-	public Utility(Long utilityid, String name, String phone, String url, String dueDate) {
+	public Utility(Long utilityid, String name, String phone, String url, String dueDate, int utility_type_id) {
 		super();
 		this.utilityid = utilityid;
 		this.name = name;
 		this.phone = phone;
 		this.url = url;
 		this.dueDate = dueDate;
+		this.utility_type_id = utility_type_id;
 	}
 	public Utility() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 }

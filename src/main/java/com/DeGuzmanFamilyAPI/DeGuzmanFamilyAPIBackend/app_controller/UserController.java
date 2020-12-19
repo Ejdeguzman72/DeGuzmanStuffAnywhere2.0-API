@@ -30,6 +30,12 @@ public class UserController {
 	private UserService userService;
 	
 	@CrossOrigin
+	@GetMapping("/all-users-information")
+	public List<Object> getAllDeGuzmanUserInformation() {
+		return userService.getAllUsersInformation();
+	}
+	
+	@CrossOrigin
 	@GetMapping("/all")
 	public List<Users> getAllUserInformation() {
 		return userService.findAllUsers();

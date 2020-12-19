@@ -1,6 +1,9 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,8 +19,10 @@ public class Restaurant {
 	public String city;
 	public String state;
 	public String zip;
-	public int restaurantType;
+	public int restaurant_type_id;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getRestaurantid() {
 		return restaurantid;
 	}
@@ -55,10 +60,10 @@ public class Restaurant {
 		this.zip = zip;
 	}
 	public int getRestaurantType() {
-		return restaurantType;
+		return restaurant_type_id;
 	}
 	public void setRestaurantType(int restaurantType) {
-		this.restaurantType = restaurantType;
+		this.restaurant_type_id = restaurantType;
 	}
 	@Override
 	public int hashCode() {
@@ -67,7 +72,7 @@ public class Restaurant {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + restaurantType;
+		result = prime * result + restaurant_type_id;
 		result = prime * result + restaurantid;
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
@@ -97,7 +102,7 @@ public class Restaurant {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (restaurantType != other.restaurantType)
+		if (restaurant_type_id != other.restaurant_type_id)
 			return false;
 		if (restaurantid != other.restaurantid)
 			return false;
@@ -116,7 +121,7 @@ public class Restaurant {
 	@Override
 	public String toString() {
 		return "Restaurant [restaurantid=" + restaurantid + ", name=" + name + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + ", restaurantType=" + restaurantType + "]";
+				+ ", state=" + state + ", zip=" + zip + ", restaurantType=" + restaurant_type_id + "]";
 	}
 	public Restaurant(int restaurantid, String name, String address, String city, String state, String zip,
 			int restaurantType) {
@@ -127,7 +132,7 @@ public class Restaurant {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.restaurantType = restaurantType;
+		this.restaurant_type_id = restaurantType;
 	}
 	public Restaurant() {
 		super();

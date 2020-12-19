@@ -15,6 +15,7 @@ public class Recipe {
 
 	public int recipeId;
 	public String name;
+	public int recipe_type;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +30,11 @@ public class Recipe {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public int getRecipe_type() {
+		return recipe_type;
+	}
+	public void setRecipe_type(int recipe_type) {
+		this.recipe_type = recipe_type;
 	}
 }

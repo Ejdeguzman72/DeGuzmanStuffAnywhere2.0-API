@@ -74,8 +74,10 @@ public class AutoTransactionService implements AutoTransactionInterface {
 			}
 			autoTransaction.setAmount(autoTransactionDetails.getAmount());
 			autoTransaction.setShopName(autoTransactionDetails.getShopName());
-			autoTransaction.setPerson(autoTransactionDetails.getPerson());
+			autoTransaction.setPerson_id(autoTransactionDetails.getPerson_id());
 			autoTransaction.setAutoTransactionDate(autoTransactionDetails.getAutoTransactionDate());
+			autoTransaction.setCar_id(autoTransactionDetails.getCar_id());
+			autoTransaction.setTransaction_type_id(autoTransactionDetails.getTransaction_type_id());
 		}
 		catch (ResourceNotFoundException e) {
 			e.printStackTrace();

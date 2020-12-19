@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -17,13 +18,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class Users {
 	
 
-	public long userid;
+	public long user_id;
 	public String username;
 	public String password;
 	public String name;
 	public String email;
-	public int user_status;
-	public int roleid;
+	public int user_status_id;
+	public int role_id;
 	
 //	@OneToOne(fetch = FetchType.LAZY,
 //			cascade = CascadeType.ALL,
@@ -32,52 +33,55 @@ public class Users {
 //	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	public long getUserid() {
-		return userid;
+		return user_id;
 	}
 	public void setUserid(long userid) {
-		this.userid = userid;
+		this.user_id = userid;
 	}
+	@Column(name = "username")
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	@Column(name = "password")
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	@Column(name = "role_id")
 	public int getRoleid() {
-		return roleid;
+		return role_id;
 	}
-	public void setRoleid(int roleid) {
-		this.roleid = roleid;
+	public void setRoleid(int role_id) {
+		this.role_id = role_id;
 	}
-	
+	@Column(name = "name")
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Column(name = "user_status_id")
 	public int getUser_status() {
-		return user_status;
+		return user_status_id;
 	}
-	public void setUser_status(int user_status) {
-		this.user_status = user_status;
+	public void setUser_status(int user_status_id) {
+		this.user_status_id = user_status_id;
 	}
-	
-	
 //	public UserPerson getUserPerson() {
 //		return userPerson;
 //	}
 //	public void setUserPerson(UserPerson userPerson) {
 //		this.userPerson = userPerson;
 //	}
-	
+	@Column(name = "email")
 	public String getEmail() {
 		return email;
 	}
@@ -92,9 +96,9 @@ public class Users {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + roleid;
-		result = prime * result + user_status;
-		result = prime * result + (int) (userid ^ (userid >>> 32));
+		result = prime * result + role_id;
+		result = prime * result + user_status_id;
+		result = prime * result + (int) (user_id ^ (user_id >>> 32));
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -123,11 +127,11 @@ public class Users {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (roleid != other.roleid)
+		if (role_id != other.role_id)
 			return false;
-		if (user_status != other.user_status)
+		if (user_status_id != other.user_status_id)
 			return false;
-		if (userid != other.userid)
+		if (user_id != other.user_id)
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -139,20 +143,20 @@ public class Users {
 	
 	@Override
 	public String toString() {
-		return "Users [userid=" + userid + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", email=" + email + ", user_status=" + user_status + ", roleid=" + roleid + "]";
+		return "Users [userid=" + user_id + ", username=" + username + ", password=" + password + ", name=" + name
+				+ ", email=" + email + ", user_status=" + user_status_id + ", role_id=" + role_id + "]";
 	}
 	
-	public Users(long userid, String username, String password, String name, String email, int user_status,
-			int roleid) {
+	public Users(long userid, String username, String password, String name, String email, int user_status_id,
+			int role_id) {
 		super();
-		this.userid = userid;
+		this.user_id = userid;
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.email = email;
-		this.user_status = user_status;
-		this.roleid = roleid;
+		this.user_status_id = user_status_id;
+		this.role_id = role_id;
 	}
 	
 	public Users() {

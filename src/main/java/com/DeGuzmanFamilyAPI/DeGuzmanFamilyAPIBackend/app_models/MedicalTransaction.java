@@ -19,7 +19,8 @@ public class MedicalTransaction {
 	public String facillity;
 	public String medicalTransactionDate;
 	public double amount;
-	public String person;
+	public int transaction_type_id;
+	public int person_id;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,11 +48,17 @@ public class MedicalTransaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public String getPerson() {
-		return person;
+	public int getTransaction_type_id() {
+		return transaction_type_id;
 	}
-	public void setPerson(String person) {
-		this.person = person;
+	public void setTransaction_type_id(int transaction_type_id) {
+		this.transaction_type_id = transaction_type_id;
+	}
+	public int getPerson_id() {
+		return person_id;
+	}
+	public void setPerson_id(int person_id) {
+		this.person_id = person_id;
 	}
 	@Override
 	public int hashCode() {
@@ -63,7 +70,8 @@ public class MedicalTransaction {
 		result = prime * result + ((facillity == null) ? 0 : facillity.hashCode());
 		result = prime * result + ((medicalTransactionDate == null) ? 0 : medicalTransactionDate.hashCode());
 		result = prime * result + ((medicalTransactionId == null) ? 0 : medicalTransactionId.hashCode());
-		result = prime * result + ((person == null) ? 0 : person.hashCode());
+		result = prime * result + person_id;
+		result = prime * result + transaction_type_id;
 		return result;
 	}
 	@Override
@@ -92,32 +100,31 @@ public class MedicalTransaction {
 				return false;
 		} else if (!medicalTransactionId.equals(other.medicalTransactionId))
 			return false;
-		if (person == null) {
-			if (other.person != null)
-				return false;
-		} else if (!person.equals(other.person))
+		if (person_id != other.person_id)
+			return false;
+		if (transaction_type_id != other.transaction_type_id)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
 		return "MedicalTransaction [medicalTransactionId=" + medicalTransactionId + ", facillity=" + facillity
-				+ ", medicalTransactionDate=" + medicalTransactionDate + ", amount=" + amount + ", person=" + person
-				+ "]";
+				+ ", medicalTransactionDate=" + medicalTransactionDate + ", amount=" + amount + ", transaction_type_id="
+				+ transaction_type_id + ", person_id=" + person_id + "]";
 	}
 	public MedicalTransaction(Long medicalTransactionId, String facillity, String medicalTransactionDate, double amount,
-			String person) {
+			int transaction_type_id, int person_id) {
 		super();
 		this.medicalTransactionId = medicalTransactionId;
 		this.facillity = facillity;
 		this.medicalTransactionDate = medicalTransactionDate;
 		this.amount = amount;
-		this.person = person;
+		this.transaction_type_id = transaction_type_id;
+		this.person_id = person_id;
 	}
 	public MedicalTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 }

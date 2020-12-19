@@ -85,4 +85,8 @@ public class UserService {
 		
 		return responseMap;
 	}
+	
+	public List<Object> getAllUsersInformation() {
+		return userRepository.findAllUsersInformation();
+	}
 }

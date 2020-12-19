@@ -21,6 +21,7 @@ public class RunTracker {
 	public Date runDate;
 	public double runDistance;
 	public String runTime;
+	public long person_id;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,13 +61,19 @@ public class RunTracker {
 	public void setRunTime(String runTime) {
 		this.runTime = runTime;
 	}
-	
+	public long getPerson_id() {
+		return person_id;
+	}
+	public void setPerson_id(long person_id) {
+		this.person_id = person_id;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + (int) (person_id ^ (person_id >>> 32));
 		result = prime * result + ((runDate == null) ? 0 : runDate.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(runDistance);
@@ -94,6 +101,8 @@ public class RunTracker {
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
+		if (person_id != other.person_id)
+			return false;
 		if (runDate == null) {
 			if (other.runDate != null)
 				return false;
@@ -110,13 +119,22 @@ public class RunTracker {
 			return false;
 		return true;
 	}
-	
 	@Override
 	public String toString() {
 		return "RunTracker [runid=" + runid + ", firstname=" + firstname + ", lastname=" + lastname + ", runDate="
-				+ runDate + ", runDistance=" + runDistance + ", runTime=" + runTime + "]";
+				+ runDate + ", runDistance=" + runDistance + ", runTime=" + runTime + ", person_id=" + person_id + "]";
 	}
-	
+	public RunTracker(long runid, String firstname, String lastname, Date runDate, double runDistance, String runTime,
+			long person_id) {
+		super();
+		this.runid = runid;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.runDate = runDate;
+		this.runDistance = runDistance;
+		this.runTime = runTime;
+		this.person_id = person_id;
+	}
 	public RunTracker() {
 		super();
 		// TODO Auto-generated constructor stub

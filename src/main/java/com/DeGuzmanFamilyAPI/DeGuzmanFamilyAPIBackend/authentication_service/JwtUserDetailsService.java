@@ -58,8 +58,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 		newUser.setUser_status(UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING);
 		if (newUser.username == null
 				|| newUser.password == null
-				|| newUser.roleid == 0
-				|| newUser.user_status == 0) {
+				|| newUser.role_id == 0
+				|| newUser.user_status_id == 0) {
 			AuthenticationLogger.authenticationLogger.warning("User is null/incorrect entries");
 		} else {
 			AuthenticationLogger.authenticationLogger.info("User has been saved: " + newUser.username);
