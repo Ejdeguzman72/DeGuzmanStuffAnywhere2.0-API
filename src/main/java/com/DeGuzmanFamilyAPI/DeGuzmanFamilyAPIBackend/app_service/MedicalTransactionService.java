@@ -56,7 +56,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 			MedicalTrxLogger.medicalTrxLogger.severe(LoggerMessage.ADD_MEDICAL_TRX_ERROR_MESSAGE);
 		}
 		else {
-			MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.ADD_MEDICAL_TRX_INFORMATION_INFO_MESSAGE + ": " + medicalTransaction.amount + " " + medicalTransaction.medicalTransactionDate);
+			MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.ADD_MEDICAL_TRX_INFORMATION_INFO_MESSAGE + ": " + medicalTransaction.amount + " " + medicalTransaction.medical_transaction_date);
 		}
 		return medicalTransactionRepository.save(medicalTransaction);
 	}
@@ -84,7 +84,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 			e.printStackTrace();
 		}
 		final MedicalTransaction updatedMedicalTransaction = medicalTransactionRepository.save(medicalTransaction);
-		MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.UPDATE_AUTO_TRX_INFO_MESSAGE + updatedMedicalTransaction.amount + updatedMedicalTransaction.medicalTransactionDate);
+		MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.UPDATE_AUTO_TRX_INFO_MESSAGE + updatedMedicalTransaction.amount + updatedMedicalTransaction.medical_transaction_date);
 		return ResponseEntity.ok().body(updatedMedicalTransaction);
 	}
 	

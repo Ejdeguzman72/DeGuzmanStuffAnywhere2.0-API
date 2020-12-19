@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -16,57 +17,56 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @EntityListeners(AuditingEntityListener.class)
 public class GeneralTransaction {
 
-	private long transactionId;
+	private long transaction_id;
 	private double amount;
 	private String paymentDate;
 	private String entity;
-	private String person;
 	private int transaction_type_id;
 	private int person_id;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long getTransactionId() {
-		return transactionId;
+	@Column(name = "transaction_id")
+	public long getTransaction_id() {
+		return transaction_id;
 	}
-	public void setTransactionId(long transactionId) {
-		this.transactionId = transactionId;
+	public void setTransaction_id(long transaction_id) {
+		this.transaction_id = transaction_id;
 	}
+	@Column(name = "amount")
 	public double getAmount() {
 		return amount;
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+	@Column(name = "payment_date")
 	public String getPaymentDate() {
 		return paymentDate;
 	}
 	public void setPaymentDate(String paymentDate) {
 		this.paymentDate = paymentDate;
 	}
+	@Column(name = "entity")
 	public String getEntity() {
 		return entity;
 	}
 	public void setEntity(String entity) {
 		this.entity = entity;
 	}
-	public String getPerson() {
-		return person;
-	}
-	public void setPerson(String person) {
-		this.person = person;
-	}
-	public int getPerson_id() {
-		return person_id;
-	}
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
-	}
+	@Column(name = "transaction_type_id")
 	public int getTransaction_type_id() {
 		return transaction_type_id;
 	}
 	public void setTransaction_type_id(int transaction_type_id) {
 		this.transaction_type_id = transaction_type_id;
+	}
+	@Column(name = "person_id")
+	public int getPerson_id() {
+		return person_id;
+	}
+	public void setPerson_id(int person_id) {
+		this.person_id = person_id;
 	}
 	@Override
 	public int hashCode() {
@@ -77,9 +77,8 @@ public class GeneralTransaction {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((entity == null) ? 0 : entity.hashCode());
 		result = prime * result + ((paymentDate == null) ? 0 : paymentDate.hashCode());
-		result = prime * result + ((person == null) ? 0 : person.hashCode());
 		result = prime * result + person_id;
-		result = prime * result + (int) (transactionId ^ (transactionId >>> 32));
+		result = prime * result + (int) (transaction_id ^ (transaction_id >>> 32));
 		result = prime * result + transaction_type_id;
 		return result;
 	}
@@ -104,14 +103,9 @@ public class GeneralTransaction {
 				return false;
 		} else if (!paymentDate.equals(other.paymentDate))
 			return false;
-		if (person == null) {
-			if (other.person != null)
-				return false;
-		} else if (!person.equals(other.person))
-			return false;
 		if (person_id != other.person_id)
 			return false;
-		if (transactionId != other.transactionId)
+		if (transaction_id != other.transaction_id)
 			return false;
 		if (transaction_type_id != other.transaction_type_id)
 			return false;
@@ -119,25 +113,23 @@ public class GeneralTransaction {
 	}
 	@Override
 	public String toString() {
-		return "GeneralTransaction [transactionId=" + transactionId + ", amount=" + amount + ", paymentDate="
-				+ paymentDate + ", entity=" + entity + ", person=" + person + ", person_id=" + person_id
-				+ ", transaction_type_id=" + transaction_type_id + "]";
+		return "GeneralTransaction [transaction_id=" + transaction_id + ", amount=" + amount + ", paymentDate="
+				+ paymentDate + ", entity=" + entity + ", transaction_type_id=" + transaction_type_id + ", person_id="
+				+ person_id + "]";
 	}
-	public GeneralTransaction(long transactionId, double amount, String paymentDate, String entity, String person,
-			int person_id, int transaction_type_id) {
+	public GeneralTransaction(long transaction_id, double amount, String paymentDate, String entity,
+			int transaction_type_id, int person_id) {
 		super();
-		this.transactionId = transactionId;
+		this.transaction_id = transaction_id;
 		this.amount = amount;
 		this.paymentDate = paymentDate;
 		this.entity = entity;
-		this.person = person;
-		this.person_id = person_id;
 		this.transaction_type_id = transaction_type_id;
+		this.person_id = person_id;
 	}
 	public GeneralTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 }

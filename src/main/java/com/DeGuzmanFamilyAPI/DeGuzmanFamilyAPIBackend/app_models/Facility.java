@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class Facility {
 
-	public Long facilityid;
+	public Long facility_id;
 	public String name;
 	public String address;
 	public String city;
@@ -22,36 +23,42 @@ public class Facility {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "facility_id")
 	public Long getFacilityid() {
-		return facilityid;
+		return facility_id;
 	}
-	public void setFacilityid(Long facilityid) {
-		this.facilityid = facilityid;
+	public void setFacilityid(Long facility_id) {
+		this.facility_id = facility_id;
 	}
+	@Column(name = "name")
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Column(name = "address")
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	@Column(name = "city")
 	public String getCity() {
 		return city;
 	}
 	public void setCity(String city) {
 		this.city = city;
 	}
+	@Column(name = "state")
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
 	}
+	@Column(name = "zip")
 	public String getZip() {
 		return zip;
 	}
@@ -64,7 +71,7 @@ public class Facility {
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((facilityid == null) ? 0 : facilityid.hashCode());
+		result = prime * result + ((facility_id == null) ? 0 : facility_id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
@@ -89,10 +96,10 @@ public class Facility {
 				return false;
 		} else if (!city.equals(other.city))
 			return false;
-		if (facilityid == null) {
-			if (other.facilityid != null)
+		if (facility_id == null) {
+			if (other.facility_id != null)
 				return false;
-		} else if (!facilityid.equals(other.facilityid))
+		} else if (!facility_id.equals(other.facility_id))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -113,12 +120,12 @@ public class Facility {
 	}
 	@Override
 	public String toString() {
-		return "Facility [facilityid=" + facilityid + ", name=" + name + ", address=" + address + ", city=" + city
+		return "Facility [facility_id=" + facility_id + ", name=" + name + ", address=" + address + ", city=" + city
 				+ ", state=" + state + ", zip=" + zip + "]";
 	}
-	public Facility(Long facilityid, String name, String address, String city, String state, String zip) {
+	public Facility(Long facility_id, String name, String address, String city, String state, String zip) {
 		super();
-		this.facilityid = facilityid;
+		this.facility_id = facility_id;
 		this.name = name;
 		this.address = address;
 		this.city = city;
