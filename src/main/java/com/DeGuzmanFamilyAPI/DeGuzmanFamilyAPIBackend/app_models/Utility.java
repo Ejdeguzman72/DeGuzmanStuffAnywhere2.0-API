@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class Utility {
 
-	public Long utilityid;
+	public Long utility_id;
 	public String name;
 	public String phone;
 	public String url;
@@ -22,36 +23,43 @@ public class Utility {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long getUtilityid() {
-		return utilityid;
+	@Column(name = "utility_id")
+	public Long getUtility_id() {
+		return utility_id;
 	}
-	public void setUtilityid(Long utilityid) {
-		this.utilityid = utilityid;
+	public void setUtility_id(Long utility_id) {
+		this.utility_id = utility_id;
 	}
+	@Column(name = "name")
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Column(name = "phone")
 	public String getPhone() {
 		return phone;
 	}
+	@Column(name = "phone")
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	@Column(name = "url")
 	public String getUrl() {
 		return url;
 	}
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	@Column(name = "due_date")
 	public String getDueDate() {
 		return dueDate;
 	}
 	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
+	@Column(name = "utility_type_id")
 	public int getUtility_type_id() {
 		return utility_type_id;
 	}
@@ -66,8 +74,8 @@ public class Utility {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
+		result = prime * result + ((utility_id == null) ? 0 : utility_id.hashCode());
 		result = prime * result + utility_type_id;
-		result = prime * result + ((utilityid == null) ? 0 : utilityid.hashCode());
 		return result;
 	}
 	@Override
@@ -99,23 +107,23 @@ public class Utility {
 				return false;
 		} else if (!url.equals(other.url))
 			return false;
-		if (utility_type_id != other.utility_type_id)
-			return false;
-		if (utilityid == null) {
-			if (other.utilityid != null)
+		if (utility_id == null) {
+			if (other.utility_id != null)
 				return false;
-		} else if (!utilityid.equals(other.utilityid))
+		} else if (!utility_id.equals(other.utility_id))
+			return false;
+		if (utility_type_id != other.utility_type_id)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Utility [utilityid=" + utilityid + ", name=" + name + ", phone=" + phone + ", url=" + url + ", dueDate="
-				+ dueDate + ", utility_type_id=" + utility_type_id + "]";
+		return "Utility [utility_id=" + utility_id + ", name=" + name + ", phone=" + phone + ", url=" + url
+				+ ", dueDate=" + dueDate + ", utility_type_id=" + utility_type_id + "]";
 	}
-	public Utility(Long utilityid, String name, String phone, String url, String dueDate, int utility_type_id) {
+	public Utility(Long utility_id, String name, String phone, String url, String dueDate, int utility_type_id) {
 		super();
-		this.utilityid = utilityid;
+		this.utility_id = utility_id;
 		this.name = name;
 		this.phone = phone;
 		this.url = url;

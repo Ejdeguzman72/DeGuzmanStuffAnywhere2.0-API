@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,42 +26,49 @@ public class AutoTransaction {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "auto_transaction_id")
 	public Long getAutoTransaction_id() {
 		return autoTransaction_id;
 	}
 	public void setAutoTransaction_id(Long autoTransaction_id) {
 		this.autoTransaction_id = autoTransaction_id;
 	}
+	@Column(name = "auto_transaction_date")
 	public String getAutoTransactionDate() {
 		return autoTransactionDate;
 	}
 	public void setAutoTransactionDate(String autoTransactionDate) {
 		this.autoTransactionDate = autoTransactionDate;
 	}
+	@Column(name = "shopname")
 	public String getShopName() {
 		return shopName;
 	}
 	public void setShopName(String shopName) {
 		this.shopName = shopName;
 	}
+	@Column(name = "amount")
 	public double getAmount() {
 		return amount;
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+	@Column(name = "transaction_type_id")
 	public int getTransaction_type_id() {
 		return transaction_type_id;
 	}
 	public void setTransaction_type_id(int transaction_type_id) {
 		this.transaction_type_id = transaction_type_id;
 	}
+	@Column(name = "person_id")
 	public int getPerson_id() {
 		return person_id;
 	}
 	public void setPerson_id(int person_id) {
 		this.person_id = person_id;
 	}
+	@Column(name = "car_id")
 	public int getCar_id() {
 		return car_id;
 	}

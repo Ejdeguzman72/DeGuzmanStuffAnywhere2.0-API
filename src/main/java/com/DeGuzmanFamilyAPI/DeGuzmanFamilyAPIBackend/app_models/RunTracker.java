@@ -2,6 +2,7 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class RunTracker {
 
-	public long runid;
+	public long run_id;
 	public String firstname;
 	public String lastname;
 	public Date runDate;
@@ -25,42 +26,49 @@ public class RunTracker {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long getRunid() {
-		return runid;
+	@Column(name = "run_id")
+	public long getRun_id() {
+		return run_id;
 	}
-	public void setRunid(long runid) {
-		this.runid = runid;
+	public void setRun_id(long run_id) {
+		this.run_id = run_id;
 	}
+	@Column(name = "firstname")
 	public String getFirstname() {
 		return firstname;
 	}
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+	@Column(name = "lastname")
 	public String getLastname() {
 		return lastname;
 	}
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	@Column(name = "run_date")
 	public Date getRunDate() {
 		return runDate;
 	}
 	public void setRunDate(Date runDate) {
 		this.runDate = runDate;
 	}
+	@Column(name = "run_distance")
 	public double getRunDistance() {
 		return runDistance;
 	}
 	public void setRunDistance(double runDistance) {
 		this.runDistance = runDistance;
 	}
+	@Column(name = "run_time")
 	public String getRunTime() {
 		return runTime;
 	}
 	public void setRunTime(String runTime) {
 		this.runTime = runTime;
 	}
+	@Column(name = "person_id")
 	public long getPerson_id() {
 		return person_id;
 	}
@@ -79,7 +87,7 @@ public class RunTracker {
 		temp = Double.doubleToLongBits(runDistance);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((runTime == null) ? 0 : runTime.hashCode());
-		result = prime * result + (int) (runid ^ (runid >>> 32));
+		result = prime * result + (int) (run_id ^ (run_id >>> 32));
 		return result;
 	}
 	@Override
@@ -115,19 +123,19 @@ public class RunTracker {
 				return false;
 		} else if (!runTime.equals(other.runTime))
 			return false;
-		if (runid != other.runid)
+		if (run_id != other.run_id)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "RunTracker [runid=" + runid + ", firstname=" + firstname + ", lastname=" + lastname + ", runDate="
+		return "RunTracker [run_id=" + run_id + ", firstname=" + firstname + ", lastname=" + lastname + ", runDate="
 				+ runDate + ", runDistance=" + runDistance + ", runTime=" + runTime + ", person_id=" + person_id + "]";
 	}
-	public RunTracker(long runid, String firstname, String lastname, Date runDate, double runDistance, String runTime,
+	public RunTracker(long run_id, String firstname, String lastname, Date runDate, double runDistance, String runTime,
 			long person_id) {
 		super();
-		this.runid = runid;
+		this.run_id = run_id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.runDate = runDate;

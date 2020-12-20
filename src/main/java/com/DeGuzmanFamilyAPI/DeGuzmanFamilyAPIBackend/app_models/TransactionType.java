@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -21,12 +22,14 @@ public class TransactionType {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "transaction_type_id")
 	public long getTransactionTypeId() {
 		return transaction_type_id;
 	}
 	public void setTransactionTypeId(long transaction_type_id) {
 		this.transaction_type_id = transaction_type_id;
 	}
+	@Column(name = "descr")
 	public String getDescr() {
 		return descr;
 	}

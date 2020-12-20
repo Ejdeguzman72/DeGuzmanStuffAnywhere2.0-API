@@ -22,6 +22,7 @@ public class Car {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "car_id")
 	public long getCarid() {
 		return car_id;
 	}

@@ -92,7 +92,7 @@ public class PersonService {
 			}
 		}
 		final Person updatedPersonInfo = personRepository.save(person);
-		PersonInfoLogger.personInfoLogger.info(LoggerMessage.UPDATE_PERSON_INFO + ":" + " " + "Person ID No: " + updatedPersonInfo.personid + " " + updatedPersonInfo.firstname + " " + updatedPersonInfo.lastname);
+		PersonInfoLogger.personInfoLogger.info(LoggerMessage.UPDATE_PERSON_INFO + ":" + " " + "Person ID No: " + updatedPersonInfo.person_id + " " + updatedPersonInfo.firstname + " " + updatedPersonInfo.lastname);
 		return ResponseEntity.ok().body(updatedPersonInfo);
 	}
 	

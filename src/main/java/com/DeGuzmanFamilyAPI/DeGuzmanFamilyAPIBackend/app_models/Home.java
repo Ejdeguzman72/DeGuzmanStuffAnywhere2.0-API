@@ -10,33 +10,24 @@ import javax.persistence.Table;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
-@Table(name = "RESTAURANT")
+@Table(name = "home")
 @CrossOrigin
-public class Restaurant {
-	
-	public int restauant_id;
-	public String name;
+public class Home {
+
+	public int home_id;
 	public String address;
 	public String city;
 	public String state;
 	public String zip;
-	public int restaurant_type_id;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "restaurant_id")
-	public int getRestauant_id() {
-		return restauant_id;
+	@Column(name = "home_id")
+	public int getHome_id() {
+		return home_id;
 	}
-	public void setRestauant_id(int restauant_id) {
-		this.restauant_id = restauant_id;
-	}
-	@Column(name = "name")
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public void setHome_id(int home_id) {
+		this.home_id = home_id;
 	}
 	@Column(name = "address")
 	public String getAddress() {
@@ -66,22 +57,13 @@ public class Restaurant {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	@Column(name = "restaurant_type_id")
-	public int getRestaurant_type_id() {
-		return restaurant_type_id;
-	}
-	public void setRestaurant_type_id(int restaurant_type_id) {
-		this.restaurant_type_id = restaurant_type_id;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + restauant_id;
-		result = prime * result + restaurant_type_id;
+		result = prime * result + home_id;
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
 		return result;
@@ -94,7 +76,7 @@ public class Restaurant {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Restaurant other = (Restaurant) obj;
+		Home other = (Home) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;
@@ -105,14 +87,7 @@ public class Restaurant {
 				return false;
 		} else if (!city.equals(other.city))
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (restauant_id != other.restauant_id)
-			return false;
-		if (restaurant_type_id != other.restaurant_type_id)
+		if (home_id != other.home_id)
 			return false;
 		if (state == null) {
 			if (other.state != null)
@@ -128,21 +103,18 @@ public class Restaurant {
 	}
 	@Override
 	public String toString() {
-		return "Restaurant [restauant_id=" + restauant_id + ", name=" + name + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + ", restaurant_type_id=" + restaurant_type_id + "]";
+		return "Home [home_id=" + home_id + ", address=" + address + ", city=" + city + ", state=" + state + ", zip="
+				+ zip + "]";
 	}
-	public Restaurant(int restauant_id, String name, String address, String city, String state, String zip,
-			int restaurant_type_id) {
+	public Home(int home_id, String address, String city, String state, String zip) {
 		super();
-		this.restauant_id = restauant_id;
-		this.name = name;
+		this.home_id = home_id;
 		this.address = address;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.restaurant_type_id = restaurant_type_id;
 	}
-	public Restaurant() {
+	public Home() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

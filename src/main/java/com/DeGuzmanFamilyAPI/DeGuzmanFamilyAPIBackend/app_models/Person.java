@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class Person {
 
-	public Long personid;
+	public Long person_id;
 	public String firstname;
 	public String lastname;
 	public String phone;
@@ -25,36 +26,42 @@ public class Person {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "person_id")
 	public Long getPersonid() {
-		return personid;
+		return person_id;
 	}
-	public void setPersonid(Long personid) {
-		this.personid = personid;
+	public void setPersonid(Long person_id) {
+		this.person_id = person_id;
 	}
+	@Column(name = "firstname")
 	public String getFirstname() {
 		return firstname;
 	}
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+	@Column(name = "lastname")
 	public String getLastname() {
 		return lastname;
 	}
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	@Column(name = "phone")
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	@Column(name = "email")
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Column(name = "birthdate")
 	public String getBirthdate() {
 		return birthdate;
 	}
@@ -69,7 +76,7 @@ public class Person {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + ((personid == null) ? 0 : personid.hashCode());
+		result = prime * result + ((person_id == null) ? 0 : person_id.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		return result;
 	}
@@ -102,10 +109,10 @@ public class Person {
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
-		if (personid == null) {
-			if (other.personid != null)
+		if (person_id == null) {
+			if (other.person_id != null)
 				return false;
-		} else if (!personid.equals(other.personid))
+		} else if (!person_id.equals(other.person_id))
 			return false;
 		if (phone == null) {
 			if (other.phone != null)
@@ -116,12 +123,12 @@ public class Person {
 	}
 	@Override
 	public String toString() {
-		return "Person [personid=" + personid + ", firstname=" + firstname + ", lastname=" + lastname + ", phone="
+		return "Person [person_id=" + person_id + ", firstname=" + firstname + ", lastname=" + lastname + ", phone="
 				+ phone + ", email=" + email + ", birthdate=" + birthdate + "]";
 	}
-	public Person(Long personid, String firstname, String lastname, String phone, String email, String birthdate) {
+	public Person(Long person_id, String firstname, String lastname, String phone, String email, String birthdate) {
 		super();
-		this.personid = personid;
+		this.person_id = person_id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.phone = phone;
@@ -133,5 +140,4 @@ public class Person {
 		// TODO Auto-generated constructor stub
 	}
 	
-
 }

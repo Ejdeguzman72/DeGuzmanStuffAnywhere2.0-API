@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,21 +14,25 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class RecipeType {
 	
-	public int recipeTypeId;
+	public int recipe_type_idd;
 	public String descr;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getRecipeTypeId() {
-		return recipeTypeId;
+	@Column(name = "recipe_type_id")
+	public int getRecipe_type_idd() {
+		return recipe_type_idd;
 	}
-	public void setRecipeTypeId(int recipeTypeId) {
-		this.recipeTypeId = recipeTypeId;
+	public void setRecipe_type_idd(int recipe_type_idd) {
+		this.recipe_type_idd = recipe_type_idd;
 	}
+	@Column(name = "descr")
 	public String getDescr() {
 		return descr;
 	}
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
+	
+	
 }

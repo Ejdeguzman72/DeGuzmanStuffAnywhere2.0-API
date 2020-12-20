@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,12 +19,14 @@ public class UtilityType {
 	
 	@Id
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@Column(name = "utility_type_id")
 	public int getUtiityTypeId() {
 		return utility_type_id;
 	}
 	public void setUtiityTypeId(int utiityTypeId) {
 		this.utility_type_id = utiityTypeId;
 	}
+	@Column(name = "descr")
 	public String getDescr() {
 		return descr;
 	}

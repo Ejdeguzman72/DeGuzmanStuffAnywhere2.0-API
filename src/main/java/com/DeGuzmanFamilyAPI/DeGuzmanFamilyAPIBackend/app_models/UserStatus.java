@@ -1,5 +1,6 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,12 +19,14 @@ public class UserStatus {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_status_id")
 	public int getUser_status_id() {
 		return user_status_id;
 	}
 	public void setUser_status_id(int user_status_id) {
 		this.user_status_id = user_status_id;
 	}
+	@Column(name = "descr")
 	public String getDescr() {
 		return statusDescr;
 	}

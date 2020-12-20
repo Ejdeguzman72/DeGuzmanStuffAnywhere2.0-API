@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class MedicalTransaction {
 
 	public Long medicalTransaction_Id;
-	public String facillity;
+	public int facillity_id;
 	public String medical_transaction_date;
 	public double amount;
 	public int transaction_type_id;
@@ -33,30 +33,34 @@ public class MedicalTransaction {
 		this.medicalTransaction_Id = medicalTransaction_Id;
 	}
 	@Column(name = "facility")
-	public String getFacillity() {
-		return facillity;
+	public int getFacillity_id() {
+		return facillity_id;
 	}
-	public void setFacillity(String facillity) {
-		this.facillity = facillity;
+	public void setFacillity_id(int facillity_id) {
+		this.facillity_id = facillity_id;
 	}
+	@Column(name = "medical_transaction_date")
 	public String getMedicalTransactionDate() {
 		return medical_transaction_date;
 	}
 	public void setMedicalTransactionDate(String medical_transaction_date) {
 		this.medical_transaction_date = medical_transaction_date;
 	}
+	@Column(name = "amount")
 	public double getAmount() {
 		return amount;
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+	@Column(name = "transaction_type_id")
 	public int getTransaction_type_id() {
 		return transaction_type_id;
 	}
 	public void setTransaction_type_id(int transaction_type_id) {
 		this.transaction_type_id = transaction_type_id;
 	}
+	@Column(name = "person_id")
 	public int getPerson_id() {
 		return person_id;
 	}
@@ -70,9 +74,9 @@ public class MedicalTransaction {
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((facillity == null) ? 0 : facillity.hashCode());
-		result = prime * result + ((medical_transaction_date == null) ? 0 : medical_transaction_date.hashCode());
+		result = prime * result + facillity_id;
 		result = prime * result + ((medicalTransaction_Id == null) ? 0 : medicalTransaction_Id.hashCode());
+		result = prime * result + ((medical_transaction_date == null) ? 0 : medical_transaction_date.hashCode());
 		result = prime * result + person_id;
 		result = prime * result + transaction_type_id;
 		return result;
@@ -88,20 +92,17 @@ public class MedicalTransaction {
 		MedicalTransaction other = (MedicalTransaction) obj;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
-		if (facillity == null) {
-			if (other.facillity != null)
-				return false;
-		} else if (!facillity.equals(other.facillity))
-			return false;
-		if (medical_transaction_date == null) {
-			if (other.medical_transaction_date != null)
-				return false;
-		} else if (!medical_transaction_date.equals(other.medical_transaction_date))
+		if (facillity_id != other.facillity_id)
 			return false;
 		if (medicalTransaction_Id == null) {
 			if (other.medicalTransaction_Id != null)
 				return false;
 		} else if (!medicalTransaction_Id.equals(other.medicalTransaction_Id))
+			return false;
+		if (medical_transaction_date == null) {
+			if (other.medical_transaction_date != null)
+				return false;
+		} else if (!medical_transaction_date.equals(other.medical_transaction_date))
 			return false;
 		if (person_id != other.person_id)
 			return false;
@@ -111,15 +112,15 @@ public class MedicalTransaction {
 	}
 	@Override
 	public String toString() {
-		return "MedicalTransaction [medicalTransaction_Id=" + medicalTransaction_Id + ", facillity=" + facillity
-				+ ", medical_transaction_date=" + medical_transaction_date + ", amount=" + amount + ", transaction_type_id="
-				+ transaction_type_id + ", person_id=" + person_id + "]";
+		return "MedicalTransaction [medicalTransaction_Id=" + medicalTransaction_Id + ", facillity_id=" + facillity_id
+				+ ", medical_transaction_date=" + medical_transaction_date + ", amount=" + amount
+				+ ", transaction_type_id=" + transaction_type_id + ", person_id=" + person_id + "]";
 	}
-	public MedicalTransaction(Long medicalTransaction_Id, String facillity, String medical_transaction_date,
+	public MedicalTransaction(Long medicalTransaction_Id, int facillity_id, String medical_transaction_date,
 			double amount, int transaction_type_id, int person_id) {
 		super();
 		this.medicalTransaction_Id = medicalTransaction_Id;
-		this.facillity = facillity;
+		this.facillity_id = facillity_id;
 		this.medical_transaction_date = medical_transaction_date;
 		this.amount = amount;
 		this.transaction_type_id = transaction_type_id;
@@ -129,6 +130,4 @@ public class MedicalTransaction {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 }

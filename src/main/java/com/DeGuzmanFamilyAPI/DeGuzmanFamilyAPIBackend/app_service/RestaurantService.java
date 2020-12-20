@@ -50,7 +50,7 @@ public class RestaurantService implements RestaurantInterface {
 			restaurant.setName(restaurantDetails.getName());
 			restaurant.setState(restaurantDetails.getState());
 			restaurant.setZip(restaurantDetails.getZip());
-			restaurant.setRestaurantType(restaurantDetails.getRestaurantType());
+			restaurant.setRestaurant_type_id(restaurantDetails.getRestaurant_type_id());
 		}
 		
 		catch (Exception e) {
