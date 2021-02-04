@@ -1,11 +1,16 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,11 +31,10 @@ public class Users {
 	public int user_status_id;
 	public int role_id;
 	
-//	@OneToOne(fetch = FetchType.LAZY,
-//			cascade = CascadeType.ALL,
-//			mappedBy = "user")
-//	private UserPerson userPerson;
-//	
+	@OneToMany(targetEntity = UserStatus.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="user_user_status_fk", referencedColumnName = "user_status_is")
+	private List<UserStatus> userStatus;
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
@@ -75,12 +79,7 @@ public class Users {
 	public void setUser_status(int user_status_id) {
 		this.user_status_id = user_status_id;
 	}
-//	public UserPerson getUserPerson() {
-//		return userPerson;
-//	}
-//	public void setUserPerson(UserPerson userPerson) {
-//		this.userPerson = userPerson;
-//	}
+
 	@Column(name = "email")
 	public String getEmail() {
 		return email;

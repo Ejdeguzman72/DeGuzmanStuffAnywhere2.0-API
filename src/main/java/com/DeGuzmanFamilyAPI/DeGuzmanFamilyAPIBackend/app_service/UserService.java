@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserStatusRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.MasterLogger;
 
@@ -24,6 +25,12 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserStatusRepository userStatusRepository;
+	
+//	@Autowired
+//	private UsersInfoRepository usersInfoRepository;
 	
 	private MasterLogger masterLogger;
 	
@@ -86,7 +93,7 @@ public class UserService {
 		return responseMap;
 	}
 	
-	public List<Object> getAllUsersInformation() {
+	public List<Users> getAllUsersInformation() {
 		return userRepository.findAllUsersInformation();
 	}
 }

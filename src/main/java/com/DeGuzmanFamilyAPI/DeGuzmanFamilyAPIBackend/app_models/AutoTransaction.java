@@ -1,10 +1,16 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +28,18 @@ public class AutoTransaction {
 	public int transaction_type_id;
 	public int person_id;
 	public int car_id;
+	
+	@OneToMany(targetEntity = Person.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="auto_transaction_person_fk", referencedColumnName = "person_id")
+	public List<Person> person;
+	
+	@OneToMany(targetEntity = TransactionType.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="auto_transaction_transaction_type_fk", referencedColumnName = "transaction_type_id")
+	public List<TransactionType> transactionType;
+	
+	@OneToOne(targetEntity = Car.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="auto_transaction_car_fk", referencedColumnName = "car_id")
+	public List<Car> car;
 	
 
 	@Id

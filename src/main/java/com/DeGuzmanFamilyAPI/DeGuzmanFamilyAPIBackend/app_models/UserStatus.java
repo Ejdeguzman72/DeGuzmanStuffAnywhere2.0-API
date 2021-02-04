@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class UserStatus {
 	
 	public int user_status_id;
-	public String statusDescr;
+	public String user_status_descr;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,12 @@ public class UserStatus {
 	public void setUser_status_id(int user_status_id) {
 		this.user_status_id = user_status_id;
 	}
-	@Column(name = "descr")
+	@Column(name = "user_status_descr")
 	public String getDescr() {
-		return statusDescr;
+		return user_status_descr;
 	}
-	public void setDescr(String descr) {
-		this.statusDescr = descr;
+	public void setDescr(String user_status_descr) {
+		this.user_status_descr = user_status_descr;
 	}
 	
 	

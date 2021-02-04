@@ -1,12 +1,18 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +28,18 @@ public class MedicalTransaction {
 	public double amount;
 	public int transaction_type_id;
 	public int person_id;
+	
+	@OneToOne(targetEntity = Facility.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="medical_transaction_facility_fk", referencedColumnName = "facility_id")
+	public List<Facility> facility;
+	
+	@OneToMany(targetEntity = TransactionType.class, cascade = CascadeType.ALL)
+	@JoinColumn(name="medical_transaction_transaction_type_fk", referencedColumnName="transaction_type_id")
+	public List<TransactionType> transactionTypes;
+	
+	@ManyToOne(targetEntity = Person.class,  cascade = CascadeType.ALL)
+	@JoinColumn(name="medical_transaction_person", referencedColumnName="person_id")
+	public List<Person> person;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

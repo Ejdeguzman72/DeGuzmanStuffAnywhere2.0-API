@@ -10,35 +10,35 @@ import javax.persistence.Table;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 @CrossOrigin
 public class Role {
 	
-	public Long role_id;
-	public String descr;
+	public int role_id;
+	public String role_descr;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "role_id")
-	public Long getRole_id() {
+	public int getRole_id() {
 		return role_id;
 	}
-	public void setRole_id(Long role_id) {
+	public void setRole_id(int role_id) {
 		this.role_id = role_id;
 	}
-	@Column(name = "descr")
+	@Column(name = "role_descr")
 	public String getDescr() {
-		return descr;
+		return role_descr;
 	}
 	public void setDescr(String descr) {
-		this.descr = descr;
+		this.role_descr = descr;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((descr == null) ? 0 : descr.hashCode());
-		result = prime * result + ((role_id == null) ? 0 : role_id.hashCode());
+		result = prime * result + ((role_descr == null) ? 0 : role_descr.hashCode());
+		//result = prime * result + ((role_id == null) ? 0 : role_id.hashCode());
 		return result;
 	}
 	@Override
@@ -50,26 +50,26 @@ public class Role {
 		if (getClass() != obj.getClass())
 			return false;
 		Role other = (Role) obj;
-		if (descr == null) {
-			if (other.descr != null)
+		if (role_descr == null) {
+			if (other.role_descr != null)
 				return false;
-		} else if (!descr.equals(other.descr))
+		} else if (!role_descr.equals(other.role_descr))
 			return false;
-		if (role_id == null) {
-			if (other.role_id != null)
-				return false;
-		} else if (!role_id.equals(other.role_id))
-			return false;
+//		if (role_id == null) {
+//			if (other.role_id != null)
+//				return false;
+//		} else if (!role_id.equals(other.role_id))
+//			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Role [role_id=" + role_id + ", descr=" + descr + "]";
+		return "Role [role_id=" + role_id + ", role_descr=" + role_descr + "]";
 	}
-	public Role(Long role_id, String descr) {
+	public Role(int role_id, String descr) {
 		super();
 		this.role_id = role_id;
-		this.descr = descr;
+		this.role_descr = descr;
 	}
 	public Role() {
 		super();

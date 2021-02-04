@@ -1,11 +1,17 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,6 +29,14 @@ public class GeneralTransaction {
 	private String entity;
 	private int transaction_type_id;
 	private int person_id;
+	
+	@OneToMany(targetEntity = TransactionType.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "trasaction_transaction_type_fk", referencedColumnName = "transaction_type_id")
+	public List<TransactionType> transactionType;
+	
+	@ManyToOne(targetEntity = Person.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "transaction_person_fk", referencedColumnName = "person_id")
+	public List<Person> person;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

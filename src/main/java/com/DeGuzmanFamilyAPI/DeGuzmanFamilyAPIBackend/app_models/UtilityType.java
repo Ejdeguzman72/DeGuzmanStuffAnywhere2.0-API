@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class UtilityType {
 
 	public int utility_type_id;
-	public String descr;
+	public String utility_type_descr;
 	
 	@Id
 	@GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -26,11 +26,11 @@ public class UtilityType {
 	public void setUtiityTypeId(int utiityTypeId) {
 		this.utility_type_id = utiityTypeId;
 	}
-	@Column(name = "descr")
+	@Column(name = "utility_type_descr")
 	public String getDescr() {
-		return descr;
+		return utility_type_descr;
 	}
-	public void setDescr(String descr) {
-		this.descr = descr;
+	public void setDescr(String utility_type_descr) {
+		this.utility_type_descr = utility_type_descr;
 	}
 }

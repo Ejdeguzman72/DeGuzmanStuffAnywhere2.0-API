@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class RecipeType {
 	
 	public int recipe_type_idd;
-	public String descr;
+	public String restaurant_type_descr;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class RecipeType {
 	}
 	@Column(name = "descr")
 	public String getDescr() {
-		return descr;
+		return restaurant_type_descr;
 	}
 	public void setDescr(String descr) {
-		this.descr = descr;
+		this.restaurant_type_descr = descr;
 	}
 	
 	

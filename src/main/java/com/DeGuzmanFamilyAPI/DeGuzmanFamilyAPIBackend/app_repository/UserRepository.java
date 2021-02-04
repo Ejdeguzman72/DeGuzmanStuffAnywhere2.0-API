@@ -17,9 +17,9 @@ public interface UserRepository extends JpaRepository<Users, Long>{
 	@Query(value = "SELECT * FROM USERS WHERE USER_STATUS = 1", nativeQuery=true)
 	List<Users> findAllPendingUsers();
 	
-	@Query(value = "select us.userid,us.email,us.name,us.password,us.username,r.descr, ust.statusdescr\r\n" + 
-			"from users us, role r, user_status  ust \r\n" + 
-			"where us.roleid = r.roleid\r\n" + 
-			"and us.user_status = ust.user_status_id",  nativeQuery = true)
-	List<Object> findAllUsersInformation();
+	@Query(value = "select us.user_id,us.name,us.username,us.password,us.email,r.role_id,r.role_descr,us2.user_status_id,us2.user_status_descr " +
+			"from users us, user_status us2, roles r " + 
+			"where us.user_status_id = us2.user_status_id  " + 
+			"and us.role_id = r.role_id",  nativeQuery = true)
+	List<Users> findAllUsersInformation();
 }

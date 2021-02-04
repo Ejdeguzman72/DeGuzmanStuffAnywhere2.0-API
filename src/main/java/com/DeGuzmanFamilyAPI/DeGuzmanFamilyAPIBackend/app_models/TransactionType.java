@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class TransactionType {
 	
 	public long transaction_type_id;
-	public String descr;
+	public String transaction_type_descr;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +29,11 @@ public class TransactionType {
 	public void setTransactionTypeId(long transaction_type_id) {
 		this.transaction_type_id = transaction_type_id;
 	}
-	@Column(name = "descr")
+	@Column(name = "transaction_type_descr")
 	public String getDescr() {
-		return descr;
+		return transaction_type_descr;
 	}
-	public void setDescr(String descr) {
-		this.descr = descr;
+	public void setDescr(String transaction_type_descr) {
+		this.transaction_type_descr = transaction_type_descr;
 	}
 }

@@ -54,6 +54,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 		List<Users> userList = userRepository.findAll();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		newUser.setEmail(user.getEmail());
+		newUser.setName(user.getName());
 		newUser.setRoleid(RoleValues.DEGUZMANSTUFFANYWHERE_BASIC_USER);
 		newUser.setUser_status(UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING);
 		if (newUser.username == null
