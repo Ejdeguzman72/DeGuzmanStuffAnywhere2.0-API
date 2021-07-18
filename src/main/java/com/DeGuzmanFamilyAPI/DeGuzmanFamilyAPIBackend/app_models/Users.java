@@ -1,39 +1,62 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
 @Entity
 @Table(name = "users")
 @CrossOrigin
-@EntityListeners(AuditingEntityListener.class)
-public class Users {
+public class Users implements Serializable {
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9190614374131494245L;
 	public long user_id;
 	public String username;
 	public String password;
 	public String name;
 	public String email;
-	public int user_status_id;
-	public int role_id;
+	// public int user_status_id;
+	// public int role_id;
 	
-	@OneToMany(targetEntity = UserStatus.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="user_user_status_fk", referencedColumnName = "user_status_is")
-	private List<UserStatus> userStatus;
+	public List<RunTracker> runTracker;
+	
+	public List<AutoTransaction> autoTransaction;
+	
+	public List<GeneralTransaction> generalTransaction;
+	
+	public List<MedicalTransaction> medicalTransaction;
+	
+	public UserStatus userStatus;
+	
+	public Role role;
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,26 +81,13 @@ public class Users {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Column(name = "role_id")
-	public int getRoleid() {
-		return role_id;
-	}
-	public void setRoleid(int role_id) {
-		this.role_id = role_id;
-	}
+
 	@Column(name = "name")
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	@Column(name = "user_status_id")
-	public int getUser_status() {
-		return user_status_id;
-	}
-	public void setUser_status(int user_status_id) {
-		this.user_status_id = user_status_id;
 	}
 
 	@Column(name = "email")
@@ -88,20 +98,78 @@ public class Users {
 		this.email = email;
 	}
 	
+	@OneToMany(cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY,
+			mappedBy = "user")
+	public List<RunTracker> getRunTracker() {
+		return runTracker;
+	}
+	public void setRunTracker(List<RunTracker> runTracker) {
+		this.runTracker = runTracker;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "user_status_id")
+	public UserStatus getUserStatus() {
+		return userStatus;
+	}
+	public void setUserStatus(UserStatus userStatus) {
+		this.userStatus = userStatus;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY,
+			mappedBy="user")
+	public List<AutoTransaction> getAutoTransaction() {
+		return autoTransaction;
+	}
+	public void setAutoTransaction(List<AutoTransaction> autoTransaction) {
+		this.autoTransaction = autoTransaction;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL,
+			mappedBy="user")
+	public List<GeneralTransaction> getGeneralTransaction() {
+		return generalTransaction;
+	}
+	public void setGeneralTransaction(List<GeneralTransaction> generalTransaction) {
+		this.generalTransaction = generalTransaction;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL,
+			mappedBy="user")
+	public List<MedicalTransaction> getMedicalTransaction() {
+		return medicalTransaction;
+	}
+	public void setMedicalTransaction(List<MedicalTransaction> medicalTransaction) {
+		this.medicalTransaction = medicalTransaction;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((autoTransaction == null) ? 0 : autoTransaction.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((generalTransaction == null) ? 0 : generalTransaction.hashCode());
+		result = prime * result + ((medicalTransaction == null) ? 0 : medicalTransaction.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + role_id;
-		result = prime * result + user_status_id;
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((runTracker == null) ? 0 : runTracker.hashCode());
+		result = prime * result + ((userStatus == null) ? 0 : userStatus.hashCode());
 		result = prime * result + (int) (user_id ^ (user_id >>> 32));
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -111,10 +179,25 @@ public class Users {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
+		if (autoTransaction == null) {
+			if (other.autoTransaction != null)
+				return false;
+		} else if (!autoTransaction.equals(other.autoTransaction))
+			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (generalTransaction == null) {
+			if (other.generalTransaction != null)
+				return false;
+		} else if (!generalTransaction.equals(other.generalTransaction))
+			return false;
+		if (medicalTransaction == null) {
+			if (other.medicalTransaction != null)
+				return false;
+		} else if (!medicalTransaction.equals(other.medicalTransaction))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -126,9 +209,20 @@ public class Users {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (role_id != other.role_id)
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
 			return false;
-		if (user_status_id != other.user_status_id)
+		if (runTracker == null) {
+			if (other.runTracker != null)
+				return false;
+		} else if (!runTracker.equals(other.runTracker))
+			return false;
+		if (userStatus == null) {
+			if (other.userStatus != null)
+				return false;
+		} else if (!userStatus.equals(other.userStatus))
 			return false;
 		if (user_id != other.user_id)
 			return false;
@@ -139,27 +233,32 @@ public class Users {
 			return false;
 		return true;
 	}
-	
 	@Override
 	public String toString() {
-		return "Users [userid=" + user_id + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", email=" + email + ", user_status=" + user_status_id + ", role_id=" + role_id + "]";
+		return "Users [user_id=" + user_id + ", username=" + username + ", password=" + password + ", name=" + name
+				+ ", email=" + email + ", runTracker=" + runTracker + ", autoTransaction=" + autoTransaction
+				+ ", generalTransaction=" + generalTransaction + ", medicalTransaction=" + medicalTransaction
+				+ ", userStatus=" + userStatus + ", role=" + role + "]";
 	}
-	
-	public Users(long userid, String username, String password, String name, String email, int user_status_id,
-			int role_id) {
+	public Users(long user_id, String username, String password, String name, String email, List<RunTracker> runTracker,
+			List<AutoTransaction> autoTransaction, List<GeneralTransaction> generalTransaction,
+			List<MedicalTransaction> medicalTransaction, UserStatus userStatus, Role role) {
 		super();
-		this.user_id = userid;
+		this.user_id = user_id;
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.email = email;
-		this.user_status_id = user_status_id;
-		this.role_id = role_id;
+		this.runTracker = runTracker;
+		this.autoTransaction = autoTransaction;
+		this.generalTransaction = generalTransaction;
+		this.medicalTransaction = medicalTransaction;
+		this.userStatus = userStatus;
+		this.role = role;
 	}
-	
 	public Users() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 }

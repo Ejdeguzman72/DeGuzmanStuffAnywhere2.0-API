@@ -43,6 +43,7 @@ public class UtilityService implements UtilityServiceInterface {
 		try {
 			utility = utilityRepository.findById(utilityid)
 					.orElseThrow(() -> new ResourceNotFoundException("Not found"));
+			utility.setUtility_id(utility.getUtility_id());
 			utility.setDueDate(utilityDetails.getDueDate());
 			utility.setName(utilityDetails.getName());
 			utility.setPhone(utilityDetails.getPhone());

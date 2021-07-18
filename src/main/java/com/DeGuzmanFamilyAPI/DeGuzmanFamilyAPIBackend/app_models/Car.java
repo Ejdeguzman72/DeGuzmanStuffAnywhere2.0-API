@@ -1,24 +1,41 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Table(name = "car")
 @Entity
 @CrossOrigin
-public class Car {
+public class Car implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6819954124384869848L;
 	public long car_id;
 	public String make;
 	public String model;
 	public int capactity;
 	public String transmission;
+	
+	public List<AutoTransaction> autoTransaction;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,10 +74,20 @@ public class Car {
 	public void setTransmission(String transmission) {
 		this.transmission = transmission;
 	}
+	
+	@OneToMany(cascade = CascadeType.ALL,
+			mappedBy="car")
+	public List<AutoTransaction> getAutoTransaction() {
+		return autoTransaction;
+	}
+	public void setAutoTransaction(List<AutoTransaction> autoTransaction) {
+		this.autoTransaction = autoTransaction;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((autoTransaction == null) ? 0 : autoTransaction.hashCode());
 		result = prime * result + capactity;
 		result = prime * result + (int) (car_id ^ (car_id >>> 32));
 		result = prime * result + ((make == null) ? 0 : make.hashCode());
@@ -77,6 +104,11 @@ public class Car {
 		if (getClass() != obj.getClass())
 			return false;
 		Car other = (Car) obj;
+		if (autoTransaction == null) {
+			if (other.autoTransaction != null)
+				return false;
+		} else if (!autoTransaction.equals(other.autoTransaction))
+			return false;
 		if (capactity != other.capactity)
 			return false;
 		if (car_id != other.car_id)
@@ -101,21 +133,21 @@ public class Car {
 	@Override
 	public String toString() {
 		return "Car [car_id=" + car_id + ", make=" + make + ", model=" + model + ", capactity=" + capactity
-				+ ", transmission=" + transmission + "]";
+				+ ", transmission=" + transmission + ", autoTransaction=" + autoTransaction + "]";
 	}
-	public Car(long car_id, String make, String model, int capactity, String transmission) {
+	public Car() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Car(long car_id, String make, String model, int capactity, String transmission,
+			List<AutoTransaction> autoTransaction) {
 		super();
 		this.car_id = car_id;
 		this.make = make;
 		this.model = model;
 		this.capactity = capactity;
 		this.transmission = transmission;
+		this.autoTransaction = autoTransaction;
 	}
-	
-	public Car() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
 	
 }

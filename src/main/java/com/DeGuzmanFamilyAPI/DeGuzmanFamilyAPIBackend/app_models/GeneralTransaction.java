@@ -1,11 +1,15 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,26 +21,28 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "general_transaction")
 @CrossOrigin
-@EntityListeners(AuditingEntityListener.class)
-public class GeneralTransaction {
+public class GeneralTransaction implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3866557359119459426L;
 	private long transaction_id;
 	private double amount;
 	private String paymentDate;
 	private String entity;
-	private int transaction_type_id;
-	private int person_id;
+
+	public TransactionType transactionType;
 	
-	@OneToMany(targetEntity = TransactionType.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "trasaction_transaction_type_fk", referencedColumnName = "transaction_type_id")
-	public List<TransactionType> transactionType;
-	
-	@ManyToOne(targetEntity = Person.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "transaction_person_fk", referencedColumnName = "person_id")
-	public List<Person> person;
+	public Users user;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,44 +50,58 @@ public class GeneralTransaction {
 	public long getTransaction_id() {
 		return transaction_id;
 	}
+
 	public void setTransaction_id(long transaction_id) {
 		this.transaction_id = transaction_id;
 	}
+
 	@Column(name = "amount")
 	public double getAmount() {
 		return amount;
 	}
+
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
 	@Column(name = "payment_date")
 	public String getPaymentDate() {
 		return paymentDate;
 	}
+
 	public void setPaymentDate(String paymentDate) {
 		this.paymentDate = paymentDate;
 	}
+
 	@Column(name = "entity")
 	public String getEntity() {
 		return entity;
 	}
+
 	public void setEntity(String entity) {
 		this.entity = entity;
 	}
-	@Column(name = "transaction_type_id")
-	public int getTransaction_type_id() {
-		return transaction_type_id;
+
+	@ManyToOne
+	@JoinColumn(name = "transaction_type_id")
+	public TransactionType getTransactionType() {
+		return transactionType;
 	}
-	public void setTransaction_type_id(int transaction_type_id) {
-		this.transaction_type_id = transaction_type_id;
+
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
 	}
-	@Column(name = "person_id")
-	public int getPerson_id() {
-		return person_id;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	public Users getUser() {
+		return user;
 	}
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+
+	public void setUser(Users user) {
+		this.user = user;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -91,11 +111,12 @@ public class GeneralTransaction {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((entity == null) ? 0 : entity.hashCode());
 		result = prime * result + ((paymentDate == null) ? 0 : paymentDate.hashCode());
-		result = prime * result + person_id;
+		result = prime * result + ((transactionType == null) ? 0 : transactionType.hashCode());
 		result = prime * result + (int) (transaction_id ^ (transaction_id >>> 32));
-		result = prime * result + transaction_type_id;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -117,30 +138,38 @@ public class GeneralTransaction {
 				return false;
 		} else if (!paymentDate.equals(other.paymentDate))
 			return false;
-		if (person_id != other.person_id)
+		if (transactionType == null) {
+			if (other.transactionType != null)
+				return false;
+		} else if (!transactionType.equals(other.transactionType))
 			return false;
 		if (transaction_id != other.transaction_id)
 			return false;
-		if (transaction_type_id != other.transaction_type_id)
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "GeneralTransaction [transaction_id=" + transaction_id + ", amount=" + amount + ", paymentDate="
-				+ paymentDate + ", entity=" + entity + ", transaction_type_id=" + transaction_type_id + ", person_id="
-				+ person_id + "]";
+				+ paymentDate + ", entity=" + entity + ", transactionType=" + transactionType + ", user=" + user + "]";
 	}
+
 	public GeneralTransaction(long transaction_id, double amount, String paymentDate, String entity,
-			int transaction_type_id, int person_id) {
+			TransactionType transactionType, Users user) {
 		super();
 		this.transaction_id = transaction_id;
 		this.amount = amount;
 		this.paymentDate = paymentDate;
 		this.entity = entity;
-		this.transaction_type_id = transaction_type_id;
-		this.person_id = person_id;
+		this.transactionType = transactionType;
+		this.user = user;
 	}
+
 	public GeneralTransaction() {
 		super();
 		// TODO Auto-generated constructor stub

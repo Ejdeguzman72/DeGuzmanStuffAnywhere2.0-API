@@ -1,11 +1,13 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,29 +19,29 @@ import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "medical_transactions")
 @CrossOrigin
-public class MedicalTransaction {
+public class MedicalTransaction implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 938725339019416975L;
 	public Long medicalTransaction_Id;
-	public int facillity_id;
 	public String medical_transaction_date;
 	public double amount;
-	public int transaction_type_id;
-	public int person_id;
 	
-	@OneToOne(targetEntity = Facility.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="medical_transaction_facility_fk", referencedColumnName = "facility_id")
-	public List<Facility> facility;
+	public Facility facility;
 	
-	@OneToMany(targetEntity = TransactionType.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="medical_transaction_transaction_type_fk", referencedColumnName="transaction_type_id")
-	public List<TransactionType> transactionTypes;
-	
-	@ManyToOne(targetEntity = Person.class,  cascade = CascadeType.ALL)
-	@JoinColumn(name="medical_transaction_person", referencedColumnName="person_id")
-	public List<Person> person;
+	public TransactionType transactionType;
+
+	public Users user;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,13 +51,6 @@ public class MedicalTransaction {
 	}
 	public void setMedicalTransaction_Id(Long medicalTransaction_Id) {
 		this.medicalTransaction_Id = medicalTransaction_Id;
-	}
-	@Column(name = "facility")
-	public int getFacillity_id() {
-		return facillity_id;
-	}
-	public void setFacillity_id(int facillity_id) {
-		this.facillity_id = facillity_id;
 	}
 	@Column(name = "medical_transaction_date")
 	public String getMedicalTransactionDate() {
@@ -71,19 +66,32 @@ public class MedicalTransaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	@Column(name = "transaction_type_id")
-	public int getTransaction_type_id() {
-		return transaction_type_id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "facility_id")
+	public Facility getFacility() {
+		return facility;
 	}
-	public void setTransaction_type_id(int transaction_type_id) {
-		this.transaction_type_id = transaction_type_id;
+	public void setFacility(Facility facility) {
+		this.facility = facility;
 	}
-	@Column(name = "person_id")
-	public int getPerson_id() {
-		return person_id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "transaction_type_id")
+	public TransactionType getTransactionType() {
+		return transactionType;
 	}
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	public Users getUser() {
+		return user;
+	}
+	public void setUser(Users user) {
+		this.user = user;
 	}
 	@Override
 	public int hashCode() {
@@ -92,11 +100,11 @@ public class MedicalTransaction {
 		long temp;
 		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + facillity_id;
+		result = prime * result + ((facility == null) ? 0 : facility.hashCode());
 		result = prime * result + ((medicalTransaction_Id == null) ? 0 : medicalTransaction_Id.hashCode());
 		result = prime * result + ((medical_transaction_date == null) ? 0 : medical_transaction_date.hashCode());
-		result = prime * result + person_id;
-		result = prime * result + transaction_type_id;
+		result = prime * result + ((transactionType == null) ? 0 : transactionType.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 	@Override
@@ -110,7 +118,10 @@ public class MedicalTransaction {
 		MedicalTransaction other = (MedicalTransaction) obj;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
-		if (facillity_id != other.facillity_id)
+		if (facility == null) {
+			if (other.facility != null)
+				return false;
+		} else if (!facility.equals(other.facility))
 			return false;
 		if (medicalTransaction_Id == null) {
 			if (other.medicalTransaction_Id != null)
@@ -122,30 +133,37 @@ public class MedicalTransaction {
 				return false;
 		} else if (!medical_transaction_date.equals(other.medical_transaction_date))
 			return false;
-		if (person_id != other.person_id)
+		if (transactionType == null) {
+			if (other.transactionType != null)
+				return false;
+		} else if (!transactionType.equals(other.transactionType))
 			return false;
-		if (transaction_type_id != other.transaction_type_id)
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "MedicalTransaction [medicalTransaction_Id=" + medicalTransaction_Id + ", facillity_id=" + facillity_id
-				+ ", medical_transaction_date=" + medical_transaction_date + ", amount=" + amount
-				+ ", transaction_type_id=" + transaction_type_id + ", person_id=" + person_id + "]";
+		return "MedicalTransaction [medicalTransaction_Id=" + medicalTransaction_Id + ", medical_transaction_date="
+				+ medical_transaction_date + ", amount=" + amount + ", facility=" + facility + ", transactionType="
+				+ transactionType + ", user=" + user + "]";
 	}
-	public MedicalTransaction(Long medicalTransaction_Id, int facillity_id, String medical_transaction_date,
-			double amount, int transaction_type_id, int person_id) {
+	public MedicalTransaction(Long medicalTransaction_Id, String medical_transaction_date, double amount,
+			Facility facility, TransactionType transactionType, Users user) {
 		super();
 		this.medicalTransaction_Id = medicalTransaction_Id;
-		this.facillity_id = facillity_id;
 		this.medical_transaction_date = medical_transaction_date;
 		this.amount = amount;
-		this.transaction_type_id = transaction_type_id;
-		this.person_id = person_id;
+		this.facility = facility;
+		this.transactionType = transactionType;
+		this.user = user;
 	}
 	public MedicalTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 }

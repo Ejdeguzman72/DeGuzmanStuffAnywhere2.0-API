@@ -36,6 +36,7 @@ public class RestaurantService implements RestaurantInterface {
 	}
 
 	public Restaurant addRestaurantInformation(@Valid Restaurant restaurant) {
+		restaurant.getRestaurantType();
 		return restaurantRepository.save(restaurant);
 	}
 
@@ -50,7 +51,7 @@ public class RestaurantService implements RestaurantInterface {
 			restaurant.setName(restaurantDetails.getName());
 			restaurant.setState(restaurantDetails.getState());
 			restaurant.setZip(restaurantDetails.getZip());
-			restaurant.setRestaurant_type_id(restaurantDetails.getRestaurant_type_id());
+			// restaurant.setRestaurant_type_id(restaurantDetails.getRestaurant_type_id());
 		}
 		
 		catch (Exception e) {

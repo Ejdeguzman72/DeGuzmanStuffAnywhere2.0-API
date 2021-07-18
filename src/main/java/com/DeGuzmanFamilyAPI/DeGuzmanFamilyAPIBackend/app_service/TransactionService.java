@@ -78,7 +78,7 @@ public class TransactionService implements GeneralTransactionInterface {
 			transaction.setEntity(transactionDetails.getEntity());
 			transaction.setAmount(transactionDetails.getAmount());
 			transaction.setPaymentDate(transactionDetails.getPaymentDate());
-			transaction.setPerson_id(transactionDetails.getPerson_id());
+			//transaction.setPerson_id(transactionDetails.getPerson_id());
 			GeneralTrxLogger.generalTrxLogger.info("Updating general transaction information...");
 		}
 		catch (ResourceNotFoundException e) {

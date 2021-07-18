@@ -43,7 +43,7 @@ public class JwtAuthenticationController {
 	Date date = new Date();
 	
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST,consumes={"application/json"})
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -56,24 +56,24 @@ public class JwtAuthenticationController {
 		
 		String token = "";
 		
-		if (user.user_status_id == UserStatusValues.DEGUZMANSTUFFANYWHERE_ACCEPTED) {
-			
-			token = jwtTokenUtil.generateToken(userDetails);
-	
-		} else if (user.user_status_id == UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING) {
-		
-			token = "";
-			if (token == "")  {
-				throw new UserStatusPendingException("The user status is pending");
-			}
-			
-		} else {
-			token = "";
-			
-			if (token == " ") {
-				throw new UserStatusDeletedException("The user status is deleted");
-			}
-		}
+//		if (user.user_status_id == UserStatusValues.DEGUZMANSTUFFANYWHERE_ACCEPTED) {
+//			
+//			token = jwtTokenUtil.generateToken(userDetails);
+//	
+//		} else if (user.user_status_id == UserStatusValues.DEGUZMANSTUFFANYWHERE_PENDING) {
+//		
+//			token = "";
+//			if (token == "")  {
+//				throw new UserStatusPendingException("The user status is pending");
+//			}
+//			
+//		} else {
+//			token = "";
+//			
+//			if (token == " ") {
+//				throw new UserStatusDeletedException("The user status is deleted");
+//			}
+//		}
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}

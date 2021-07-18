@@ -1,25 +1,42 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "facility")
 @CrossOrigin
-public class Facility {
+public class Facility implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4526702942282551513L;
 	public Long facility_id;
 	public String name;
 	public String address;
 	public String city;
 	public String state;
 	public String zip;
+	
+	public List<Facility> facility;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,12 +82,22 @@ public class Facility {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+	
+	@OneToMany(cascade = CascadeType.ALL,
+			mappedBy="facility")
+	public List<Facility> getFacility() {
+		return facility;
+	}
+	public void setFacility(List<Facility> facility) {
+		this.facility = facility;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((facility == null) ? 0 : facility.hashCode());
 		result = prime * result + ((facility_id == null) ? 0 : facility_id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
@@ -95,6 +122,11 @@ public class Facility {
 			if (other.city != null)
 				return false;
 		} else if (!city.equals(other.city))
+			return false;
+		if (facility == null) {
+			if (other.facility != null)
+				return false;
+		} else if (!facility.equals(other.facility))
 			return false;
 		if (facility_id == null) {
 			if (other.facility_id != null)
@@ -121,9 +153,10 @@ public class Facility {
 	@Override
 	public String toString() {
 		return "Facility [facility_id=" + facility_id + ", name=" + name + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + "]";
+				+ ", state=" + state + ", zip=" + zip + ", facility=" + facility + "]";
 	}
-	public Facility(Long facility_id, String name, String address, String city, String state, String zip) {
+	public Facility(Long facility_id, String name, String address, String city, String state, String zip,
+			List<Facility> facility) {
 		super();
 		this.facility_id = facility_id;
 		this.name = name;
@@ -131,9 +164,11 @@ public class Facility {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
+		this.facility = facility;
 	}
 	public Facility() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 }

@@ -1,47 +1,48 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "auto_transactions")
 @CrossOrigin
-public class AutoTransaction {
+public class AutoTransaction implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8676869382585836353L;
 	public Long autoTransaction_id;
 	public String autoTransactionDate;
 	public String shopName;
 	public double amount;
-//	public String person;
-	public int transaction_type_id;
-	public int person_id;
-	public int car_id;
 	
-	@OneToMany(targetEntity = Person.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="auto_transaction_person_fk", referencedColumnName = "person_id")
-	public List<Person> person;
+	public Users user;
 	
-	@OneToMany(targetEntity = TransactionType.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="auto_transaction_transaction_type_fk", referencedColumnName = "transaction_type_id")
-	public List<TransactionType> transactionType;
+	public TransactionType transactionType;
 	
-	@OneToOne(targetEntity = Car.class, cascade = CascadeType.ALL)
-	@JoinColumn(name="auto_transaction_car_fk", referencedColumnName = "car_id")
-	public List<Car> car;
+	public Car car;
 	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "auto_transaction_id")
@@ -72,26 +73,34 @@ public class AutoTransaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	@Column(name = "transaction_type_id")
-	public int getTransaction_type_id() {
-		return transaction_type_id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	public Users getUser() {
+		return user;
 	}
-	public void setTransaction_type_id(int transaction_type_id) {
-		this.transaction_type_id = transaction_type_id;
+	public void setUser(Users user) {
+		this.user = user;
 	}
-	@Column(name = "person_id")
-	public int getPerson_id() {
-		return person_id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "transaction_type_id")
+	@JsonIgnore
+	public TransactionType getTransactionType() {
+		return transactionType;
 	}
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
 	}
-	@Column(name = "car_id")
-	public int getCar_id() {
-		return car_id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "car_id")
+	@JsonIgnore
+	public Car getCar() {
+		return car;
 	}
-	public void setCar_id(int car_id) {
-		this.car_id = car_id;
+	public void setCar(Car car) {
+		this.car = car;
 	}
 	@Override
 	public int hashCode() {
@@ -102,10 +111,10 @@ public class AutoTransaction {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((autoTransactionDate == null) ? 0 : autoTransactionDate.hashCode());
 		result = prime * result + ((autoTransaction_id == null) ? 0 : autoTransaction_id.hashCode());
-		result = prime * result + car_id;
-		result = prime * result + person_id;
+		result = prime * result + ((car == null) ? 0 : car.hashCode());
 		result = prime * result + ((shopName == null) ? 0 : shopName.hashCode());
-		result = prime * result + transaction_type_id;
+		result = prime * result + ((transactionType == null) ? 0 : transactionType.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 	@Override
@@ -129,40 +138,48 @@ public class AutoTransaction {
 				return false;
 		} else if (!autoTransaction_id.equals(other.autoTransaction_id))
 			return false;
-		if (car_id != other.car_id)
-			return false;
-		if (person_id != other.person_id)
+		if (car == null) {
+			if (other.car != null)
+				return false;
+		} else if (!car.equals(other.car))
 			return false;
 		if (shopName == null) {
 			if (other.shopName != null)
 				return false;
 		} else if (!shopName.equals(other.shopName))
 			return false;
-		if (transaction_type_id != other.transaction_type_id)
+		if (transactionType == null) {
+			if (other.transactionType != null)
+				return false;
+		} else if (!transactionType.equals(other.transactionType))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
 		return "AutoTransaction [autoTransaction_id=" + autoTransaction_id + ", autoTransactionDate="
-				+ autoTransactionDate + ", shopName=" + shopName + ", amount=" + amount + ", transaction_type_id="
-				+ transaction_type_id + ", person_id=" + person_id + ", car_id=" + car_id + "]";
+				+ autoTransactionDate + ", shopName=" + shopName + ", amount=" + amount + ", user=" + user
+				+ ", transactionType=" + transactionType + ", car=" + car + "]";
 	}
 	public AutoTransaction(Long autoTransaction_id, String autoTransactionDate, String shopName, double amount,
-			int transaction_type_id, int person_id, int car_id) {
+			Users user, TransactionType transactionType, Car car) {
 		super();
 		this.autoTransaction_id = autoTransaction_id;
 		this.autoTransactionDate = autoTransactionDate;
 		this.shopName = shopName;
 		this.amount = amount;
-		this.transaction_type_id = transaction_type_id;
-		this.person_id = person_id;
-		this.car_id = car_id;
+		this.user = user;
+		this.transactionType = transactionType;
+		this.car = car;
 	}
 	public AutoTransaction() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 }

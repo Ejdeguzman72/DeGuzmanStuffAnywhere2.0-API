@@ -1,5 +1,7 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +11,18 @@ import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "home")
 @CrossOrigin
-public class Home {
+public class Home implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -598849302646432171L;
 	public int home_id;
 	public String address;
 	public String city;

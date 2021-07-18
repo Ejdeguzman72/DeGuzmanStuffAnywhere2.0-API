@@ -1,26 +1,47 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "RESTAURANT")
 @CrossOrigin
-public class Restaurant {
+public class Restaurant implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int restauant_id;
 	public String name;
 	public String address;
 	public String city;
 	public String state;
 	public String zip;
-	public int restaurant_type_id;
+
+	public RestaurantType restaurantType;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,12 +87,15 @@ public class Restaurant {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	@Column(name = "restaurant_type_id")
-	public int getRestaurant_type_id() {
-		return restaurant_type_id;
+	
+	@ManyToOne
+	@JoinColumn(name = "restaurant_type_id")
+	@JsonIgnore
+	public RestaurantType getRestaurantType() {
+		return restaurantType;
 	}
-	public void setRestaurant_type_id(int restaurant_type_id) {
-		this.restaurant_type_id = restaurant_type_id;
+	public void setRestaurantType(RestaurantType restaurantType) {
+		this.restaurantType = restaurantType;
 	}
 	@Override
 	public int hashCode() {
@@ -81,7 +105,7 @@ public class Restaurant {
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + restauant_id;
-		result = prime * result + restaurant_type_id;
+		result = prime * result + ((restaurantType == null) ? 0 : restaurantType.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
 		return result;
@@ -112,7 +136,10 @@ public class Restaurant {
 			return false;
 		if (restauant_id != other.restauant_id)
 			return false;
-		if (restaurant_type_id != other.restaurant_type_id)
+		if (restaurantType == null) {
+			if (other.restaurantType != null)
+				return false;
+		} else if (!restaurantType.equals(other.restaurantType))
 			return false;
 		if (state == null) {
 			if (other.state != null)
@@ -129,10 +156,10 @@ public class Restaurant {
 	@Override
 	public String toString() {
 		return "Restaurant [restauant_id=" + restauant_id + ", name=" + name + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + ", restaurant_type_id=" + restaurant_type_id + "]";
+				+ ", state=" + state + ", zip=" + zip + ", restaurantType=" + restaurantType + "]";
 	}
 	public Restaurant(int restauant_id, String name, String address, String city, String state, String zip,
-			int restaurant_type_id) {
+			RestaurantType restaurantType) {
 		super();
 		this.restauant_id = restauant_id;
 		this.name = name;
@@ -140,7 +167,7 @@ public class Restaurant {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.restaurant_type_id = restaurant_type_id;
+		this.restaurantType = restaurantType;
 	}
 	public Restaurant() {
 		super();

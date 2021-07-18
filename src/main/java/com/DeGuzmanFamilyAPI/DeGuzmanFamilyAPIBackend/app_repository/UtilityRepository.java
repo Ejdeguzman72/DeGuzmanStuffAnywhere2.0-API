@@ -8,4 +8,5 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Utility;
 @Repository
 public interface UtilityRepository extends JpaRepository<Utility,Long> {
 
+	
 }
