@@ -90,7 +90,6 @@ public class Restaurant implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "restaurant_type_id")
-	@JsonIgnore
 	public RestaurantType getRestaurantType() {
 		return restaurantType;
 	}

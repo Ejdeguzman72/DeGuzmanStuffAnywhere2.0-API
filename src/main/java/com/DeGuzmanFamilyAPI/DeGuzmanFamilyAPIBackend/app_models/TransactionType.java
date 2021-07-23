@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "transaction_type")
 @CrossOrigin
+@JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class TransactionType implements Serializable {
 	
 	/**
@@ -62,6 +63,7 @@ public class TransactionType implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL,
 			mappedBy="transactionType")
+	@JsonIgnore
 	public List<AutoTransaction> getTransactionType() {
 		return transactionType;
 	}
@@ -71,6 +73,7 @@ public class TransactionType implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL,
 			mappedBy="transactionType")
+	@JsonIgnore
 	public List<GeneralTransaction> getGeneralTransaction() {
 		return generalTransaction;
 	}
@@ -80,6 +83,7 @@ public class TransactionType implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL,
 			mappedBy="transactionType")
+	@JsonIgnore
 	public List<MedicalTransaction> getMedicalTransaction() {
 		return medicalTransaction;
 	}

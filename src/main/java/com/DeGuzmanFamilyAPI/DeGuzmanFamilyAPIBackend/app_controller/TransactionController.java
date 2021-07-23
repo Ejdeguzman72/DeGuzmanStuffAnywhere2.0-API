@@ -42,7 +42,7 @@ public class TransactionController {
 	}
 	
 	@PostMapping("/add-transaction-information")
-	public GeneralTransaction addTransaction(@Valid @RequestBody GeneralTransaction transaction) {
+	public GeneralTransaction addTransaction(@Valid @RequestBody GeneralTransaction transaction) throws ResourceNotFoundException {
 		return transactionService.addTransactionInformation(transaction);
 	}
 	

@@ -12,8 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.AutoShop;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.AutoTransaction;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Car;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.TransactionType;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.AutoShopRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.AutoTransactionRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.CarRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.TransactionTypeRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.AutoTransactionInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.AutoTrxLogger;
@@ -24,6 +32,18 @@ public class AutoTransactionService implements AutoTransactionInterface {
 
 	@Autowired
 	private AutoTransactionRepository autoTransactionRepository;
+	
+	@Autowired
+	private AutoShopRepository autoShopRepository;
+	
+	@Autowired
+	private TransactionTypeRepository transactionTypeRepository;
+	
+	@Autowired
+	private UserRepository usersRepository;
+	
+	@Autowired
+	private CarRepository carRepository;
 	
 	// returns the Auto transactions in a list
 	public List<AutoTransaction> findAllAutoTransactionInformation() {
@@ -51,14 +71,28 @@ public class AutoTransactionService implements AutoTransactionInterface {
 	}
 	
 	// creates an AutoTransaction object based off the fields that are filled.
-	public AutoTransaction addAutoTransactionInformation(@Valid @RequestBody AutoTransaction autoTransaction) {
+	public AutoTransaction addAutoTransactionInformation(@Valid @RequestBody AutoTransaction autoTransaction) throws ResourceNotFoundException {
 		if (autoTransaction == null) {
 			AutoTrxLogger.autoTrxLogger.severe(LoggerMessage.ADD_AUTO_TRX_INFO_ERROR_MESSAGE);
 		}
 		else {
 			AutoTrxLogger.autoTrxLogger.info(LoggerMessage.ADD_AUTO_TRX_INFO_MESSAGE + ": " + autoTransaction.amount);
 		}
-		return autoTransactionRepository.save(autoTransaction);
+		
+		String autoTransactionDate = autoTransaction.autoTransactionDate;
+		double amount = autoTransaction.amount;
+		AutoShop autoShop = autoShopRepository.findById(autoTransaction.getAutoShop().getAutoshopId())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		Users user = usersRepository.findById(autoTransaction.getUser().getUserid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		TransactionType transactionType = transactionTypeRepository.findById(autoTransaction.getTransactionType().getTransactionTypeId())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		Car car = carRepository.findById(autoTransaction.getCar().getCarid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot Find"));
+		
+		AutoTransaction newAutoTransaction = new AutoTransaction(autoTransactionDate,autoShop,amount,user,transactionType,car);
+				
+		return autoTransactionRepository.save(newAutoTransaction);
 	}
 	
 	// updates the AutoTransaction based on the id number entered. Once the fields are updated, then a new Auto
@@ -72,12 +106,23 @@ public class AutoTransactionService implements AutoTransactionInterface {
 			if (autoTransactionId == null || autoTransactionId <= 0) {
 				AutoTrxLogger.autoTrxLogger.warning(LoggerMessage.GET_AUTO_TRX_INFO_BY_ID_ERROR_MESSAGE);
 			}
-			autoTransaction.setAmount(autoTransactionDetails.getAmount());
-			autoTransaction.setShopName(autoTransactionDetails.getShopName());
-			//autoTransaction.setPerson_id(autoTransactionDetails.getPerson_id());
+			
 			autoTransaction.setAutoTransactionDate(autoTransactionDetails.getAutoTransactionDate());
-			//autoTransaction.setCar_id(autoTransactionDetails.getCar_id());
-			//autoTransaction.setTransaction_type_id(autoTransactionDetails.getTransaction_type_id());
+			
+			autoTransaction.setAmount(autoTransactionDetails.getAmount());
+			
+			autoTransaction.setAutoShop(autoShopRepository.findById(autoTransactionDetails.getAutoShop().getAutoshopId())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find")));
+			
+			autoTransaction.setUser(usersRepository.findById(autoTransactionDetails.getUser().getUserid())
+					.orElseThrow(() -> new ResourceNotFoundException("Cannot Find")));
+			
+			autoTransaction.setTransactionType(transactionTypeRepository.findById(autoTransactionDetails.getTransactionType().getTransactionTypeId())
+					.orElseThrow(() -> new ResourceNotFoundException("Cannot find")));
+			
+			autoTransaction.setCar(carRepository.findById(autoTransactionDetails.getCar().getCarid())
+					.orElseThrow(() -> new ResourceNotFoundException("Cannot Find")));
+			
 		}
 		catch (ResourceNotFoundException e) {
 			e.printStackTrace();

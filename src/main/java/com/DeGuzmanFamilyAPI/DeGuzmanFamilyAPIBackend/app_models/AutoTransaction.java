@@ -34,8 +34,9 @@ public class AutoTransaction implements Serializable {
 	private static final long serialVersionUID = 8676869382585836353L;
 	public Long autoTransaction_id;
 	public String autoTransactionDate;
-	public String shopName;
 	public double amount;
+	
+	public AutoShop autoShop;
 	
 	public Users user;
 	
@@ -59,13 +60,7 @@ public class AutoTransaction implements Serializable {
 	public void setAutoTransactionDate(String autoTransactionDate) {
 		this.autoTransactionDate = autoTransactionDate;
 	}
-	@Column(name = "shopname")
-	public String getShopName() {
-		return shopName;
-	}
-	public void setShopName(String shopName) {
-		this.shopName = shopName;
-	}
+	
 	@Column(name = "amount")
 	public double getAmount() {
 		return amount;
@@ -74,6 +69,14 @@ public class AutoTransaction implements Serializable {
 		this.amount = amount;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "auto_shop_id")
+	public AutoShop getAutoShop() {
+		return autoShop;
+	}
+	public void setAutoShop(AutoShop autoShop) {
+		this.autoShop = autoShop;
+	}
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	public Users getUser() {
@@ -85,7 +88,6 @@ public class AutoTransaction implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "transaction_type_id")
-	@JsonIgnore
 	public TransactionType getTransactionType() {
 		return transactionType;
 	}
@@ -95,7 +97,6 @@ public class AutoTransaction implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "car_id")
-	@JsonIgnore
 	public Car getCar() {
 		return car;
 	}
@@ -112,7 +113,7 @@ public class AutoTransaction implements Serializable {
 		result = prime * result + ((autoTransactionDate == null) ? 0 : autoTransactionDate.hashCode());
 		result = prime * result + ((autoTransaction_id == null) ? 0 : autoTransaction_id.hashCode());
 		result = prime * result + ((car == null) ? 0 : car.hashCode());
-		result = prime * result + ((shopName == null) ? 0 : shopName.hashCode());
+		result = prime * result + ((autoShop == null) ? 0 : autoShop.hashCode());
 		result = prime * result + ((transactionType == null) ? 0 : transactionType.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -143,10 +144,10 @@ public class AutoTransaction implements Serializable {
 				return false;
 		} else if (!car.equals(other.car))
 			return false;
-		if (shopName == null) {
-			if (other.shopName != null)
+		if (autoShop == null) {
+			if (other.autoShop != null)
 				return false;
-		} else if (!shopName.equals(other.shopName))
+		} else if (!autoShop.equals(other.autoShop))
 			return false;
 		if (transactionType == null) {
 			if (other.transactionType != null)
@@ -163,20 +164,32 @@ public class AutoTransaction implements Serializable {
 	@Override
 	public String toString() {
 		return "AutoTransaction [autoTransaction_id=" + autoTransaction_id + ", autoTransactionDate="
-				+ autoTransactionDate + ", shopName=" + shopName + ", amount=" + amount + ", user=" + user
+				+ autoTransactionDate + ", autoShop=" + autoShop + ", amount=" + amount + ", user=" + user
 				+ ", transactionType=" + transactionType + ", car=" + car + "]";
 	}
-	public AutoTransaction(Long autoTransaction_id, String autoTransactionDate, String shopName, double amount,
+	public AutoTransaction(Long autoTransaction_id, String autoTransactionDate, AutoShop autoShop, double amount,
 			Users user, TransactionType transactionType, Car car) {
 		super();
 		this.autoTransaction_id = autoTransaction_id;
 		this.autoTransactionDate = autoTransactionDate;
-		this.shopName = shopName;
+		this.autoShop = autoShop;
 		this.amount = amount;
-		this.user = user;
+		this.user = user; 
 		this.transactionType = transactionType;
 		this.car = car;
 	}
+	
+	public AutoTransaction(String autoTransactionDate, AutoShop autoShop, double amount,
+			Users user, TransactionType transactionType, Car car) {
+		super();
+		this.autoTransactionDate = autoTransactionDate;
+		this.autoShop = autoShop;
+		this.amount = amount;
+		this.user = user; 
+		this.transactionType = transactionType;
+		this.car = car;
+	}
+	
 	public AutoTransaction() {
 		super();
 		// TODO Auto-generated constructor stub

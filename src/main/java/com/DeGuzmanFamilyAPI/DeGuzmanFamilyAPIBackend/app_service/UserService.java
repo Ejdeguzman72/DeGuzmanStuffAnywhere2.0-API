@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_dto.UserInfoDTO;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserStatusRepository;

@@ -174,5 +174,15 @@ public class GeneralTransaction implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	public GeneralTransaction(double amount, String paymentDate, String entity, TransactionType transactionType,
+			Users user) {
+		super();
+		this.amount = amount;
+		this.paymentDate = paymentDate;
+		this.entity = entity;
+		this.transactionType = transactionType;
+		this.user = user;
+	}
 	
 }

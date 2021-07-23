@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "facility")
 @CrossOrigin
+@JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class Facility implements Serializable {
 
 	/**
@@ -36,7 +38,7 @@ public class Facility implements Serializable {
 	public String state;
 	public String zip;
 	
-	public List<Facility> facility;
+	public List<MedicalTransaction> medicalTransaction;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,11 +87,12 @@ public class Facility implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL,
 			mappedBy="facility")
-	public List<Facility> getFacility() {
-		return facility;
+	@JsonIgnore
+	public List<MedicalTransaction> getMedicalTransaction() {
+		return medicalTransaction;
 	}
-	public void setFacility(List<Facility> facility) {
-		this.facility = facility;
+	public void setMedicalTransaction(List<MedicalTransaction> medicalTransaction) {
+		this.medicalTransaction = medicalTransaction;
 	}
 	@Override
 	public int hashCode() {
@@ -97,8 +100,8 @@ public class Facility implements Serializable {
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((facility == null) ? 0 : facility.hashCode());
 		result = prime * result + ((facility_id == null) ? 0 : facility_id.hashCode());
+		result = prime * result + ((medicalTransaction == null) ? 0 : medicalTransaction.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
@@ -123,15 +126,15 @@ public class Facility implements Serializable {
 				return false;
 		} else if (!city.equals(other.city))
 			return false;
-		if (facility == null) {
-			if (other.facility != null)
-				return false;
-		} else if (!facility.equals(other.facility))
-			return false;
 		if (facility_id == null) {
 			if (other.facility_id != null)
 				return false;
 		} else if (!facility_id.equals(other.facility_id))
+			return false;
+		if (medicalTransaction == null) {
+			if (other.medicalTransaction != null)
+				return false;
+		} else if (!medicalTransaction.equals(other.medicalTransaction))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -153,10 +156,10 @@ public class Facility implements Serializable {
 	@Override
 	public String toString() {
 		return "Facility [facility_id=" + facility_id + ", name=" + name + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zip=" + zip + ", facility=" + facility + "]";
+				+ ", state=" + state + ", zip=" + zip + ", medicalTransaction=" + medicalTransaction + "]";
 	}
 	public Facility(Long facility_id, String name, String address, String city, String state, String zip,
-			List<Facility> facility) {
+			List<MedicalTransaction> medicalTransaction) {
 		super();
 		this.facility_id = facility_id;
 		this.name = name;
@@ -164,7 +167,7 @@ public class Facility implements Serializable {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.facility = facility;
+		this.medicalTransaction = medicalTransaction;
 	}
 	public Facility() {
 		super();

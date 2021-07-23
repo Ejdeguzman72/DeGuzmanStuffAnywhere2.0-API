@@ -18,7 +18,7 @@ public interface AutoTransactionInterface {
 	
 	public ResponseEntity<AutoTransaction> findAutoTranasctionInformationById(@PathVariable Long autoTransactionId) throws ResourceNotFoundException;
 	
-	public AutoTransaction addAutoTransactionInformation(@Valid @RequestBody AutoTransaction autoTransaction);
+	public AutoTransaction addAutoTransactionInformation(@Valid @RequestBody AutoTransaction autoTransaction) throws ResourceNotFoundException;
 	
 	public ResponseEntity<AutoTransaction> updateTransactionInformation(@PathVariable Long autoTransactionId,
 			@Valid @RequestBody AutoTransaction autoTransactionDetails);

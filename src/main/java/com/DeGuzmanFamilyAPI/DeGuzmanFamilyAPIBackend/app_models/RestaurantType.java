@@ -57,6 +57,7 @@ public class RestaurantType implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL,
 			fetch = FetchType.LAZY,
 			mappedBy = "restaurantType")
+	@JsonIgnore
 	public List<Restaurant> getRestaurant() {
 		return restaurant;
 	}

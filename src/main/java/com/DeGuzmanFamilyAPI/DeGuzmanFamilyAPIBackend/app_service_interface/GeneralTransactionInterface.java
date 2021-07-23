@@ -18,7 +18,7 @@ public interface GeneralTransactionInterface {
 	
 	public ResponseEntity<GeneralTransaction> findTransactionInformationByID(@PathVariable long transactionid) throws ResourceNotFoundException;
 	
-	public GeneralTransaction addTransactionInformation(@Valid @RequestBody GeneralTransaction transaction);
+	public GeneralTransaction addTransactionInformation(@Valid @RequestBody GeneralTransaction transaction) throws ResourceNotFoundException;
 	
 	public ResponseEntity<GeneralTransaction> updateTransactionInformation(@PathVariable Long transactionid, @Valid @RequestBody GeneralTransaction transactionDetails);
 	

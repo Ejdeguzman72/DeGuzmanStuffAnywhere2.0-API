@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "users")
 @CrossOrigin
+@JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class Users implements Serializable {
 	
 
@@ -43,8 +44,6 @@ public class Users implements Serializable {
 	public String password;
 	public String name;
 	public String email;
-	// public int user_status_id;
-	// public int role_id;
 	
 	public List<RunTracker> runTracker;
 	
@@ -53,6 +52,8 @@ public class Users implements Serializable {
 	public List<GeneralTransaction> generalTransaction;
 	
 	public List<MedicalTransaction> medicalTransaction;
+	
+	public List<Exercise> exercise;
 	
 	public UserStatus userStatus;
 	
@@ -101,6 +102,7 @@ public class Users implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL,
 			fetch = FetchType.LAZY,
 			mappedBy = "user")
+	@JsonIgnore
 	public List<RunTracker> getRunTracker() {
 		return runTracker;
 	}
@@ -110,6 +112,7 @@ public class Users implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_status_id")
+	@JsonIgnore
 	public UserStatus getUserStatus() {
 		return userStatus;
 	}
@@ -119,6 +122,7 @@ public class Users implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "role_id")
+	@JsonIgnore
 	public Role getRole() {
 		return role;
 	}
@@ -129,6 +133,7 @@ public class Users implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL,
 			fetch = FetchType.LAZY,
 			mappedBy="user")
+	@JsonIgnore
 	public List<AutoTransaction> getAutoTransaction() {
 		return autoTransaction;
 	}
@@ -138,6 +143,7 @@ public class Users implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL,
 			mappedBy="user")
+	@JsonIgnore
 	public List<GeneralTransaction> getGeneralTransaction() {
 		return generalTransaction;
 	}
@@ -147,11 +153,20 @@ public class Users implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL,
 			mappedBy="user")
+	@JsonIgnore
 	public List<MedicalTransaction> getMedicalTransaction() {
 		return medicalTransaction;
 	}
 	public void setMedicalTransaction(List<MedicalTransaction> medicalTransaction) {
 		this.medicalTransaction = medicalTransaction;
+	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+	@JsonIgnore
+	public List<Exercise> getExercise() {
+		return exercise;
+	}
+	public void setExercise(List<Exercise> exercise) {
+		this.exercise = exercise;
 	}
 	@Override
 	public int hashCode() {
@@ -159,6 +174,7 @@ public class Users implements Serializable {
 		int result = 1;
 		result = prime * result + ((autoTransaction == null) ? 0 : autoTransaction.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((exercise == null) ? 0 : exercise.hashCode());
 		result = prime * result + ((generalTransaction == null) ? 0 : generalTransaction.hashCode());
 		result = prime * result + ((medicalTransaction == null) ? 0 : medicalTransaction.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -188,6 +204,11 @@ public class Users implements Serializable {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (exercise == null) {
+			if (other.exercise != null)
+				return false;
+		} else if (!exercise.equals(other.exercise))
 			return false;
 		if (generalTransaction == null) {
 			if (other.generalTransaction != null)
@@ -238,11 +259,11 @@ public class Users implements Serializable {
 		return "Users [user_id=" + user_id + ", username=" + username + ", password=" + password + ", name=" + name
 				+ ", email=" + email + ", runTracker=" + runTracker + ", autoTransaction=" + autoTransaction
 				+ ", generalTransaction=" + generalTransaction + ", medicalTransaction=" + medicalTransaction
-				+ ", userStatus=" + userStatus + ", role=" + role + "]";
+				+ ", exercise=" + exercise + ", userStatus=" + userStatus + ", role=" + role + "]";
 	}
 	public Users(long user_id, String username, String password, String name, String email, List<RunTracker> runTracker,
 			List<AutoTransaction> autoTransaction, List<GeneralTransaction> generalTransaction,
-			List<MedicalTransaction> medicalTransaction, UserStatus userStatus, Role role) {
+			List<MedicalTransaction> medicalTransaction, List<Exercise> exercise, UserStatus userStatus, Role role) {
 		super();
 		this.user_id = user_id;
 		this.username = username;
@@ -253,6 +274,7 @@ public class Users implements Serializable {
 		this.autoTransaction = autoTransaction;
 		this.generalTransaction = generalTransaction;
 		this.medicalTransaction = medicalTransaction;
+		this.exercise = exercise;
 		this.userStatus = userStatus;
 		this.role = role;
 	}

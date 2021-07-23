@@ -42,7 +42,7 @@ public class AutoTransactionController {
 	}
 	
 	@PostMapping("/add-auto-transaction-information")
-	public AutoTransaction addAutoTransactionInfoController(@Valid @RequestBody AutoTransaction autoTransaction) {
+	public AutoTransaction addAutoTransactionInfoController(@Valid @RequestBody AutoTransaction autoTransaction) throws ResourceNotFoundException {
 		return autoTransactionService.addAutoTransactionInformation(autoTransaction);
 	}
 	

@@ -3,6 +3,7 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.GeneralTransaction;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.TransactionType;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.TransactionRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.TransactionTypeRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.GeneralTransactionInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.GeneralTrxLogger;
@@ -24,6 +29,12 @@ public class TransactionService implements GeneralTransactionInterface {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private UserRepository usersRepository;
+	
+	@Autowired
+	private TransactionTypeRepository transactionTypeRepository;
 	
 	// returns the general transactions in a list
 	public List<GeneralTransaction> findAllTransactionInformation() {
@@ -51,14 +62,24 @@ public class TransactionService implements GeneralTransactionInterface {
 	}
 	
 	// creates an GeneralTransaction object based off the fields that are filled.
-	public GeneralTransaction addTransactionInformation(@Valid @RequestBody GeneralTransaction transaction) {
+	public GeneralTransaction addTransactionInformation(@Valid @RequestBody GeneralTransaction transaction) throws ResourceNotFoundException {
 		if (transaction == null) {
 			GeneralTrxLogger.generalTrxLogger.warning(LoggerMessage.ADD_GENERAL_TRX_ERROR_MESSAGE);
 		}
 		else {
 			GeneralTrxLogger.generalTrxLogger.info(LoggerMessage.ADD_GENERAL_TRX_INFO_MESSAGE + ": " + transaction.getAmount());
 		}
-		return transactionRepository.save(transaction);
+		
+		double amount = transaction.getAmount();
+		String paymentDate = transaction.getPaymentDate();
+		String entity = transaction.getEntity();
+		TransactionType transactionType = transactionTypeRepository.findById(transaction.getTransactionType().getTransactionTypeId())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		Users user =  usersRepository.findById(transaction.getUser().getUserid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		GeneralTransaction newTransaction = new GeneralTransaction(amount,paymentDate,entity,transactionType,user);
+		
+		return transactionRepository.save(newTransaction);
 	}
 	
 	// updates the GeneralTransaction based on the id number entered. Once the fields are updated, then a new Auto
@@ -78,7 +99,10 @@ public class TransactionService implements GeneralTransactionInterface {
 			transaction.setEntity(transactionDetails.getEntity());
 			transaction.setAmount(transactionDetails.getAmount());
 			transaction.setPaymentDate(transactionDetails.getPaymentDate());
-			//transaction.setPerson_id(transactionDetails.getPerson_id());
+			transaction.setUser(usersRepository.findById(transactionDetails.getUser().getUserid())
+					.orElseThrow(() -> new ResourceNotFoundException("Cannot Find")));
+			transaction.setTransactionType(transactionTypeRepository.findById(transactionDetails.getTransactionType().getTransactionTypeId())
+					.orElseThrow(() -> new ResourceNotFoundException("Cannot find transaction with ID: " + transactionid)));
 			GeneralTrxLogger.generalTrxLogger.info("Updating general transaction information...");
 		}
 		catch (ResourceNotFoundException e) {

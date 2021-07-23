@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_dto.UserInfoDTO;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 
 @Repository

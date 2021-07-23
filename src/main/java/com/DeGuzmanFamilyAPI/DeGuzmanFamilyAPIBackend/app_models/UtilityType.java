@@ -42,7 +42,8 @@ public class UtilityType {
 		this.utility_type_descr = utility_type_descr;
 	}
 	
-	@OneToOne(mappedBy = "utilityType")
+	@OneToOne(mappedBy = "utilityType", fetch = FetchType.LAZY)
+	@JsonIgnore
 	public Utility getUtility() {
 		return utility;
 	}

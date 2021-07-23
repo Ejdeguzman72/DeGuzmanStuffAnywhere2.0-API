@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -30,6 +31,7 @@ public class Car implements Serializable {
 	 */
 	private static final long serialVersionUID = -6819954124384869848L;
 	public long car_id;
+	public String year;
 	public String make;
 	public String model;
 	public int capactity;
@@ -45,6 +47,13 @@ public class Car implements Serializable {
 	}
 	public void setCarid(long car_id) {
 		this.car_id = car_id;
+	}
+	@Column(name = "year")
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
 	}
 	@Column(name = "make")
 	public String getMake() {
@@ -77,6 +86,7 @@ public class Car implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL,
 			mappedBy="car")
+	@JsonIgnore
 	public List<AutoTransaction> getAutoTransaction() {
 		return autoTransaction;
 	}
@@ -93,6 +103,7 @@ public class Car implements Serializable {
 		result = prime * result + ((make == null) ? 0 : make.hashCode());
 		result = prime * result + ((model == null) ? 0 : model.hashCode());
 		result = prime * result + ((transmission == null) ? 0 : transmission.hashCode());
+		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
 	@Override
@@ -128,26 +139,32 @@ public class Car implements Serializable {
 				return false;
 		} else if (!transmission.equals(other.transmission))
 			return false;
+		if (year == null) {
+			if (other.year != null)
+				return false;
+		} else if (!year.equals(other.year))
+			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Car [car_id=" + car_id + ", make=" + make + ", model=" + model + ", capactity=" + capactity
-				+ ", transmission=" + transmission + ", autoTransaction=" + autoTransaction + "]";
+		return "Car [car_id=" + car_id + ", year=" + year + ", make=" + make + ", model=" + model + ", capactity="
+				+ capactity + ", transmission=" + transmission + ", autoTransaction=" + autoTransaction + "]";
 	}
-	public Car() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Car(long car_id, String make, String model, int capactity, String transmission,
+	public Car(long car_id, String year, String make, String model, int capactity, String transmission,
 			List<AutoTransaction> autoTransaction) {
 		super();
 		this.car_id = car_id;
+		this.year = year;
 		this.make = make;
 		this.model = model;
 		this.capactity = capactity;
 		this.transmission = transmission;
 		this.autoTransaction = autoTransaction;
+	}
+	public Car() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 }
