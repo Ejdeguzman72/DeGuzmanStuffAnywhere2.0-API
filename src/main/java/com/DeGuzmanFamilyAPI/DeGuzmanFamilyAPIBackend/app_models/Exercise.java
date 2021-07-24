@@ -168,6 +168,18 @@ public class Exercise implements Serializable {
 		this.user = user;
 	}
 
+	public Exercise(String exerciseName, int sets, int reps, double weight, ExerciseType exerciseType,
+			Users user) {
+		super();
+		this.exerciseName = exerciseName;
+		this.sets = sets;
+		this.reps = reps;
+		this.weight = weight;
+		this.exerciseType = exerciseType;
+		this.user = user;
+	}
+
+	
 	public Exercise() {
 		super();
 		// TODO Auto-generated constructor stub

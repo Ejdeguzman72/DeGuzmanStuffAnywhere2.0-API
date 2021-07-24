@@ -11,8 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.ExerciseType;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Restaurant;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.RestaurantType;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.RestaurantRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.RestaurantTypeRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.RestaurantInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 
@@ -21,6 +24,9 @@ public class RestaurantService implements RestaurantInterface {
 
 	@Autowired
 	private RestaurantRepository restaurantRepository;
+	
+	@Autowired
+	private RestaurantTypeRepository restaurantTypeRepository;
 
 	@Override
 	public List<Restaurant> findAllRestaurants() {
@@ -35,9 +41,16 @@ public class RestaurantService implements RestaurantInterface {
 		return ResponseEntity.ok().body(restaurant);
 	}
 
-	public Restaurant addRestaurantInformation(@Valid Restaurant restaurant) {
-		restaurant.getRestaurantType();
-		return restaurantRepository.save(restaurant);
+	public Restaurant addRestaurantInformation(@Valid Restaurant restaurant) throws ResourceNotFoundException {
+		String name = restaurant.getName();
+		String address = restaurant.getAddress();
+		String city = restaurant.getCity();
+		String state = restaurant.getState();
+		String zip = restaurant.getZip();
+		RestaurantType restaurantType = restaurantTypeRepository.findById(restaurant.getRestaurantType().getRestaurantTypeId())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find exercise type with ID: " + restaurant.getRestaurantType().getRestaurantTypeId()));
+		Restaurant newRestaurant = new Restaurant(name,address,city,state,zip,restaurantType);
+		return restaurantRepository.save(newRestaurant);
 	}
 
 	@Override
@@ -51,7 +64,8 @@ public class RestaurantService implements RestaurantInterface {
 			restaurant.setName(restaurantDetails.getName());
 			restaurant.setState(restaurantDetails.getState());
 			restaurant.setZip(restaurantDetails.getZip());
-			// restaurant.setRestaurant_type_id(restaurantDetails.getRestaurant_type_id());
+			restaurant.setRestaurantType(restaurantTypeRepository.findById(restaurantDetails.getRestaurantType().getRestaurantTypeId())
+					.orElseThrow(() -> new ResourceNotFoundException("Cannot find")));
 		}
 		
 		catch (Exception e) {

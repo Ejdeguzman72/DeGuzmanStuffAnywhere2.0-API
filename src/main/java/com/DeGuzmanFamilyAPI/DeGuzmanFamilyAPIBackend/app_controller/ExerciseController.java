@@ -39,7 +39,7 @@ public class ExerciseController {
 	}
 	
 	@PostMapping("/add-exercise")
-	public Exercise addExerciseInformation(@Valid @RequestBody Exercise exercise) {
+	public Exercise addExerciseInformation(@Valid @RequestBody Exercise exercise) throws ResourceNotFoundException {
 		return exerciseService.addExerciseInformation(exercise);
 	}
 	

@@ -12,8 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Facility;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.MedicalTransaction;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.TransactionType;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.FacilityRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.MedicalTransactionRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.TransactionTypeRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.MedicalTransactionInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.MedicalTrxLogger;
@@ -24,6 +30,15 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 
 	@Autowired
 	private MedicalTransactionRepository medicalTransactionRepository;
+	
+	@Autowired
+	private FacilityRepository facilityRepository;
+	
+	@Autowired
+	private TransactionTypeRepository transactionTypeRepository;
+	
+	@Autowired
+	private UserRepository usersRepository;
 	
 	// returns the Medical transactions in a list
 	public List<MedicalTransaction> findAllMedicalTransactionInformation() {
@@ -51,14 +66,24 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	}
 	
 	// creates an MedicalTransaction object based off the fields that are filled.
-	public MedicalTransaction addMedicalTransactionInformation(@Valid @RequestBody MedicalTransaction medicalTransaction) {
+	public MedicalTransaction addMedicalTransactionInformation(@Valid @RequestBody MedicalTransaction medicalTransaction) throws ResourceNotFoundException {
 		if (medicalTransaction == null) {
 			MedicalTrxLogger.medicalTrxLogger.severe(LoggerMessage.ADD_MEDICAL_TRX_ERROR_MESSAGE);
 		}
 		else {
 			MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.ADD_MEDICAL_TRX_INFORMATION_INFO_MESSAGE + ": " + medicalTransaction.amount + " " + medicalTransaction.medical_transaction_date);
 		}
-		return medicalTransactionRepository.save(medicalTransaction);
+		String medicalTRansactionDate = medicalTransaction.medical_transaction_date;
+		double amount = medicalTransaction.amount;
+		
+		Facility facility = facilityRepository.findById((int) medicalTransaction.getUser().getUserid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		Users user = usersRepository.findById(medicalTransaction.getUser().getUserid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		TransactionType transactionType = transactionTypeRepository.findById(medicalTransaction.getTransactionType().getTransactionTypeId())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		MedicalTransaction newMedicalTrx = new MedicalTransaction(medicalTRansactionDate,amount,facility,transactionType,user);
+		return medicalTransactionRepository.save(newMedicalTrx);
 	}
 	
 	// updates the MedicalTransaction based on the id number entered. Once the fields are updated, then a new Auto
@@ -77,7 +102,12 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 			}
 			medicalTransaction.setAmount(medicalTransactionDetails.getAmount());
 			medicalTransaction.setMedicalTransactionDate(medicalTransactionDetails.getMedicalTransactionDate());
-			
+			medicalTransaction.setFacility(facilityRepository.findById((int) medicalTransaction.getUser().getUserid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find")));
+			medicalTransaction.setTransactionType(transactionTypeRepository.findById(medicalTransaction.getTransactionType().getTransactionTypeId())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find")));
+			medicalTransaction.setUser(usersRepository.findById(medicalTransaction.getUser().getUserid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find")));
 			MedicalTrxLogger.medicalTrxLogger.info("Currently updating medical transcation information for ID");
 		}
 		catch (ResourceNotFoundException e)  {

@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Exercise;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.ExerciseType;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.ExerciseRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.ExerciseTypeRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 
 @Service
@@ -21,6 +25,12 @@ public class ExerciseService {
 
 	@Autowired
 	private ExerciseRepository exerciseRepository;
+	
+	@Autowired
+	private ExerciseTypeRepository exerciseTypeRepository;
+	
+	@Autowired
+	private UserRepository usersRepository;
 	
 	public List<Exercise> findAllExercise() {
 		return exerciseRepository.findAll();
@@ -33,8 +43,18 @@ public class ExerciseService {
 		return ResponseEntity.ok().body(exercise);
 	}
 	
-	public Exercise addExerciseInformation(@Valid @RequestBody Exercise exercise) {
-		return exerciseRepository.save(exercise);
+	public Exercise addExerciseInformation(@Valid @RequestBody Exercise exercise) throws ResourceNotFoundException {
+		String exerciseName = exercise.getExerciseName();
+		int reps = exercise.getReps();
+		int sets = exercise.getSets();
+		double weight = exercise.getWeight();
+		ExerciseType exerciseType = exerciseTypeRepository.findById(exercise.getExerciseType().getExerciseTypeId())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find exercise type with ID: " + exercise.getExerciseType().getExerciseTypeId()));
+		Users user = usersRepository.findById(exercise.getUser().getUserid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find user with ID: " + exercise.getUser().getUserid()));
+		
+		Exercise newExercise = new Exercise(exerciseName,reps,sets,weight,exerciseType,user);
+		return exerciseRepository.save(newExercise);
 	}
 	
 	public ResponseEntity<Exercise> updateExerciseInformation(@PathVariable int exerciseid, 
@@ -44,10 +64,14 @@ public class ExerciseService {
 			exercise = exerciseRepository.findById(exerciseid)
 					.orElseThrow(() -> new ResourceNotFoundException("Cannot find exercise with ID: " + exerciseid));
 			exercise.setExerciseName(exerciseDetails.getExerciseName());
-			exercise.setExerciseType(exerciseDetails.getExerciseType());
+			exercise.setExerciseType(exerciseTypeRepository.findById(exerciseDetails.getExerciseType().getExerciseTypeId())
+					.orElseThrow(() -> new ResourceNotFoundException("Cannot find exercise type resource of ID: " + exerciseDetails.getExerciseType().getExerciseTypeId())));
 			exercise.setReps(exerciseDetails.getReps());
 			exercise.setSets(exerciseDetails.getSets());
 			exercise.setWeight(exerciseDetails.getWeight());
+			exercise.setUser(usersRepository.findById(exerciseDetails.getUser().getUserid())
+					.orElseThrow(() -> new ResourceNotFoundException("Cannot find user with ID: " + exerciseDetails.getUser().getUserid())));
+			
 		}
 		
 		catch (ResourceNotFoundException e) {

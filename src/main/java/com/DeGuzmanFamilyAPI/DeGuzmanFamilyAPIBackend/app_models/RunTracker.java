@@ -188,6 +188,15 @@ public class RunTracker implements Serializable {
 		this.runTime = runTime;
 		this.user = user;
 	}
+	
+	public RunTracker(String runDate, double runDistance,
+			String runTime, Users user) {
+		super();
+		this.runDate = runDate;
+		this.runDistance = runDistance;
+		this.runTime = runTime;
+		this.user = user;
+	}
 
 	public RunTracker() {
 		super();

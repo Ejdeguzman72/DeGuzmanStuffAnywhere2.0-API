@@ -168,6 +168,16 @@ public class Restaurant implements Serializable {
 		this.zip = zip;
 		this.restaurantType = restaurantType;
 	}
+	public Restaurant(String name, String address, String city, String state, String zip,
+			RestaurantType restaurantType) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.restaurantType = restaurantType;
+	}
 	public Restaurant() {
 		super();
 		// TODO Auto-generated constructor stub

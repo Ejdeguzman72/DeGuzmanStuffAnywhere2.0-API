@@ -18,7 +18,7 @@ public interface RunTrackerServiceInterface {
 	
 	public ResponseEntity<RunTracker> findRunTrackerInformationById(@PathVariable long runid) throws ResourceNotFoundException;
 	
-	public RunTracker addRunTrackerInformation(@Valid @RequestBody RunTracker runTracker);
+	public RunTracker addRunTrackerInformation(@Valid @RequestBody RunTracker runTracker) throws ResourceNotFoundException;
 	
 	public ResponseEntity<RunTracker> updateRunTrackerInformation(@PathVariable long runid,
 			@Valid @RequestBody RunTracker runTrackerDetails);

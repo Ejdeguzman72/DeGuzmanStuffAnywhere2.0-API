@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.RunTracker;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Users;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.RunTrackerRepository;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.RunTrackerServiceInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 
@@ -22,6 +24,9 @@ public class RunTrackerService implements RunTrackerServiceInterface {
 
 	@Autowired
 	private RunTrackerRepository runTrackerRepository;
+	
+	@Autowired
+	private UserRepository usersRepository;
 	
 	public List<RunTracker> findAllRunTrackerInformation() {
 		return runTrackerRepository.findAll();
@@ -33,8 +38,14 @@ public class RunTrackerService implements RunTrackerServiceInterface {
 		return ResponseEntity.ok().body(runTracker);
 	}
 	
-	public RunTracker addRunTrackerInformation(@Valid @RequestBody RunTracker runTracker) {
-		return runTrackerRepository.save(runTracker);
+	public RunTracker addRunTrackerInformation(@Valid @RequestBody RunTracker runTracker) throws ResourceNotFoundException {
+		String runDate = runTracker.getRunDate();
+		double runDistance = runTracker.getRunDistance();
+		String runTime = runTracker.getRunTime();
+		Users user = usersRepository.findById(runTracker.getUser().getUserid())
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
+		RunTracker newRunTracker = new RunTracker(runDate,runDistance,runTime,user);
+		return runTrackerRepository.save(newRunTracker);
 	}
 	
 	public ResponseEntity<RunTracker> updateRunTrackerInformation(@PathVariable long runid,
@@ -43,9 +54,6 @@ public class RunTrackerService implements RunTrackerServiceInterface {
 		try {
 			runTrackerDetails = runTrackerRepository.findById(runid)
 					.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
-			
-			runTracker.setFirstname(runTrackerDetails.getFirstname());
-			runTracker.setLastname(runTrackerDetails.getLastname());
 			runTracker.setRunDate(runTrackerDetails.getRunDate());
 			runTracker.setRunDistance(runTrackerDetails.getRunDistance());
 			runTracker.setRunTime(runTracker.getRunTime());

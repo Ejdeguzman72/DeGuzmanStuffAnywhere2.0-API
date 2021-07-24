@@ -145,6 +145,7 @@ public class MedicalTransaction implements Serializable {
 			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
 		return "MedicalTransaction [medicalTransaction_Id=" + medicalTransaction_Id + ", medical_transaction_date="
@@ -155,6 +156,16 @@ public class MedicalTransaction implements Serializable {
 			Facility facility, TransactionType transactionType, Users user) {
 		super();
 		this.medicalTransaction_Id = medicalTransaction_Id;
+		this.medical_transaction_date = medical_transaction_date;
+		this.amount = amount;
+		this.facility = facility;
+		this.transactionType = transactionType;
+		this.user = user;
+	}
+	
+	public MedicalTransaction(String medical_transaction_date, double amount,
+			Facility facility, TransactionType transactionType, Users user) {
+		super();
 		this.medical_transaction_date = medical_transaction_date;
 		this.amount = amount;
 		this.facility = facility;

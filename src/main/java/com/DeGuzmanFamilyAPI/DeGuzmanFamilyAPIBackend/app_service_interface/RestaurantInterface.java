@@ -18,7 +18,7 @@ public interface RestaurantInterface {
 	
 	public ResponseEntity<Restaurant> findRestaurantById(@PathVariable int restaurantid) throws ResourceNotFoundException;
 	
-	public Restaurant addRestaurantInformation(@Valid @RequestBody Restaurant restaurant);
+	public Restaurant addRestaurantInformation(@Valid @RequestBody Restaurant restaurant) throws ResourceNotFoundException;
 	
 	public ResponseEntity<Restaurant> updateRestaurantInformation(@PathVariable int restaurantid,
 			@Valid @RequestBody Restaurant restaurantDetails) throws ResourceNotFoundException;
