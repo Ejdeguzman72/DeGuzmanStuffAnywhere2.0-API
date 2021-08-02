@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFound
 @Service
 public class RunTrackerService implements RunTrackerServiceInterface {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(RunTrackerServiceInterface.class);
+	
 	@Autowired
 	private RunTrackerRepository runTrackerRepository;
 	
@@ -57,6 +61,7 @@ public class RunTrackerService implements RunTrackerServiceInterface {
 			runTracker.setRunDate(runTrackerDetails.getRunDate());
 			runTracker.setRunDistance(runTrackerDetails.getRunDistance());
 			runTracker.setRunTime(runTracker.getRunTime());
+			// runTracker.setUser(usersRepository.findById(runTrackerRepository.));
 		} catch (ResourceNotFoundException e) {
 			e.printStackTrace();
 		}

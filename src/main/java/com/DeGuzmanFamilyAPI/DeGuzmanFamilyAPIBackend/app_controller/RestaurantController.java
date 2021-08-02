@@ -41,7 +41,7 @@ public class RestaurantController {
 	}
 	
 	@PostMapping("/add-restaurant-information")
-	public Restaurant addRestaurantInformation(@Valid @RequestBody Restaurant restaurant) {
+	public Restaurant addRestaurantInformation(@Valid @RequestBody Restaurant restaurant) throws ResourceNotFoundException {
 		return restaurantService.addRestaurantInformation(restaurant);
 	}
 	

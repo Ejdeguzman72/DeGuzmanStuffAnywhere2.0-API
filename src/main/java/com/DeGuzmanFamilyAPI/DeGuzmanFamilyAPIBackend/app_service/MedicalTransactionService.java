@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.MedicalTran
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.TransactionTypeRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.MedicalTransactionInterface;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.RunTrackerServiceInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.MedicalTrxLogger;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
@@ -28,6 +31,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
 @Service
 public class MedicalTransactionService implements MedicalTransactionInterface {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(RunTrackerServiceInterface.class);
+	
 	@Autowired
 	private MedicalTransactionRepository medicalTransactionRepository;
 	
@@ -44,10 +49,10 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	public List<MedicalTransaction> findAllMedicalTransactionInformation() {
 		List<MedicalTransaction> medicalTrxList = medicalTransactionRepository.findAll();
 		if (medicalTrxList.isEmpty() || medicalTrxList.size() == 0) {
-			MedicalTrxLogger.medicalTrxLogger.warning(LoggerMessage.GET_ALL_MEDICAL_TRX_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.GET_ALL_MEDICAL_TRX_ERROR_MESSAGE);
 		}
 		else {
-			MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.GET_ALL_MEDICAL_TRX_INFO_MESSAGE);
+			LOGGER.info(LoggerMessage.GET_ALL_MEDICAL_TRX_INFO_MESSAGE);
 		}
 		return medicalTransactionRepository.findAll();
 	}
@@ -57,10 +62,10 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 		MedicalTransaction medicalTransaction = medicalTransactionRepository.findById(medicalTransactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 		if (medicalTransactionId == null || medicalTransactionId == 0) {
-			MedicalTrxLogger.medicalTrxLogger.severe(LoggerMessage.GET_MEDICAL_TRX_BY_ID_ERROR_MESSAGE + ": " + medicalTransactionId);
+			LOGGER.error(LoggerMessage.GET_MEDICAL_TRX_BY_ID_ERROR_MESSAGE + ": " + medicalTransactionId);
 		}
 		else  {
-			MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.GET_MEDICAL_TRX_BY_ID_INFO_MESSAGE);
+			LOGGER.info(LoggerMessage.GET_MEDICAL_TRX_BY_ID_INFO_MESSAGE);
 		}
 		return ResponseEntity.ok().body(medicalTransaction);
 	}
@@ -68,10 +73,10 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	// creates an MedicalTransaction object based off the fields that are filled.
 	public MedicalTransaction addMedicalTransactionInformation(@Valid @RequestBody MedicalTransaction medicalTransaction) throws ResourceNotFoundException {
 		if (medicalTransaction == null) {
-			MedicalTrxLogger.medicalTrxLogger.severe(LoggerMessage.ADD_MEDICAL_TRX_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.ADD_MEDICAL_TRX_ERROR_MESSAGE);
 		}
 		else {
-			MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.ADD_MEDICAL_TRX_INFORMATION_INFO_MESSAGE + ": " + medicalTransaction.amount + " " + medicalTransaction.medical_transaction_date);
+			LOGGER.info(LoggerMessage.ADD_MEDICAL_TRX_INFORMATION_INFO_MESSAGE + ": " + medicalTransaction.amount + " " + medicalTransaction.medical_transaction_date);
 		}
 		String medicalTRansactionDate = medicalTransaction.medical_transaction_date;
 		double amount = medicalTransaction.amount;
@@ -95,10 +100,10 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 			medicalTransaction = medicalTransactionRepository.findById(medicalTransactionId)
 					.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 			if (medicalTransactionId == null || medicalTransactionId == 0) {
-				MedicalTrxLogger.medicalTrxLogger.warning(LoggerMessage.GET_MEDICAL_TRX_BY_ID_ERROR_MESSAGE);;
+				LOGGER.warn(LoggerMessage.GET_MEDICAL_TRX_BY_ID_ERROR_MESSAGE);;
 			}
 			else {
-				MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.GET_MEDICAL_TRX_BY_ID_INFO_MESSAGE + ": " + medicalTransactionId);
+				LOGGER.info(LoggerMessage.GET_MEDICAL_TRX_BY_ID_INFO_MESSAGE + ": " + medicalTransactionId);
 			}
 			medicalTransaction.setAmount(medicalTransactionDetails.getAmount());
 			medicalTransaction.setMedicalTransactionDate(medicalTransactionDetails.getMedicalTransactionDate());
@@ -114,17 +119,17 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 			e.printStackTrace();
 		}
 		final MedicalTransaction updatedMedicalTransaction = medicalTransactionRepository.save(medicalTransaction);
-		MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.UPDATE_AUTO_TRX_INFO_MESSAGE + updatedMedicalTransaction.amount + updatedMedicalTransaction.medical_transaction_date);
+		LOGGER.info(LoggerMessage.UPDATE_AUTO_TRX_INFO_MESSAGE + updatedMedicalTransaction.amount + updatedMedicalTransaction.medical_transaction_date);
 		return ResponseEntity.ok().body(updatedMedicalTransaction);
 	}
 	
 	public Map<String,Boolean> deleteMedicalTraansactionInformation(@PathVariable Long medicalTransactionId) {
 		medicalTransactionRepository.deleteById(medicalTransactionId);
 		if (medicalTransactionId == null || medicalTransactionId == 0) {
-			MedicalTrxLogger.medicalTrxLogger.warning(LoggerMessage.DELETE_MEDICAL_TRX_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.DELETE_MEDICAL_TRX_ERROR_MESSAGE);
 		}
 		else {
-			MedicalTrxLogger.medicalTrxLogger.info(LoggerMessage.DELETE_MEDICAL_TRX_INFORMATION_INFO_MESSAGE + ": " + medicalTransactionId);
+			LOGGER.info(LoggerMessage.DELETE_MEDICAL_TRX_INFORMATION_INFO_MESSAGE + ": " + medicalTransactionId);
 		}
 		Map<String,Boolean> response = new HashMap<>();
 		response.put("Medical Transaction deleted", Boolean.TRUE);

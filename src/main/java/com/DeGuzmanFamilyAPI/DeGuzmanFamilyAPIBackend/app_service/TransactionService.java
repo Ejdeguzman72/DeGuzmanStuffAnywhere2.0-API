@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,12 +22,15 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.Transaction
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.TransactionTypeRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.GeneralTransactionInterface;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.RunTrackerServiceInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.GeneralTrxLogger;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
 
 @Service
 public class TransactionService implements GeneralTransactionInterface {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RunTrackerServiceInterface.class);
 
 	@Autowired
 	private TransactionRepository transactionRepository;
@@ -40,10 +45,10 @@ public class TransactionService implements GeneralTransactionInterface {
 	public List<GeneralTransaction> findAllTransactionInformation() {
 		List<GeneralTransaction> generalTrxList = transactionRepository.findAll();
 		if (generalTrxList.isEmpty() || generalTrxList.size() == 0) {
-			GeneralTrxLogger.generalTrxLogger.warning(LoggerMessage.GET_ALL_GENERAL_TRX_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.GET_ALL_GENERAL_TRX_ERROR_MESSAGE);
 		}
 		else {
-			GeneralTrxLogger.generalTrxLogger.info(LoggerMessage.GET_ALL_GENERAL_TRX_INFO_MESSAGE +  ": " + generalTrxList.size());
+			LOGGER.info(LoggerMessage.GET_ALL_GENERAL_TRX_INFO_MESSAGE +  ": " + generalTrxList.size());
 		}
 		return transactionRepository.findAll();
 	}
@@ -53,10 +58,10 @@ public class TransactionService implements GeneralTransactionInterface {
 		GeneralTransaction transaction = transactionRepository.findById(transactionid)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 		if (transactionid <= 0 || transaction == null) {
-			GeneralTrxLogger.generalTrxLogger.warning(LoggerMessage.GET_GENERAL_TRX_BY_ID_INFO_MESSAGE);
+			LOGGER.warn(LoggerMessage.GET_GENERAL_TRX_BY_ID_INFO_MESSAGE);
 		}
 		else {
-			GeneralTrxLogger.generalTrxLogger.info(LoggerMessage.GET_GENERAL_TRX_BY_ID_INFO_MESSAGE + ": " + transactionid);
+			LOGGER.info(LoggerMessage.GET_GENERAL_TRX_BY_ID_INFO_MESSAGE + ": " + transactionid);
 		}
 		return ResponseEntity.ok().body(transaction);
 	}
@@ -64,10 +69,10 @@ public class TransactionService implements GeneralTransactionInterface {
 	// creates an GeneralTransaction object based off the fields that are filled.
 	public GeneralTransaction addTransactionInformation(@Valid @RequestBody GeneralTransaction transaction) throws ResourceNotFoundException {
 		if (transaction == null) {
-			GeneralTrxLogger.generalTrxLogger.warning(LoggerMessage.ADD_GENERAL_TRX_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.ADD_GENERAL_TRX_ERROR_MESSAGE);
 		}
 		else {
-			GeneralTrxLogger.generalTrxLogger.info(LoggerMessage.ADD_GENERAL_TRX_INFO_MESSAGE + ": " + transaction.getAmount());
+			LOGGER.info(LoggerMessage.ADD_GENERAL_TRX_INFO_MESSAGE + ": " + transaction.getAmount());
 		}
 		
 		double amount = transaction.getAmount();
@@ -91,10 +96,10 @@ public class TransactionService implements GeneralTransactionInterface {
 			transaction = transactionRepository.findById(transactionid)
 					.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 			if (transactionid == null || transactionid == 0) {
-				GeneralTrxLogger.generalTrxLogger.warning(LoggerMessage.GET_GENERAL_TRX_BY_ID_ERROR_MESSAGE);
+				LOGGER.warn(LoggerMessage.GET_GENERAL_TRX_BY_ID_ERROR_MESSAGE);
 			}
 			else {
-				GeneralTrxLogger.generalTrxLogger.info(LoggerMessage.GET_GENERAL_TRX_BY_ID_INFO_MESSAGE + ": " + transactionid);
+				LOGGER.info(LoggerMessage.GET_GENERAL_TRX_BY_ID_INFO_MESSAGE + ": " + transactionid);
 			}
 			transaction.setEntity(transactionDetails.getEntity());
 			transaction.setAmount(transactionDetails.getAmount());
@@ -103,25 +108,25 @@ public class TransactionService implements GeneralTransactionInterface {
 					.orElseThrow(() -> new ResourceNotFoundException("Cannot Find")));
 			transaction.setTransactionType(transactionTypeRepository.findById(transactionDetails.getTransactionType().getTransactionTypeId())
 					.orElseThrow(() -> new ResourceNotFoundException("Cannot find transaction with ID: " + transactionid)));
-			GeneralTrxLogger.generalTrxLogger.info("Updating general transaction information...");
+			LOGGER.info("Updating general transaction information...");
 		}
 		catch (ResourceNotFoundException e) {
 			e.printStackTrace();
-			GeneralTrxLogger.generalTrxLogger.warning(LoggerMessage.UPDATE_GENERAL_TRX_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.UPDATE_GENERAL_TRX_ERROR_MESSAGE);
 		}
 		
 		final GeneralTransaction updatedTransaction = transactionRepository.save(transaction);
-		GeneralTrxLogger.generalTrxLogger.info(LoggerMessage.UPDATE_GENERAL_TRX_INFO_MESSAGE + updatedTransaction.getAmount() + " " + updatedTransaction.getPaymentDate());
+		LOGGER.info(LoggerMessage.UPDATE_GENERAL_TRX_INFO_MESSAGE + updatedTransaction.getAmount() + " " + updatedTransaction.getPaymentDate());
 		return ResponseEntity.ok().body(updatedTransaction);
 	}
 	
 	public Map<String,Boolean> deleteTransactionInformation(@PathVariable Long transactionid) {
 		transactionRepository.deleteById(transactionid);
 		if (transactionid == null || transactionid == 0) {
-			GeneralTrxLogger.generalTrxLogger.warning(LoggerMessage.DELETE_GENERAL_TRX_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.DELETE_GENERAL_TRX_ERROR_MESSAGE);
 		}
 		else {
-			GeneralTrxLogger.generalTrxLogger.info(LoggerMessage.DELETE_GENERAL_TRX_INFO_MESSAGE);
+			LOGGER.info(LoggerMessage.DELETE_GENERAL_TRX_INFO_MESSAGE);
 		}
 		Map<String,Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);

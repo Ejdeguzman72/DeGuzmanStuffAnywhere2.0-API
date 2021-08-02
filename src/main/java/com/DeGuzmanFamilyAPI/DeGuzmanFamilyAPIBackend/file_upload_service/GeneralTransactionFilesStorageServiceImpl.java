@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-
+import org.jboss.logging.Logger;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -20,15 +20,17 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
 @Service
 public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransactionFileStorageService {
 	
+	private static final Logger LOGGER = Logger.getLogger(GeneralTransactionFilesStorageServiceImpl.class);
+	
 	private final Path root = Paths.get("general-transaction-uploads");
 
 	@Override
 	public void init() {
 		try {
 			Files.createDirectory(root);
-			ExternalFileLogger.externalFileLogger.info(LoggerMessage.CREATE_GENERAL_TRANSACTION_UPLOADS_INFO_MESSAGE = ": " + root);
+			LOGGER.info(LoggerMessage.CREATE_GENERAL_TRANSACTION_UPLOADS_INFO_MESSAGE = ": " + root);
 		} catch (IOException e) {
-			ExternalFileLogger.externalFileLogger.warning(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE);
 			throw new RuntimeException("Could not initialize folder for upload");
 		}
 		
@@ -38,10 +40,10 @@ public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransac
 	public void save(MultipartFile file) {
 		try {
 			Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
-			ExternalFileLogger.externalFileLogger.info(LoggerMessage.SAVE_GENERAL_TRANSACTION_FILE_INFO_MESSAGE + ": " + file.getOriginalFilename());
+			LOGGER.info(LoggerMessage.SAVE_GENERAL_TRANSACTION_FILE_INFO_MESSAGE + ": " + file.getOriginalFilename());
 		} catch (Exception e) {
 			e.printStackTrace();
-			ExternalFileLogger.externalFileLogger.warning(LoggerMessage.SAVE_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE + ": " + file.getOriginalFilename());
+			LOGGER.info(LoggerMessage.SAVE_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE + ": " + file.getOriginalFilename());
 		}
 	}
 
@@ -52,14 +54,14 @@ public class GeneralTransactionFilesStorageServiceImpl implements GeneralTransac
 			Resource resource = new UrlResource(file.toUri());
 			
 			if (resource.exists() || resource.isReadable()) {
-				ExternalFileLogger.externalFileLogger.info(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_INFO_MESAGE + ": " + file.getFileName());
+				LOGGER.info(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_INFO_MESAGE + ": " + file.getFileName());
 				return resource;
 			} else {
-				ExternalFileLogger.externalFileLogger.warning(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE + ": " + file.getFileName());
+				LOGGER.warn(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE + ": " + file.getFileName());
 				throw new RuntimeException("Could not read the file");
 			}
 		} catch (MalformedURLException e) {
-			ExternalFileLogger.externalFileLogger.warning(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE + " " + e.getMessage());
+			LOGGER.warn(LoggerMessage.GET_GENERAL_TRANSACTION_FILE_ERROR_MESSAGE + " " + e.getMessage());
 			throw new RuntimeException("Error" + e.getMessage());
 		}
 	}

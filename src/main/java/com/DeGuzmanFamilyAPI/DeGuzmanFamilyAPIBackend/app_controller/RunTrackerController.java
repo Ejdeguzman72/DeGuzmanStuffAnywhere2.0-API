@@ -42,10 +42,8 @@ public class RunTrackerController {
 		return runTrackerService.findRunTrackerInformationById(runid);
 	}
 	
-//  @RequestMapping(value="/{accountId}", method = RequestMethod.POST, consumes={"text/plain", "application/*"})
-//	@RequestMapping(value="/add-run-tracker-info", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PostMapping("/add-run-tracker-info")
-	public RunTracker addRunTrackerInfoController(@RequestBody RunTracker runTracker) {
+	public RunTracker addRunTrackerInfoController(@RequestBody RunTracker runTracker) throws ResourceNotFoundException {
 		return runTrackerService.addRunTrackerInformation(runTracker);
 	}
 	

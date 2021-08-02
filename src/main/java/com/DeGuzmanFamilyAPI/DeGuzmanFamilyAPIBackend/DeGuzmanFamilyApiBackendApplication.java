@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 
+import org.jboss.logging.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +26,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.PersonInfoLogger;
 @SpringBootApplication
 public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 	
+	private static final Logger LOGGER = Logger.getLogger(DeGuzmanFamilyApiBackendApplication.class);
+	
 	@Resource
 	GeneralTransactionFileStorageService generalTrxfilesStorageService;
 	
@@ -42,19 +45,21 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 
 	public static void main(String[] args) throws SecurityException, IOException {
 		SpringApplication.run(DeGuzmanFamilyApiBackendApplication.class, args);
+		
 		int port = 8080;
 		
 		System.out.println("You are using port: " + port);
+		LOGGER.info("Application started on port: " + port);
 		
-		AutoTrxLogger.createLog();
-		
-		GeneralTrxLogger.createLog();
-		
-		MedicalTrxLogger.createLog();
-		
-		PersonInfoLogger.createLog();
-		
-		ExternalFileLogger.createLog();
+//		AutoTrxLogger.createLog();
+//		
+//		GeneralTrxLogger.createLog();
+//		o
+//		MedicalTrxLogger.createLog();
+//		
+//		PersonInfoLogger.createLog();
+//		
+//		ExternalFileLogger.createLog();
 	}
 	
     @Bean
@@ -69,20 +74,20 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		generalTrxfilesStorageService.deleteAllGeneralFiles();
-		generalTrxfilesStorageService.init();
-		
-		medicalTrxFilesStorageService.deleteAllMedicalFiles();
-		medicalTrxFilesStorageService.init();
-		
-		autoTrxFilesStorageService.deleteAllAutoFiles();
-		autoTrxFilesStorageService.init();
-		
-		photosFilesStorageService.deleteAllPhotos();
-		photosFilesStorageService.init();
-		
-		videosFilesStorageService.deleteVideoFiles();
-		videosFilesStorageService.init();
+//		generalTrxfilesStorageService.deleteAllGeneralFiles();
+//		generalTrxfilesStorageService.init();
+//		
+//		medicalTrxFilesStorageService.deleteAllMedicalFiles();
+//		medicalTrxFilesStorageService.init();
+//		
+//		autoTrxFilesStorageService.deleteAllAutoFiles();
+//		autoTrxFilesStorageService.init();
+//		
+//		photosFilesStorageService.deleteAllPhotos();
+//		photosFilesStorageService.init();
+//		
+//		videosFilesStorageService.deleteVideoFiles();
+//		videosFilesStorageService.init();
 		
 	}
 }

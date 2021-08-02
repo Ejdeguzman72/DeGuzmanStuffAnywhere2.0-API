@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.AuthenticationLogge
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+	
+	private static final Logger LOGGER = Logger.getLogger(JwtUserDetailsService.class);
 
 	@Autowired
 	private UserRepository userRepository;
@@ -37,8 +40,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
 		User activeUser = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
-		
-		System.out.println(activeUser.getUsername() + ": " + "this is the current logged in user");
 		
 		return activeUser;
 	}
@@ -63,9 +64,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 				// || newUser.role_id == 0
 				//|| newUser.user_status_id == 0
 				) {
-			AuthenticationLogger.authenticationLogger.warning("User is null/incorrect entries");
+			LOGGER.warn("User is null/incorrect entries");
 		} else {
-			AuthenticationLogger.authenticationLogger.info("User has been saved: " + newUser.username);
+			LOGGER.info("User has been saved: " + newUser.username);
 		}
 		return userRepository.save(newUser);
 	}

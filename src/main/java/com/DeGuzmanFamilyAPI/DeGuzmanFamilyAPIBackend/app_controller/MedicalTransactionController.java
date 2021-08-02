@@ -42,7 +42,7 @@ public class MedicalTransactionController {
 	}
 	
 	@PostMapping("/add-medical-transaction")
-	public MedicalTransaction addMedicalTransactionController(@Valid @RequestBody MedicalTransaction medicalTransaction) {
+	public MedicalTransaction addMedicalTransactionController(@Valid @RequestBody MedicalTransaction medicalTransaction) throws ResourceNotFoundException {
 		return medicalTransactionService.addMedicalTransactionInformation(medicalTransaction);
 	}
 	

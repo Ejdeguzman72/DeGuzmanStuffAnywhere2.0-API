@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.jboss.logging.Logger;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
 
 @Service
 public class AutoTransactionFilesStorageServiceImpl implements AutoTransactionFilesStorageService {
+	
+	private static final Logger LOGGER = Logger.getLogger(AutoTransactionFilesStorageServiceImpl.class);
 
 	private final Path root = Paths.get("auto-transaction-uploads");
 	
@@ -25,9 +28,9 @@ public class AutoTransactionFilesStorageServiceImpl implements AutoTransactionFi
 	public void init() {
 		try {
 			Files.createDirectory(root);
-			ExternalFileLogger.externalFileLogger.info(LoggerMessage.CREATE_AUTO_TRANSACTION_UPLOADS_INFO_MESSAGE  + ": " + root);
+			LOGGER.info(LoggerMessage.CREATE_AUTO_TRANSACTION_UPLOADS_INFO_MESSAGE  + ": " + root);
 		} catch (IOException e) {
-			ExternalFileLogger.externalFileLogger.warning(LoggerMessage.CREATE_AUTO_TRANSACTION_UPLOADS_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.CREATE_AUTO_TRANSACTION_UPLOADS_ERROR_MESSAGE);
 			throw new RuntimeException("Could not initialize folder for upload");
 		}
 	}
@@ -36,10 +39,10 @@ public class AutoTransactionFilesStorageServiceImpl implements AutoTransactionFi
 	public void save(MultipartFile file) {
 		try {
 			Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
-			ExternalFileLogger.externalFileLogger.info(LoggerMessage.SAVE_AUTO_TRANSACTION_FILE_INFO_MESSAGE + ": " + file.getOriginalFilename());
+			LOGGER.info(LoggerMessage.SAVE_AUTO_TRANSACTION_FILE_INFO_MESSAGE + ": " + file.getOriginalFilename());
 		} catch (Exception e) {
 			e.printStackTrace();
-			ExternalFileLogger.externalFileLogger.warning(LoggerMessage.SAVE_AUTO_TRANSACTION_FILE_ERROR_MESSAGE + ": " + file.getOriginalFilename());
+			LOGGER.warn(LoggerMessage.SAVE_AUTO_TRANSACTION_FILE_ERROR_MESSAGE + ": " + file.getOriginalFilename());
 		}
 	}
 
@@ -50,14 +53,14 @@ public class AutoTransactionFilesStorageServiceImpl implements AutoTransactionFi
 			Resource resource = new UrlResource(file.toUri());
 			
 			if (resource.exists() || resource.isReadable()) {
-				ExternalFileLogger.externalFileLogger.info(LoggerMessage.GET_AUTO_TRANSACTION_FILE_INFO_MESSAGE + ": " + resource);
+				LOGGER.info(LoggerMessage.GET_AUTO_TRANSACTION_FILE_INFO_MESSAGE + ": " + resource);
 				return resource;
 			} else {
-				ExternalFileLogger.externalFileLogger.warning(LoggerMessage.GET_AUTO_TRANSACTION_FILE_ERROR_MESSAGE + ": " + resource);
+				LOGGER.warn(LoggerMessage.GET_AUTO_TRANSACTION_FILE_ERROR_MESSAGE + ": " + resource);
 				throw new RuntimeException("Could not read the file");
 			}
 		} catch (MalformedURLException e) {
-			ExternalFileLogger.externalFileLogger.warning(LoggerMessage.GET_AUTO_TRANSACTION_FILE_ERROR_MESSAGE);
+			LOGGER.warn(LoggerMessage.GET_AUTO_TRANSACTION_FILE_ERROR_MESSAGE);
 			throw new RuntimeException("Error" + e.getMessage());
 		}
 	}
