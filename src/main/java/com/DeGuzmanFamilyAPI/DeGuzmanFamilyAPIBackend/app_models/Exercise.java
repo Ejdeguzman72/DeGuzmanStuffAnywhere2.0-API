@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "exercise")
+@Table(name = "EXERCISE")
 @CrossOrigin
 @JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class Exercise implements Serializable {
@@ -47,6 +47,7 @@ public class Exercise implements Serializable {
 		this.exerciseid = exerciseid;
 	}
 
+	@Column(name = "exercise_name")
 	public String getExerciseName() {
 		return exerciseName;
 	}
@@ -55,6 +56,7 @@ public class Exercise implements Serializable {
 		this.exerciseName = exerciseName;
 	}
 
+	@Column(name = "sets")
 	public int getSets() {
 		return sets;
 	}
@@ -63,6 +65,7 @@ public class Exercise implements Serializable {
 		this.sets = sets;
 	}
 
+	@Column(name = "reps")
 	public int getReps() {
 		return reps;
 	}
@@ -71,6 +74,7 @@ public class Exercise implements Serializable {
 		this.reps = reps;
 	}
 
+	@Column(name = "weight")
 	public double getWeight() {
 		return weight;
 	}

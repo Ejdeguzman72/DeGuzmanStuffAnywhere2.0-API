@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "utility")
+@Table(name = "UTILITY")
 @CrossOrigin
 public class Utility {
 

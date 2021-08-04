@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 @CrossOrigin
 @JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class Users implements Serializable {
@@ -68,7 +68,7 @@ public class Users implements Serializable {
 	public void setUserid(long userid) {
 		this.user_id = userid;
 	}
-	@Column(name = "username")
+	@Column(name = "username", unique = true)
 	public String getUsername() {
 		return username;
 	}

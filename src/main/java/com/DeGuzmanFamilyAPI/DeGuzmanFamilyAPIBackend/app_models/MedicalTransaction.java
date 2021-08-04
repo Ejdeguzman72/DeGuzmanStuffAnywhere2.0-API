@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "medical_transactions")
+@Table(name = "MEDICAL_TRANSACTIONS")
 @CrossOrigin
 public class MedicalTransaction implements Serializable {
 

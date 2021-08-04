@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,6 +35,7 @@ public class ExerciseType implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "exercise_type_id")
 	public int getExerciseTypeId() {
 		return exerciseTypeId;
 	}
@@ -42,6 +44,7 @@ public class ExerciseType implements Serializable {
 		this.exerciseTypeId = exerciseTypeId;
 	}
 
+	@Column(name = "exercise_type_name")
 	public String getExerciseTypeName() {
 		return exerciseTypeName;
 	}

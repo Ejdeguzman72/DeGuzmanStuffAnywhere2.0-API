@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -97,5 +98,20 @@ public class UserService {
 	
 	public List<Users> getAllUsersInformation() {
 		return userRepository.findAllUsersInformation();
+	}
+	
+	public boolean getAllUsernames(String username) {
+		
+		List<Users> usersList = userRepository.findAll();
+		List<String> usernameList;
+		boolean result = false;
+		
+		usernameList = usersList.stream().map(Users::getUsername).collect(Collectors.toList());
+		
+		if (usernameList.contains(username)) {
+			result = true;
+		}
+		
+		return result;
 	}
 }

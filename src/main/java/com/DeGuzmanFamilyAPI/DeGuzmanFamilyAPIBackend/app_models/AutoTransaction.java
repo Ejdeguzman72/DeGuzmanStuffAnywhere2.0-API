@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "auto_transactions")
+@Table(name = "AUTO_TRANSACTIONS")
 @CrossOrigin
 public class AutoTransaction implements Serializable {
 	

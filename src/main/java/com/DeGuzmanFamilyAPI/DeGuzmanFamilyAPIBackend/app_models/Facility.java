@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "facility")
+@Table(name = "FACILITY")
 @CrossOrigin
 @JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class Facility implements Serializable {

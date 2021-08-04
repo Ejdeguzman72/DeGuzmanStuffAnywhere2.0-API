@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "transaction_type")
+@Table(name = "TRANSACTION_TYPE")
 @CrossOrigin
 @JsonIgnoreProperties(value = "hibernateLazyInitializer")
 public class TransactionType implements Serializable {

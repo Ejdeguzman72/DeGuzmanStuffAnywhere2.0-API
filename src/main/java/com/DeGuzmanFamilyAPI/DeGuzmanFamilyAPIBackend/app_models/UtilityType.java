@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "utility_type")
+@Table(name = "UTILITY_TYPE")
 @CrossOrigin
 public class UtilityType {
 

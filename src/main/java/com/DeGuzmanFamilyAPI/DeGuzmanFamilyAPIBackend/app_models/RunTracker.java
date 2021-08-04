@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "run_tracker")
+@Table(name = "RUN_TRACKER")
 @CrossOrigin
 @EntityListeners(AuditingEntityListener.class)
 public class RunTracker implements Serializable {

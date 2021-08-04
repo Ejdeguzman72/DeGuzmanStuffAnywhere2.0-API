@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "recipe_type")
+@Table(name = "RECIPE_TYPE")
 @CrossOrigin
 public class RecipeType implements Serializable {
 	

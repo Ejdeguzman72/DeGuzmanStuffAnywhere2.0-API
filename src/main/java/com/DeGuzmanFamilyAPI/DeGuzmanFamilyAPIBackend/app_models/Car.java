@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Table(name = "car")
+@Table(name = "CAR")
 @Entity
 @CrossOrigin
 public class Car implements Serializable {

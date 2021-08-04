@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "home")
+@Table(name = "HOME")
 @CrossOrigin
 public class Home implements Serializable {
 

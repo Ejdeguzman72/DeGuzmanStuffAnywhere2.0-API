@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "person")
+@Table(name = "PERSON")
 @EntityListeners(AuditingEntityListener.class)
 @CrossOrigin
 public class Person implements Serializable {

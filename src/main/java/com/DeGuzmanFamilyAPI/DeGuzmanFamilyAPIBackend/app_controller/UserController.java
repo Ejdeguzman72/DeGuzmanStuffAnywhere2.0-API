@@ -77,4 +77,9 @@ public class UserController {
 	public Map<String,Boolean>deleteAllUsers() {
 		return userService.deleteAllUsers();
 	}
+	
+//	@GetMapping("get-usernames")
+//	public List<String> getAllUsernames() {
+//		return userService.getAllUsernames();
+//	}
 }

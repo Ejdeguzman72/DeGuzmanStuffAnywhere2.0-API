@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "ROLES")
 @CrossOrigin
 public class Role implements Serializable {
 	

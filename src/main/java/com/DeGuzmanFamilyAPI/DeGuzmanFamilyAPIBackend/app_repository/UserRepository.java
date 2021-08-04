@@ -20,4 +20,7 @@ public interface UserRepository extends CrudRepository<Users, Long>{
 	
 	@Query(value="SELECT US.USER_ID,US.NAME,US.USERNAME,US.PASSWORD,US.EMAIL,UST.USER_STATUS_ID,US.ROLE_ID,UST.USER_STATUS_DESCR FROM USERS US, USER_STATUS UST WHERE US.USER_STATUS_ID = UST.USER_STATUS_ID", nativeQuery = true)
 	List<Users> findAllUsersInformation();
+	
+//	@Query(value = "SELECT username FROM users")
+//	List<String> findAllUsernames();
 }
