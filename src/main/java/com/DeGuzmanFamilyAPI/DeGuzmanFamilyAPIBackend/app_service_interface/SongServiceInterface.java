@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Song;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.TitleException;
 
 public interface SongServiceInterface {
 
@@ -22,7 +23,7 @@ public interface SongServiceInterface {
 	
 	public List<Song> findSongByArtist(@PathVariable String artist);
 	
-	public Song addSongInformation(@Valid @RequestBody Song song);
+	public Song addSongInformation(@Valid @RequestBody Song song) throws TitleException;
 	
 	public ResponseEntity<Song> updateSongInformation(@PathVariable int song_id, 
 			@Valid @RequestBody Song songDetails);

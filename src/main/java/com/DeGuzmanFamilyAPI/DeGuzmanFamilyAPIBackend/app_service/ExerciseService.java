@@ -1,5 +1,7 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,12 +55,13 @@ public class ExerciseService {
 		int reps = exercise.getReps();
 		int sets = exercise.getSets();
 		double weight = exercise.getWeight();
+		Date date = exercise.getDate();
 		ExerciseType exerciseType = exerciseTypeRepository.findById(exercise.getExerciseType().getExerciseTypeId())
 				.orElseThrow(() -> new ResourceNotFoundException("Cannot find exercise type with ID: " + exercise.getExerciseType().getExerciseTypeId()));
 		Users user = usersRepository.findById(exercise.getUser().getUserid())
 				.orElseThrow(() -> new ResourceNotFoundException("Cannot find user with ID: " + exercise.getUser().getUserid()));
 		
-		Exercise newExercise = new Exercise(exerciseName,reps,sets,weight,exerciseType,user);
+		Exercise newExercise = new Exercise(exerciseName,reps,sets,weight,date,exerciseType,user);
 		return exerciseRepository.save(newExercise);
 	}
 	
@@ -74,6 +77,7 @@ public class ExerciseService {
 			exercise.setReps(exerciseDetails.getReps());
 			exercise.setSets(exerciseDetails.getSets());
 			exercise.setWeight(exerciseDetails.getWeight());
+			exercise.setDate(exerciseDetails.getDate());
 			exercise.setUser(usersRepository.findById(exerciseDetails.getUser().getUserid())
 					.orElseThrow(() -> new ResourceNotFoundException("Cannot find user with ID: " + exerciseDetails.getUser().getUserid())));
 			

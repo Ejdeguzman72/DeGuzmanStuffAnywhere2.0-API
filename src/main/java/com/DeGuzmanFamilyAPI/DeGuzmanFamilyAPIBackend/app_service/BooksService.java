@@ -3,6 +3,7 @@ package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Books;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.BooksRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.BooksInterface;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.BookNameException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 
 @Service
@@ -38,6 +40,20 @@ public class BooksService implements BooksInterface {
 		return booksRepository.findAll();
 	}
 
+	public boolean checkBookNanes(String name) {
+		
+		List<Books> bookList = booksRepository.findAll();
+		List<String> namesList;
+		boolean result = false;
+		
+		namesList = bookList.stream().map(Books::getName).collect(Collectors.toList());
+		
+		if (namesList.contains(name) ) {
+			result = true;
+		}
+		
+		return result;
+	}
 	
 //	public ResponseEntity<Map<String, Object>> getAllTutorialsPage(
 //			@RequestParam(required = false) String name,
@@ -116,7 +132,12 @@ public class BooksService implements BooksInterface {
 	}
 
 	@Override
-	public Books addBooksInformation(@Valid @RequestBody Books book) {
+	public Books addBooksInformation(@Valid @RequestBody Books book) throws BookNameException {
+		
+		if (checkBookNanes(book.getName())) {
+			throw new BookNameException("Book Already Exists");
+		}
+		
 		if (book.author == "" || book.author == null) {
 			LOGGER.warn("Author is null");
 		} else if (book.name == "" || book.name == null) {

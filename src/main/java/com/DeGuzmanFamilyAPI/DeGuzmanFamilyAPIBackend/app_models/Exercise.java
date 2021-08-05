@@ -1,6 +1,7 @@
 package com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +32,7 @@ public class Exercise implements Serializable {
 	public int sets;
 	public int reps;
 	public double weight;
+	public Date date;
 	
 	public ExerciseType exerciseType;
 	
@@ -103,10 +105,19 @@ public class Exercise implements Serializable {
 		this.user = user;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+	
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((exerciseName == null) ? 0 : exerciseName.hashCode());
 		result = prime * result + ((exerciseType == null) ? 0 : exerciseType.hashCode());
 		result = prime * result + exerciseid;
@@ -128,6 +139,11 @@ public class Exercise implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Exercise other = (Exercise) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
 		if (exerciseName == null) {
 			if (other.exerciseName != null)
 				return false;
@@ -157,36 +173,20 @@ public class Exercise implements Serializable {
 	@Override
 	public String toString() {
 		return "Exercise [exerciseid=" + exerciseid + ", exerciseName=" + exerciseName + ", sets=" + sets + ", reps="
-				+ reps + ", weight=" + weight + ", exerciseType=" + exerciseType + ", user=" + user + "]";
+				+ reps + ", weight=" + weight + ", date=" + date + ", exerciseType=" + exerciseType + ", user=" + user
+				+ "]";
 	}
 
-	public Exercise(int exerciseid, String exerciseName, int sets, int reps, double weight, ExerciseType exerciseType,
-			Users user) {
-		super();
-		this.exerciseid = exerciseid;
-		this.exerciseName = exerciseName;
-		this.sets = sets;
-		this.reps = reps;
-		this.weight = weight;
-		this.exerciseType = exerciseType;
-		this.user = user;
-	}
-
-	public Exercise(String exerciseName, int sets, int reps, double weight, ExerciseType exerciseType,
-			Users user) {
+	public Exercise(String exerciseName, int sets, int reps, double weight, Date date,
+			ExerciseType exerciseType, Users user) {
 		super();
 		this.exerciseName = exerciseName;
 		this.sets = sets;
 		this.reps = reps;
 		this.weight = weight;
+		this.date = date;
 		this.exerciseType = exerciseType;
 		this.user = user;
 	}
 
-	
-	public Exercise() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
 }

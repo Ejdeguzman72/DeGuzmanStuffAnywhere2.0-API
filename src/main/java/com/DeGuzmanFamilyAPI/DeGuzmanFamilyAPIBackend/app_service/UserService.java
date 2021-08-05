@@ -108,7 +108,7 @@ public class UserService {
 		
 		usernameList = usersList.stream().map(Users::getUsername).collect(Collectors.toList());
 		
-		if (usernameList.contains(username)) {
+		if (usernameList.contains(username.trim())) {
 			result = true;
 		}
 		

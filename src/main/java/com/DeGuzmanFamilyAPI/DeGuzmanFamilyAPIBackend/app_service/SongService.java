@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -20,6 +21,7 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.SongReposit
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.RunTrackerServiceInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.SongServiceInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.TitleException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.PersonInfoLogger;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
 
@@ -42,6 +44,21 @@ public class SongService implements SongServiceInterface {
 		return songRepository.findAll();
 	}
 
+	public boolean checkSongName(String name) {
+		
+		List<Song> songsList = songRepository.findAll();
+		List<String> namesList;
+		boolean result = false;
+		
+		namesList = songsList.stream().map(Song::getTitle).collect(Collectors.toList());
+		
+		if (namesList.contains(name.trim())) {
+			result = true;
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public ResponseEntity<Song> findSongById(@PathVariable int song_id) throws ResourceNotFoundException {
 
@@ -96,10 +113,15 @@ public class SongService implements SongServiceInterface {
 	}
 
 	@Override
-	public Song addSongInformation(@Valid @RequestBody Song song) {
+	public Song addSongInformation(@Valid @RequestBody Song song) throws TitleException {
 		if (song.title == "" || song.title == null) {
 			LOGGER.warn("Music Title is blank");
 		} else {
+			
+			if (checkSongName(song.getTitle())) {
+				throw new TitleException("Title Already Exists");
+			}
+			
 			LOGGER.info("Music title: " + song.title);
 		}
 		

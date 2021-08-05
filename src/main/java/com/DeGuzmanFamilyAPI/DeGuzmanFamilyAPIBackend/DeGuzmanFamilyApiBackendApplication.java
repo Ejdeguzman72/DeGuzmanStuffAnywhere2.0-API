@@ -48,7 +48,6 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 		
 		int port = 8080;
 		
-		System.out.println("You are using port: " + port);
 		LOGGER.info("Application started on port: " + port);
 		
 //		AutoTrxLogger.createLog();
@@ -74,20 +73,20 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-//		generalTrxfilesStorageService.deleteAllGeneralFiles();
-//		generalTrxfilesStorageService.init();
-//		
-//		medicalTrxFilesStorageService.deleteAllMedicalFiles();
-//		medicalTrxFilesStorageService.init();
-//		
-//		autoTrxFilesStorageService.deleteAllAutoFiles();
-//		autoTrxFilesStorageService.init();
-//		
-//		photosFilesStorageService.deleteAllPhotos();
-//		photosFilesStorageService.init();
-//		
-//		videosFilesStorageService.deleteVideoFiles();
-//		videosFilesStorageService.init();
+		generalTrxfilesStorageService.deleteAllGeneralFiles();
+		generalTrxfilesStorageService.init();
+		
+		medicalTrxFilesStorageService.deleteAllMedicalFiles();
+		medicalTrxFilesStorageService.init();
+		
+		autoTrxFilesStorageService.deleteAllAutoFiles();
+		autoTrxFilesStorageService.init();
+		
+		photosFilesStorageService.deleteAllPhotos();
+		photosFilesStorageService.init();
+		
+		videosFilesStorageService.deleteVideoFiles();
+		videosFilesStorageService.init();
 		
 	}
 }

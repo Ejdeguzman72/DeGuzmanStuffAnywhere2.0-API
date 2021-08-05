@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Books;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.BookNameException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 
 public interface BooksInterface {
@@ -20,7 +21,7 @@ public interface BooksInterface {
 	
 	public ResponseEntity<Books> findBookInformationByName(String name);
 	
-	public Books addBooksInformation(@Valid @RequestBody Books book);
+	public Books addBooksInformation(@Valid @RequestBody Books book) throws BookNameException;
 	
 	public ResponseEntity<Books> updateBooksInformation(@PathVariable int book_id,
 			@Valid @RequestBody Books book);

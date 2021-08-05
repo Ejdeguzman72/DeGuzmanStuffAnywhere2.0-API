@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Books;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.BooksRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service.BooksService;
+import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.BookNameException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 
 @RestController
@@ -95,7 +96,7 @@ public class BooksController {
 	}
 
 	@PostMapping("/add-book-information")
-	public Books addBookInformation(@Valid @RequestBody Books book) {
+	public Books addBookInformation(@Valid @RequestBody Books book) throws BookNameException {
 		return booksService.addBooksInformation(book);
 	}
 
