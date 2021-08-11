@@ -87,7 +87,6 @@ public class Restaurant implements Serializable {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	
 	@ManyToOne
 	@JoinColumn(name = "restaurant_type_id")
 	public RestaurantType getRestaurantType() {

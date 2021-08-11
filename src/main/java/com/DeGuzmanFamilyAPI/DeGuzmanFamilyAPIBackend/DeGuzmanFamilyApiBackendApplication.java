@@ -17,11 +17,7 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.Genera
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.MedicalTransactionFilesStorageService;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.PhotoFilesStorageService;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.file_upload_service.VideoFilesStorageService;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.AutoTrxLogger;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.ExternalFileLogger;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.GeneralTrxLogger;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.MedicalTrxLogger;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.PersonInfoLogger;
+
 
 @SpringBootApplication
 public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
@@ -73,20 +69,20 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		generalTrxfilesStorageService.deleteAllGeneralFiles();
-		generalTrxfilesStorageService.init();
-		
-		medicalTrxFilesStorageService.deleteAllMedicalFiles();
-		medicalTrxFilesStorageService.init();
-		
-		autoTrxFilesStorageService.deleteAllAutoFiles();
-		autoTrxFilesStorageService.init();
-		
-		photosFilesStorageService.deleteAllPhotos();
-		photosFilesStorageService.init();
-		
-		videosFilesStorageService.deleteVideoFiles();
-		videosFilesStorageService.init();
+//		generalTrxfilesStorageService.deleteAllGeneralFiles();
+//		generalTrxfilesStorageService.init();
+//		
+//		medicalTrxFilesStorageService.deleteAllMedicalFiles();
+//		medicalTrxFilesStorageService.init();
+//		
+//		autoTrxFilesStorageService.deleteAllAutoFiles();
+//		autoTrxFilesStorageService.init();
+//		
+//		photosFilesStorageService.deleteAllPhotos();
+//		photosFilesStorageService.init();
+//		
+//		videosFilesStorageService.deleteVideoFiles();
+//		videosFilesStorageService.init();
 		
 	}
 }

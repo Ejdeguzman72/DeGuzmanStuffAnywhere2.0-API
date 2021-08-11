@@ -53,12 +53,13 @@ public class CarService implements CarInterface {
 			car.setMake(carDetails.getMake());
 			car.setModel(carDetails.getModel());
 			car.setTransmission(carDetails.getTransmission());
+			car.setYear(carDetails.getYear());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		final Car updatedCarDetails = carRepository.save(car);
-		return ResponseEntity.ok().body(car);
+		return ResponseEntity.ok().body(updatedCarDetails);
 	}
 	
 	public Map<String,Boolean> deleteCarInformation(@PathVariable long carid) {
