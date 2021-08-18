@@ -10,10 +10,17 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Books;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.BooksRepository;
@@ -55,52 +62,42 @@ public class BooksService implements BooksInterface {
 		return result;
 	}
 	
-//	public ResponseEntity<Map<String, Object>> getAllTutorialsPage(
-//			@RequestParam(required = false) String name,
-//			@RequestParam(defaultValue = "0") int page, 
-//			@RequestParam(defaultValue = "3") int size) {
-//
-//		try {
-//			
-//			List<Books> books = booksRepository.findAll();
-//			
-//			Pageable paging = PageRequest.of(page, size);
-//			
-//			System.out.println(paging);
-//			
-//			Page<Books> pageBooks;
-//			
-//			if (name == null) {
-//				pageBooks = booksRepository.findAll(paging);
-//			} 			
-//			else {
-//				pageBooks = booksRepository.findByNameContaining(name,paging);
-//			}
-//			
-////			pageBooks = booksRepository.findAll(paging);
-//			
-//			System.out.println(pageBooks);
-//			
-//			books = pageBooks.getContent();
-//			
-//			System.out.println(books + "this is books");
-//			
-//			Map<String,Object> response = new HashMap<>();
-//			response.put("books", books);
-//			response.put("currentPage",pageBooks.getNumber());
-//			response.put("totalItems",pageBooks.getTotalElements());
-//			response.put("totalPages", pageBooks.getTotalPages());
-//			
-//			return new ResponseEntity<>(response,HttpStatus.OK);
-//		}
-//
-//		catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
+	@Cacheable(value = "bookPaginationList")
+	public ResponseEntity<Map<String, Object>> getAllTutorialsPage(@RequestParam(required = false) String name,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		try {
+
+			List<Books> books = booksRepository.findAll();
+
+			Pageable paging = PageRequest.of(page, size);
+
+			Page<Books> pageBooks;
+
+			if (name == null) {
+				pageBooks = booksRepository.findAll(paging);
+			} else {
+				pageBooks = booksRepository.findByNameContaining(name, paging);
+			}
+
+			books = pageBooks.getContent();
+
+			Map<String, Object> response = new HashMap<>();
+			response.put("books", books);
+			response.put("currentPage", pageBooks.getNumber());
+			response.put("totalItems", pageBooks.getTotalElements());
+			response.put("totalPages", pageBooks.getTotalPages());
+
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@Override
+	@Cacheable(value = "bookById", key = "#bookId")
 	public ResponseEntity<Books> findBooksInformationById(@PathVariable int book_id) throws ResourceNotFoundException {
 
 		Books books = null;
@@ -117,6 +114,7 @@ public class BooksService implements BooksInterface {
 	}
 
 	@Override
+	@Cacheable(value = "bookByName", key = "#name")
 	public ResponseEntity<Books> findBookInformationByName(@PathVariable String name) {
 
 		Books books = null;
@@ -132,6 +130,7 @@ public class BooksService implements BooksInterface {
 	}
 
 	@Override
+	@CachePut(value = "bookPaginationList")
 	public Books addBooksInformation(@Valid @RequestBody Books book) throws BookNameException {
 		
 		if (checkBookNanes(book.getName())) {

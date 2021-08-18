@@ -181,5 +181,13 @@ public class Restaurant implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public Restaurant(String name, String address, String city, String state, String zip) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+	}
 	
 }

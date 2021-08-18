@@ -50,32 +50,7 @@ public class SongController {
 	@GetMapping("/all-music")
 	public ResponseEntity<Map<String,Object>> getAllMusicPage(@RequestParam(required = false) String title,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-		try {
-			List<Song> songs = songRepository.findAll();
-			Pageable paging = PageRequest.of(page, size);
-			
-			Page<Song> pageSongs;
-			
-			if (title == null) {
-				pageSongs = songRepository.findAll(paging);
-			} else {
-				pageSongs = songRepository.findByTitleContaining(title, paging);
-			}
-			
-			songs = pageSongs.getContent();
-			
-			Map<String,Object> response = new HashMap<>();
-			response.put("songs", songs);
-			response.put("currentPage", pageSongs.getNumber());
-			response.put("totalItems", pageSongs.getTotalElements());
-			response.put("totalPages", pageSongs.getTotalPages());
-			
-			return new ResponseEntity<>(response, HttpStatus.OK);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return songService.getAllMusicPage(title, page, size);
 	}
 
 	@GetMapping("/song/{song_id}")

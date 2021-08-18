@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +48,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	private UserRepository usersRepository;
 	
 	// returns the Medical transactions in a list
+	@Cacheable(value = "medicalTrasactionList")
 	public List<MedicalTransaction> findAllMedicalTransactionInformation() {
 		List<MedicalTransaction> medicalTrxList = medicalTransactionRepository.findAll();
 		if (medicalTrxList.isEmpty() || medicalTrxList.size() == 0) {
@@ -58,6 +61,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	}
 	
 	// based on the pathvariable thrown, this returns the Medical Transaction object that has the corresponding ID
+	@Cacheable(value = "medicaTrasactionById", key = "#medicalTransactionId")
 	public ResponseEntity<MedicalTransaction> findMedicalTransactionInformationById(@PathVariable Long medicalTransactionId) throws ResourceNotFoundException {
 		MedicalTransaction medicalTransaction = medicalTransactionRepository.findById(medicalTransactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
@@ -71,6 +75,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	}
 	
 	// creates an MedicalTransaction object based off the fields that are filled.
+	@CachePut(value = "medicalTrasactionList")
 	public MedicalTransaction addMedicalTransactionInformation(@Valid @RequestBody MedicalTransaction medicalTransaction) throws ResourceNotFoundException {
 		if (medicalTransaction == null) {
 			LOGGER.warn(LoggerMessage.ADD_MEDICAL_TRX_ERROR_MESSAGE);

@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +40,7 @@ public class UserService {
 	private MasterLogger masterLogger;
 	
 	// returns all users in a list in a list
+	@Cacheable(value = "userList")
 	public List<Users> findAllUsers() {
 		return userRepository.findAll();
 	}
@@ -47,12 +50,14 @@ public class UserService {
 	}
 	
 	// based on the pathvariable thrown, this returns the Users object that has the corresponding ID
+	@Cacheable(value = "userById", key = "#userId")
 	public ResponseEntity<Optional<Users>> findUserById(@PathVariable Long userid) {
 		Optional<Users> user = userRepository.findById(userid);
 		return ResponseEntity.ok().body(user);
 	}
 	
 	// creates an Users object based off the fields that are filled.
+	@CachePut(cacheNames="userList")
 	public Users addUser(@Valid @RequestBody Users user) {
 		return userRepository.save(user);
 	}

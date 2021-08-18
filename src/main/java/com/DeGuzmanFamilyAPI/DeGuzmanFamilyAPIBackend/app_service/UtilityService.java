@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,16 +30,19 @@ public class UtilityService implements UtilityServiceInterface {
 	@Autowired
 	private UtilityRepository utilityRepository;
 	
+	@Cacheable(value = "utilityList")
 	public List<Utility> findAllUtilityInformation() {
 		return utilityRepository.findAll();
 	}
 	
+	@Cacheable(value = "utilityById", key = "#utilityId")
 	public ResponseEntity<Utility> findUtilityInformationById(@PathVariable Long utilityid) throws ResourceNotFoundException {
 		Utility utility = utilityRepository.findById(utilityid).
 				orElseThrow(() -> new ResourceNotFoundException("not found"));
 		return ResponseEntity.ok().body(utility);
 	}
 	
+	@CachePut(value = "utilityList")
 	public Utility addUtilityInformation(@Valid @RequestBody Utility utility) {
 		return utilityRepository.save(utility);
 	}

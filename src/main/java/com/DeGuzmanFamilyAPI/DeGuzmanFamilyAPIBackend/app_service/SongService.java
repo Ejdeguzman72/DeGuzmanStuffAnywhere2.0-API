@@ -11,10 +11,17 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_models.Song;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.SongRepository;
@@ -43,6 +50,37 @@ public class SongService implements SongServiceInterface {
 
 		return songRepository.findAll();
 	}
+	
+	@Cacheable(value = "songList")
+	public ResponseEntity<Map<String,Object>> getAllMusicPage(@RequestParam(required = false) String title,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+		try {
+			List<Song> songs = songRepository.findAll();
+			Pageable paging = PageRequest.of(page, size);
+			
+			Page<Song> pageSongs;
+			
+			if (title == null) {
+				pageSongs = songRepository.findAll(paging);
+			} else {
+				pageSongs = songRepository.findByTitleContaining(title, paging);
+			}
+			
+			songs = pageSongs.getContent();
+			
+			Map<String,Object> response = new HashMap<>();
+			response.put("songs", songs);
+			response.put("currentPage", pageSongs.getNumber());
+			response.put("totalItems", pageSongs.getTotalElements());
+			response.put("totalPages", pageSongs.getTotalPages());
+			
+			return new ResponseEntity<>(response, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	public boolean checkSongName(String name) {
 		
@@ -60,6 +98,7 @@ public class SongService implements SongServiceInterface {
 	}
 	
 	@Override
+	@Cacheable(value = "songById", key = "#songId")
 	public ResponseEntity<Song> findSongById(@PathVariable int song_id) throws ResourceNotFoundException {
 
 		Song song = null;
@@ -79,6 +118,7 @@ public class SongService implements SongServiceInterface {
 	}
 
 	@Override
+	@CachePut(value = "songList")
 	public ResponseEntity<Song> findSongByTitle(@PathVariable String title) {
 		Song song = null;
 		song = songRepository.findByTitle(title);

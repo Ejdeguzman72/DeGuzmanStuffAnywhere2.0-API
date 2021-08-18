@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,27 +36,43 @@ public class RestaurantService implements RestaurantInterface {
 	private RestaurantTypeRepository restaurantTypeRepository;
 
 	@Override
+	@Cacheable(value = "restaurantList")
 	public List<Restaurant> findAllRestaurants() {
 		List<Restaurant> list = restaurantRepository.findAll();
 		return list;
 	}
 
 	@Override
+	@Cacheable(value = "restaurantById", key = "#restaurantId")
 	public ResponseEntity<Restaurant> findRestaurantById(@PathVariable int restaurantid) throws ResourceNotFoundException {
 		Restaurant restaurant = restaurantRepository.findById(restaurantid)
 				.orElseThrow(() -> new ResourceNotFoundException("Cannot find Restaurant"));
 		return ResponseEntity.ok().body(restaurant);
 	}
 
+	@CachePut(value = "restaurantList")
 	public Restaurant addRestaurantInformation(@Valid Restaurant restaurant) throws ResourceNotFoundException {
 		String name = restaurant.getName();
+		LOGGER.info("Name: " + name.getClass(), name.getClass());
 		String address = restaurant.getAddress();
+		LOGGER.info("address: " + address.getClass(), address.getClass());
 		String city = restaurant.getCity();
+		LOGGER.info("city " + city.getClass(), city.getClass());
 		String state = restaurant.getState();
+		LOGGER.info("state: " + state.getClass(), state.getClass());
 		String zip = restaurant.getZip();
+		LOGGER.info("ZIP: " + zip.getClass(), zip.getClass());
 		RestaurantType restaurantType = restaurantTypeRepository.findById(restaurant.getRestaurantType().getRestaurantTypeId())
-				.orElseThrow(() -> new ResourceNotFoundException("Cannot find exercise type with ID: " + restaurant.getRestaurantType().getRestaurantTypeId()));
-		Restaurant newRestaurant = new Restaurant(name,address,city,state,zip,restaurantType);
+				.orElseThrow(() -> new ResourceNotFoundException("Cannot find service type with ID: " + restaurant.getRestaurantType().getRestaurantTypeId()));
+		LOGGER.info("Line 62 Restaurant Type: " + restaurantType.getClass(), restaurantType.getClass());
+		Restaurant newRestaurant = new Restaurant(
+				name,
+				address,
+				city,
+				state,
+				zip,
+				restaurantType
+			);
 		return restaurantRepository.save(newRestaurant);
 	}
 
@@ -74,7 +92,7 @@ public class RestaurantService implements RestaurantInterface {
 		}
 		
 		catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace();                                               
 		}
 		
 		final Restaurant updatedRestaurantDetails = restaurantRepository.save(restaurant);

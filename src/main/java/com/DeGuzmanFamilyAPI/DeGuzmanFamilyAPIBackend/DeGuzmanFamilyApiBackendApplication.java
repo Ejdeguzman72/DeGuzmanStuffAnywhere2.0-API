@@ -41,20 +41,8 @@ public class DeGuzmanFamilyApiBackendApplication implements CommandLineRunner {
 
 	public static void main(String[] args) throws SecurityException, IOException {
 		SpringApplication.run(DeGuzmanFamilyApiBackendApplication.class, args);
-		
 		int port = 8080;
-		
 		LOGGER.info("Application started on port: " + port);
-		
-//		AutoTrxLogger.createLog();
-//		
-//		GeneralTrxLogger.createLog();
-//		o
-//		MedicalTrxLogger.createLog();
-//		
-//		PersonInfoLogger.createLog();
-//		
-//		ExternalFileLogger.createLog();
 	}
 	
     @Bean

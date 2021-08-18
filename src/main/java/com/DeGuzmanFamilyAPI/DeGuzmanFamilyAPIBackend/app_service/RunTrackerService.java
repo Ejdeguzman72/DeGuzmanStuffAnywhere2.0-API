@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,16 +34,19 @@ public class RunTrackerService implements RunTrackerServiceInterface {
 	@Autowired
 	private UserRepository usersRepository;
 	
+	@Cacheable(value = "runList")
 	public List<RunTracker> findAllRunTrackerInformation() {
 		return runTrackerRepository.findAll();
 	}
 	
+	@Cacheable(value = "runById", key = "#runId")
 	public ResponseEntity<RunTracker> findRunTrackerInformationById(@PathVariable long runid) throws ResourceNotFoundException {
 		RunTracker runTracker = runTrackerRepository.findById(runid)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 		return ResponseEntity.ok().body(runTracker);
 	}
 	
+	@CachePut(value = "runList")
 	public RunTracker addRunTrackerInformation(@Valid @RequestBody RunTracker runTracker) throws ResourceNotFoundException {
 		String runDate = runTracker.getRunDate();
 		double runDistance = runTracker.getRunDistance();

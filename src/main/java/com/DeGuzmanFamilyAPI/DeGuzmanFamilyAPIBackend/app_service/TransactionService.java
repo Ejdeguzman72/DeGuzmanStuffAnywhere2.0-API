@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +44,7 @@ public class TransactionService implements GeneralTransactionInterface {
 	private TransactionTypeRepository transactionTypeRepository;
 	
 	// returns the general transactions in a list
+	@Cacheable(value = "transactionList")
 	public List<GeneralTransaction> findAllTransactionInformation() {
 		List<GeneralTransaction> generalTrxList = transactionRepository.findAll();
 		if (generalTrxList.isEmpty() || generalTrxList.size() == 0) {
@@ -54,6 +57,7 @@ public class TransactionService implements GeneralTransactionInterface {
 	}
 	
 	// based on the pathvariable thrown, this returns the General Transaction object that has the corresponding ID
+	@Cacheable(value = "generalTrasactionById", key = "#generalTransactionId")
 	public ResponseEntity<GeneralTransaction> findTransactionInformationByID(@PathVariable long transactionid) throws ResourceNotFoundException {
 		GeneralTransaction transaction = transactionRepository.findById(transactionid)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
@@ -67,6 +71,7 @@ public class TransactionService implements GeneralTransactionInterface {
 	}
 	
 	// creates an GeneralTransaction object based off the fields that are filled.
+	@CachePut(value = "transactionList")
 	public GeneralTransaction addTransactionInformation(@Valid @RequestBody GeneralTransaction transaction) throws ResourceNotFoundException {
 		if (transaction == null) {
 			LOGGER.warn(LoggerMessage.ADD_GENERAL_TRX_ERROR_MESSAGE);

@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +33,7 @@ public class PersonService {
 	private PersonRepository personRepository;
 	
 	// returns all Person information in a list
+	@Cacheable(value = "personList")
 	public List<Person> findAllPersonInformation() throws SecurityException, IOException {
 		List<Person> personList = personRepository.findAll();
 		System.out.println(personList.size());
@@ -45,6 +48,7 @@ public class PersonService {
 	}
 	
 	// based on the pathvariable thrown, this returns the Person object that has the corresponding ID
+	@Cacheable(value = "personById", key = "#personId")
 	public ResponseEntity<Person> findPersonById(@PathVariable Long personid) throws ResourceNotFoundException, SecurityException, IOException {
 		Person person = personRepository.findById(personid)
 				.orElseThrow(() -> new ResourceNotFoundException("Cannot find"));
@@ -60,6 +64,7 @@ public class PersonService {
 	}
 	
 	// creates an Person object based off the fields that are filled.
+	@CachePut(value = "personList")
 	public Person addPersonInformation(@Valid @RequestBody Person person) throws SecurityException, IOException {
 		Person personInfo = personRepository.save(person);
 		

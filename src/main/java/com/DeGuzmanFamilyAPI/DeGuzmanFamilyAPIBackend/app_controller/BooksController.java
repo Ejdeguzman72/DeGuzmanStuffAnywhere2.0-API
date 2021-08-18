@@ -49,35 +49,7 @@ public class BooksController {
 	@GetMapping("/all-books")
 	public ResponseEntity<Map<String, Object>> getAllTutorialsPage(@RequestParam(required = false) String name,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-		try {
-
-			List<Books> books = booksRepository.findAll();
-
-			Pageable paging = PageRequest.of(page, size);
-
-			Page<Books> pageBooks;
-
-			if (name == null) {
-				pageBooks = booksRepository.findAll(paging);
-			} else {
-				pageBooks = booksRepository.findByNameContaining(name, paging);
-			}
-
-			books = pageBooks.getContent();
-
-			Map<String, Object> response = new HashMap<>();
-			response.put("books", books);
-			response.put("currentPage", pageBooks.getNumber());
-			response.put("totalItems", pageBooks.getTotalElements());
-			response.put("totalPages", pageBooks.getTotalPages());
-
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		return booksService.getAllTutorialsPage(name, page, size);
 	}
 
 	@GetMapping("/book/{book_id}")

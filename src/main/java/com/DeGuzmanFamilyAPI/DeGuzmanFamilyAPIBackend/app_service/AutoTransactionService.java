@@ -53,6 +53,7 @@ public class AutoTransactionService implements AutoTransactionInterface {
 	private CarRepository carRepository;
 	
 	// returns the Auto transactions in a list
+	@Cacheable(value = "autoTransactionList")
 	public List<AutoTransaction> findAllAutoTransactionInformation() {
 		List<AutoTransaction> autoTrxList = autoTransactionRepository.findAll();
 		if (autoTrxList.isEmpty() || autoTrxList.size() == 0) {
@@ -65,7 +66,7 @@ public class AutoTransactionService implements AutoTransactionInterface {
 	}
 	
 	// based on the pathvariable thrown, this returns the AutoTransaction object that has the corresponding ID
-	@Cacheable(value = "trasactionById", key = "#autoTransactionId")
+	@Cacheable(value = "autoTrasactionById", key = "#autoTransactionId")
 	public ResponseEntity<AutoTransaction> findAutoTranasctionInformationById(@PathVariable Long autoTransactionId) throws ResourceNotFoundException {
 		AutoTransaction autoTransactions = autoTransactionRepository.findById(autoTransactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Not Found"));
@@ -79,6 +80,7 @@ public class AutoTransactionService implements AutoTransactionInterface {
 	}
 	
 	// creates an AutoTransaction object based off the fields that are filled.
+	@CachePut(value = "autoTransactionList")
 	public AutoTransaction addAutoTransactionInformation(@Valid @RequestBody AutoTransaction autoTransaction) throws ResourceNotFoundException {
 		if (autoTransaction == null) {
 			LOGGER.warn(LoggerMessage.ADD_AUTO_TRX_INFO_ERROR_MESSAGE);

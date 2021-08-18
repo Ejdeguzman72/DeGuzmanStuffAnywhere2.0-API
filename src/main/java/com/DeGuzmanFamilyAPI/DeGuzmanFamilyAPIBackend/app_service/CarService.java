@@ -10,6 +10,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,16 +31,19 @@ public class CarService implements CarInterface {
 	@Autowired
 	private CarRepository carRepository;
 	
+	@Cacheable(value = "carList")
 	public List<Car> findAllCarInformation() {
 		return carRepository.findAll();
 	}
 	
+	@Cacheable(value = "carById", key = "#carId")
 	public ResponseEntity<Car> findCarInformationById(@PathVariable long carid) throws ResourceNotFoundException {
 		Car car = carRepository.findById(carid)
 				.orElseThrow(() -> new ResourceNotFoundException("Car is not found with the id of " + carid));
 		return ResponseEntity.ok().body(car);
 	}
 	
+	@CachePut(value = "carList")
 	public Car addCarInformation(@Valid @RequestBody Car car) {
 		return carRepository.save(car);
 	}
