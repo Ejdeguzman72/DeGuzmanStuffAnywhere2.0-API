@@ -105,6 +105,7 @@ public class PersonService {
 		return ResponseEntity.ok().body(updatedPersonInfo);
 	}
 	
+	@CachePut(value = "personList")
 	public Map<String,Boolean> deletePersonInformation(@PathVariable Long personid) throws SecurityException, IOException {
 		personRepository.deleteById(personid);
 		

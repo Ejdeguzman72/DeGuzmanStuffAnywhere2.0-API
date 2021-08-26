@@ -67,6 +67,8 @@ public class CarService implements CarInterface {
 		return ResponseEntity.ok().body(updatedCarDetails);
 	}
 	
+	@Override
+	@CachePut(value = "carList")
 	public Map<String,Boolean> deleteCarInformation(@PathVariable long carid) {
 		carRepository.deleteById(carid);
 		Map<String,Boolean> response = new HashMap<>();

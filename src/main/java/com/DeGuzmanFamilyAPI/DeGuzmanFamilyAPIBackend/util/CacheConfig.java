@@ -8,6 +8,7 @@ import org.springframework.cache.concurrent.ConcurrentMapCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @Configuration
 @EnableCaching
@@ -74,4 +75,9 @@ public class CacheConfig {
 		
 		return dsaCacheManager;
 	}
+	
+	@Scheduled(fixedRate = 6000)
+    public void evictAllcachesAtIntervals() {
+        evictAllcachesAtIntervals();
+    }
 }

@@ -96,6 +96,7 @@ public class ExerciseService {
 		return ResponseEntity.ok().body(updatedExerciseDetails);
 	}
 	
+	@CachePut(value = "exerciseList")
 	public Map<String,Boolean> deleteExerciseInfoById(@PathVariable int exerciseid) {
 		exerciseRepository.deleteById(exerciseid);
 		Map<String,Boolean> response = new HashMap<>();

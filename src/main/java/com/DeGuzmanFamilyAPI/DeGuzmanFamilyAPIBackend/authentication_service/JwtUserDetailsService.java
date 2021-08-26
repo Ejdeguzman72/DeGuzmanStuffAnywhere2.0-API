@@ -22,7 +22,6 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserReposit
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserStatusRepository;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.UsernameException;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.AuthenticationLogger;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

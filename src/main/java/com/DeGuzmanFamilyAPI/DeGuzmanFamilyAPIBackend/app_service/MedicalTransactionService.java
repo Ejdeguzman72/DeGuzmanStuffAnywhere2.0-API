@@ -48,6 +48,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	private UserRepository usersRepository;
 	
 	// returns the Medical transactions in a list
+	@Override
 	@Cacheable(value = "medicalTrasactionList")
 	public List<MedicalTransaction> findAllMedicalTransactionInformation() {
 		List<MedicalTransaction> medicalTrxList = medicalTransactionRepository.findAll();
@@ -61,6 +62,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	}
 	
 	// based on the pathvariable thrown, this returns the Medical Transaction object that has the corresponding ID
+	@Override
 	@Cacheable(value = "medicaTrasactionById", key = "#medicalTransactionId")
 	public ResponseEntity<MedicalTransaction> findMedicalTransactionInformationById(@PathVariable Long medicalTransactionId) throws ResourceNotFoundException {
 		MedicalTransaction medicalTransaction = medicalTransactionRepository.findById(medicalTransactionId)
@@ -75,6 +77,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	}
 	
 	// creates an MedicalTransaction object based off the fields that are filled.
+	@Override
 	@CachePut(value = "medicalTrasactionList")
 	public MedicalTransaction addMedicalTransactionInformation(@Valid @RequestBody MedicalTransaction medicalTransaction) throws ResourceNotFoundException {
 		if (medicalTransaction == null) {
@@ -98,6 +101,7 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 	
 	// updates the MedicalTransaction based on the id number entered. Once the fields are updated, then a new Auto
 		// Transaction object is created.
+	@Override
 	public ResponseEntity<MedicalTransaction> updateMedicalTransaction(@PathVariable Long medicalTransactionId,
 			@Valid @RequestBody MedicalTransaction medicalTransactionDetails) {
 		MedicalTransaction medicalTransaction = null;
@@ -128,6 +132,8 @@ public class MedicalTransactionService implements MedicalTransactionInterface {
 		return ResponseEntity.ok().body(updatedMedicalTransaction);
 	}
 	
+	@Override
+	@CachePut(value = "medicalTrasactionList")
 	public Map<String,Boolean> deleteMedicalTraansactionInformation(@PathVariable Long medicalTransactionId) {
 		medicalTransactionRepository.deleteById(medicalTransactionId);
 		if (medicalTransactionId == null || medicalTransactionId == 0) {

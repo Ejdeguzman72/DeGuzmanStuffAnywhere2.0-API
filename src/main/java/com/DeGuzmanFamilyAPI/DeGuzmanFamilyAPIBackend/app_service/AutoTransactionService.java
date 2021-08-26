@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,6 @@ import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_repository.UserReposit
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.AutoTransactionInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.app_service_interface.RunTrackerServiceInterface;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.exception.ResourceNotFoundException;
-import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.logger.AutoTrxLogger;
 import com.DeGuzmanFamilyAPI.DeGuzmanFamilyAPIBackend.message.LoggerMessage;
 
 @Service
@@ -144,8 +144,10 @@ public class AutoTransactionService implements AutoTransactionInterface {
 		return ResponseEntity.ok().body(updatedAutoTransactionDetails);
 	}
 	
-	//deletes the AutoTransaction object based off the id number passed. A HashMap is created in order to 
-	// return a string and confirm  that the entity was deleted. 
+	// deletes the AutoTransaction object based off the id number passed. A HashMap is created in order to 
+	// return a string and confirm  that the entity was deleted.
+	@Override
+	@CachePut(value = "autoTransactionList")
 	public Map<String,Boolean> deleteAutoTransactionInformation(@PathVariable Long autoTransactionId) {
 		autoTransactionRepository.deleteById(autoTransactionId);
 		if (autoTransactionId == null || autoTransactionId <= 0) {
