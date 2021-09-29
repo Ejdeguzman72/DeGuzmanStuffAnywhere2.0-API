@@ -55,3 +55,12 @@ values ('Rent'),
 
 
 insert into utility_type (utility_type_descr) values ('Rent'), ('Gas'), ('Electric'), ('Cable'), ('Internet'), ('Phones'), ('Insurance'), ('Mortgage');
+
+INSERT INTO public.utility
+(due_date, "name", phone, url, utility_type_id)
+VALUES('15th of the month', 'PSEG', '201-111-1111', 'www.pseg.com', 3);
+
+
+INSERT INTO public.exercise
+(exercise_name, reps, sets, weight, exercise_type_id, user_id, "date")
+VALUES('Static Bicep Curls', 1, 1, 90, 1, 1, '03/01/2021');

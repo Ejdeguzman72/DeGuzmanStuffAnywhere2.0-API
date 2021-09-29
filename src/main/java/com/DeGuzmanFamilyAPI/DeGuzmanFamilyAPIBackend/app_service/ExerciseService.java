@@ -41,24 +41,24 @@ public class ExerciseService {
 	private ExerciseRepository exerciseRepository;
 	
 	@Autowired
-	private ExerciseTypeRepository exerciseTypeRepository;
+	ExerciseTypeRepository exerciseTypeRepository;
 	
 	@Autowired
 	private UserRepository usersRepository;
 	
-	@Cacheable(value = "exercisePaginationList")
+//	@Cacheable(value = "exercisePaginationList")
 	public ResponseEntity<Map<String,Object>> getAllExercisePagination(@RequestParam(required = false) String name, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		try {
 			List<Exercise> exerciseList = exerciseRepository.findAll();
 			
 			Pageable paging = PageRequest.of(page, size);
 			
-			Page<Exercise> exercisePage;
+			Page<Exercise> exercisePage = null;
 			
 			if (name == null) {
 				exercisePage = exerciseRepository.findAll(paging);
 			} else {
-				exercisePage = exerciseRepository.findByNameContaining(name, paging);
+//				exercisePage = exerciseRepository.findByNameContaining(name, paging);
 			}
 			
 			exerciseList = exercisePage.getContent();
